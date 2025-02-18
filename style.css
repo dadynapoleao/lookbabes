@@ -106,7 +106,7 @@ button:hover {
     justify-content: flex-start; /* Alinhamento à esquerda */
     gap: 20px;
     margin-top: 20px;
-    flex-direction: row; /* Changed from row-reverse to row */
+    flex-direction: row-reverse; /* Inverte a ordem para o mais recente à esquerda */
 }
 
 .ator-card {
@@ -121,9 +121,8 @@ button:hover {
 }
 
 .ator-foto {
-    width: 200px; /* Defina a largura desejada */
-    height: 250px; /* Defina a altura desejada */
-    object-fit: cover; /* Garante que a imagem cubra a área, cortando se necessário, sem distorcer */
+    max-width: 100%;
+    height: auto;
     border-radius: 8px;
     margin-bottom: 10px;
 }
