@@ -1,7 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js";
-import { getFirestore, collection, addDoc, getDocs, orderBy, limit, serverTimestamp, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js";
-
 // Configuração do Firebase (COLE A SUA CONFIGURAÇÃO AQUI)
 const firebaseConfig = {
     apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
@@ -13,11 +9,13 @@ const firebaseConfig = {
     measurementId: "SEU_MEASUREMENT_ID" // OPCIONAL: Preencha se usar Google Analytics no Firebase
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+console.log("Firebase:", typeof firebase);
 
-// Initialize Firestore
-const db = getFirestore(app);
+// Inicializar o Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Inicializar o Firestore
+const db = firebase.firestore();
 
 // Array para armazenar os atores localmente (MANTER PARA PERSISTÊNCIA LOCAL - OPCIONAL)
 let atoresLocal = [];
@@ -113,12 +111,12 @@ async function adicionarAtor() {
         medidas,
         nota,
         foto,
-        timestamp: serverTimestamp()
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
     };
 
     // Salvar no Firestore
     try {
-        const docRef = await addDoc(collection(db, "atores"), novoAtor); // Obtém a DocumentReference após adicionar
+        const docRef = await db.collection("atores").add(novoAtor); // Obtém a DocumentReference após adicionar
         console.log("Ator adicionado ao Firestore com sucesso, ID:", docRef.id);
         alert("Ator adicionado com sucesso e salvo no Firebase!");
     } catch (error) {
@@ -295,11 +293,14 @@ function extrairInformacoes() {
 }
 
 
-// Função para carregar os últimos 12 atores do Firestore e exibir no div "ultimos-atores" (MODIFICADA PARA NOVO LAYOUT)
+// Função para carregar os últimos 10 atores do Firestore e exibir no div "ultimos-atores" (MODIFICADA PARA NOVO LAYOUT)
 async function carregarUltimosAtores() {
     console.log("carregarUltimosAtores chamada"); // DEBUG
     try {
-        const snapshot = await getDocs(query(collection(db, "atores"), orderBy('timestamp', 'desc'), limit(12)));
+        const snapshot = await db.collection("atores")
+            .orderBy('timestamp', 'desc') // Ordena por timestamp em ordem decrescente (mais recentes primeiro)
+            .limit(10)                     // Limita a 10 resultados
+            .get();
 
         console.log("carregarUltimosAtores - snapshot:", snapshot); // DEBUG
         console.log("carregarUltimosAtores - snapshot.docs.length:", snapshot.docs.length); // DEBUG
@@ -314,9 +315,9 @@ async function carregarUltimosAtores() {
         console.log("carregarUltimosAtores - ultimosAtores:", ultimosAtores); // DEBUG: Log ultimosAtores array
 
         mostrarAtores("ultimos-atores", ultimosAtores); // Chama mostrarAtores para o div "ultimos-atores"
-        console.log("Últimos 12 atores carregados do Firestore com sucesso!"); // Updated log message
+        console.log("Últimos 10 atores carregados do Firestore com sucesso!");
     } catch (error) {
-        console.error("Erro ao carregar últimos 12 atores do Firestore: ", error); // Updated error message
+        console.error("Erro ao carregar últimos 10 atores do Firestore: ", error);
         alert("Erro ao carregar últimos atores do Firebase. Veja a consola para mais detalhes.");
     }
 }
@@ -325,7 +326,7 @@ async function carregarUltimosAtores() {
 // Função para carregar TODOS os atores do Firestore e exibir na página index.html (MODIFICADA PARA BUSCAR DO FIRESTORE)
 async function carregarAtores() {
     try {
-        const snapshot = await getDocs(collection(db, "atores")); // Busca todos os documentos da coleção 'atores'
+        const snapshot = await db.collection("atores").get(); // Busca todos os documentos da coleção 'atores'
         const todosAtores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Inclui o ID do documento
         mostrarAtores("atores-lista", todosAtores); // Chama mostrarAtores para o div "atores-lista" (se ainda quiser mostrar todos)
         console.log("Todos os atores carregados do Firestore com sucesso!");
@@ -335,56 +336,11 @@ async function carregarAtores() {
     }
 }
 
-// Função para carregar detalhes de um ator específico para a página ator.html
-async function carregarDetalhesAtor() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const atorId = urlParams.get('id');
-
-    if (atorId) {
-        try {
-            const atorDoc = await getDoc(doc(db, "atores", atorId));
-
-            if (atorDoc.exists()) {
-                const atorDetalhes = atorDoc.data();
-                // Preencher os campos na página ator.html com atorDetalhes
-                document.getElementById("ator-nome").textContent = atorDetalhes.nome;
-                document.getElementById("ator-foto-detalhe").src = atorDetalhes.foto;
-                document.getElementById("ator-idade").textContent = atorDetalhes.idade;
-                document.getElementById("ator-data-nascimento").textContent = atorDetalhes.dataNascimento;
-                document.getElementById("ator-pais").textContent = atorDetalhes.pais;
-                document.getElementById("ator-etnia").textContent = atorDetalhes.etnia;
-                document.getElementById("ator-cor-cabelo").textContent = atorDetalhes.corCabelo;
-                document.getElementById("ator-cor-olhos").textContent = atorDetalhes.corOlhos;
-                document.getElementById("ator-altura").textContent = atorDetalhes.altura;
-                document.getElementById("ator-peso").textContent = atorDetalhes.peso;
-                document.getElementById("ator-tipo-corpo").textContent = atorDetalhes.tipoCorpo;
-                document.getElementById("ator-medidas").textContent = atorDetalhes.medidas;
-                document.getElementById("ator-nota").textContent = atorDetalhes.nota;
-                // ... preencher outros campos conforme necessário
-            } else {
-                console.error("Ator não encontrado!");
-                alert("Ator não encontrado.");
-            }
-        } catch (error) {
-            console.error("Erro ao carregar detalhes do ator: ", error);
-            alert("Erro ao carregar detalhes do ator do Firebase. Veja a consola para mais detalhes.");
-        }
-    } else {
-        console.error("ID do ator não fornecido na URL.");
-        alert("ID do ator não fornecido na URL.");
-    }
-}
-
 
 // Chame carregarUltimosAtores() e carregarAtores() quando a página index.html carregar (se estiver na index.html) - **CARREGARATORES() REMOVIDO!**
 if (document.location.pathname.endsWith('index.html') || document.location.pathname.endsWith('/')) { // Verifica se o caminho da página termina com 'index.html' ou é a raiz '/'
-    carregarUltimosAtores(); // Carrega e exibe os últimos 12 atores no div "ultimos-atores"
+    carregarUltimosAtores(); // Carrega e exibe os últimos 10 atores no div "ultimos-atores"
     // REMOVIDO: carregarAtores(); // Carrega e exibe TODOS os atores no div "atores-lista" (se quiser manter a lista completa)
-}
-
-// Chame carregarDetalhesAtor() quando a página ator.html carregar
-if (document.location.pathname.endsWith('ator.html')) {
-    carregarDetalhesAtor();
 }
 
 
