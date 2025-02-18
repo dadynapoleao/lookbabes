@@ -441,4 +441,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
---- END OF FILE script.js ---
