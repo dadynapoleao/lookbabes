@@ -464,6 +464,11 @@ button:hover {
     margin-top: 10px; /* Reduzir a margem superior se necessário */
     margin-bottom: 20px; /* Manter ou ajustar a margem inferior */
     gap: 10px; /* Reduzir o espaço entre os cards na pesquisa */
+    display: flex; /* Garantir que é um flex container */
+    flex-direction: row; /* Layout em linha (horizontal) */
+    flex-wrap: wrap; /* Permitir quebrar para a próxima linha se não houver espaço */
+    justify-content: flex-start; /* Alinhar os cards à esquerda */
+    align-items: flex-start; /* **ADICIONE ESTA LINHA: Alinhar ao topo** */
 }
 
 #searchResults .ator-card {
