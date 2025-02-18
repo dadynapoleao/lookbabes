@@ -19,6 +19,7 @@ const db = firebase.firestore();
 
 // Array para armazenar os atores localmente (MANTER PARA PERSISTÊNCIA LOCAL - OPCIONAL)
 let atoresLocal = [];
+let todosAtoresNomes = []; // Array para armazenar todos os nomes de atores do Firebase para pesquisa
 
 // Função para salvar os atores no localStorage (MANTER PARA PERSISTÊNCIA LOCAL - OPCIONAL)
 function salvarAtoresLocal() {
@@ -292,6 +293,51 @@ function extrairInformacoes() {
     }
 }
 
+// Função para carregar todos os nomes de atores do Firestore para pesquisa
+async function carregarTodosNomesAtores() {
+    try {
+        const snapshot = await db.collection("atores").get();
+        todosAtoresNomes = snapshot.docs.map(doc => ({ id: doc.id, nome: doc.data().nome }));
+        console.log("Nomes de todos os atores carregados para pesquisa.");
+    } catch (error) {
+        console.error("Erro ao carregar nomes de atores para pesquisa: ", error);
+    }
+}
+
+
+// Função para pesquisar atores e exibir sugestões
+function pesquisarAtores() {
+    const searchTerm = document.getElementById("actor-search").value.toLowerCase();
+    const suggestionsDiv = document.getElementById("search-suggestions");
+    suggestionsDiv.innerHTML = ''; // Limpa sugestões anteriores
+
+    if (!searchTerm) {
+        suggestionsDiv.style.display = 'none'; // Oculta se a barra de pesquisa estiver vazia
+        return;
+    }
+
+    const filteredAtores = todosAtoresNomes.filter(ator =>
+        ator.nome.toLowerCase().startsWith(searchTerm)
+    );
+
+    if (filteredAtores.length > 0) {
+        suggestionsDiv.style.display = 'block'; // Mostra as sugestões
+        filteredAtores.forEach(ator => {
+            const suggestionElement = document.createElement('div');
+            suggestionElement.textContent = ator.nome;
+            suggestionElement.onclick = () => {
+                document.getElementById("actor-search").value = ator.nome; // Preenche a barra de pesquisa com o nome selecionado
+                suggestionsDiv.innerHTML = ''; // Limpa as sugestões
+                suggestionsDiv.style.display = 'none'; // Oculta o div de sugestões
+                window.location.href = `ator.html?id=${ator.id}`; // Redireciona para a página do ator
+            };
+            suggestionsDiv.appendChild(suggestionElement);
+        });
+    } else {
+        suggestionsDiv.style.display = 'none'; // Oculta se não houver sugestões
+    }
+}
+
 
 // Função para carregar os últimos 10 atores do Firestore e exibir no div "ultimos-atores" (MODIFICADA PARA NOVO LAYOUT)
 async function carregarUltimosAtores() {
@@ -337,10 +383,11 @@ async function carregarAtores() {
 }
 
 
-// Chame carregarUltimosAtores() e carregarAtores() quando a página index.html carregar (se estiver na index.html) - **CARREGARATORES() REMOVIDO!**
+// Chame carregarUltimosAtores(), carregarAtores() e carregarTodosNomesAtores() quando a página index.html carregar (se estiver na index.html)
 if (document.location.pathname.endsWith('index.html') || document.location.pathname.endsWith('/')) { // Verifica se o caminho da página termina com 'index.html' ou é a raiz '/'
     carregarUltimosAtores(); // Carrega e exibe os últimos 10 atores no div "ultimos-atores"
     // REMOVIDO: carregarAtores(); // Carrega e exibe TODOS os atores no div "atores-lista" (se quiser manter a lista completa)
+    carregarTodosNomesAtores(); // Carrega todos os nomes de atores para a pesquisa
 }
 
 
@@ -381,4 +428,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error("Botão 'Adicionar Ator' não encontrado!");
     }
+
+    // Event listener para fechar as sugestões quando clicar fora da barra de pesquisa
+    document.addEventListener('click', function(event) {
+        const searchInput = document.getElementById('actor-search');
+        const suggestionsDiv = document.getElementById('search-suggestions');
+        if (event.target !== searchInput && !suggestionsDiv.contains(event.target)) {
+            suggestionsDiv.style.display = 'none';
+        }
+    });
 });
