@@ -329,6 +329,9 @@ async function pesquisarAtores(searchTerm) {
                 }
             });
 
+        // LIMITAR OS RESULTADOS DA PESQUISA A 6 ATORES
+        atoresFiltrados = atoresFiltrados.slice(0, 6); // Limita o array aos primeiros 6 elementos
+
 
         console.log("pesquisarAtores - atoresFiltrados:", atoresFiltrados); // DEBUG
 
