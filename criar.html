@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Ator</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- Carrega o script.js como um módulo -->
+    <script src="script.js" type="module"></script>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" class="voltar-btn">⬅ Voltar</button>
+    <div class="container">
+        <h1>Adicionar Novo Ator</h1>
+        <div class="form-container">
+            <!-- Caixa de Texto para Colar Informações -->
+            <label for="info-texto">Cole as Informações Aqui:</label>
+            <textarea id="info-texto" placeholder="Cole o texto do ator/atriz aqui"></textarea>
+            <button id="extrair-info-btn">Extrair Informações</button>
+
+            <!-- Campos do Formulário -->
+            <label>Nome:</label>
+            <input type="text" id="nome">
+            <label>Idade:</label>
+            <input type="number" id="idade">
+            <label>Data de Nascimento:</label>
+            <input type="date" id="data-nascimento">
+            <label>País:</label>
+            <input type="text" id="pais">
+            <label>Etnia:</label>
+            <input type="text" id="etnia">
+            <label>Cor do Cabelo:</label>
+            <input type="text" id="cor-cabelo">
+            <label>Cor dos Olhos:</label>
+            <input type="text" id="cor-olhos">
+            <label>Altura:</label>
+            <input type="text" id="altura">
+            <label>Peso:</label>
+            <input type="text" id="peso">
+            <label>Tipo de Corpo:</label>
+            <input type="text" id="tipo-corpo">
+            <label>Medidas:</label>
+            <input type="text" id="medidas">
+            <!-- Caixa de Opções para a Nota -->
+            <label>Nota (0-10):</label>
+            <select id="nota">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <label>Imagem (URL):</label>
+            <input type="text" id="foto-input" placeholder="URL da Imagem">
+            <div id="image-preview-container" style="margin-top: 10px; text-align: right;">
+                <img id="image-preview" src="" alt="Preview da Imagem" style="max-width: 150px; max-height: 150px; display: none;">
+            </div>
+            <button id="adicionar-ator-btn">Adicionar Ator</button>
+        </div>
+    </div>
+</body>
+</html>
