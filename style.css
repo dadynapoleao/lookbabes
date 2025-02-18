@@ -121,8 +121,9 @@ button:hover {
 }
 
 .ator-foto {
-    max-width: 100%;
-    height: auto;
+    width: 200px; /* Defina a largura desejada */
+    height: 250px; /* Defina a altura desejada */
+    object-fit: cover; /* Garante que a imagem cubra a área, cortando se necessário, sem distorcer */
     border-radius: 8px;
     margin-bottom: 10px;
 }
