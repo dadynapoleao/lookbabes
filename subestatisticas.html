@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubEstatísticas de Atores</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="estatisticas_style.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="subestatisticas_script.js" type="module"></script>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" class="voltar-btn">⬅ Voltar à Página Principal</button>
+    <div class="container subestatisticas-page">
+        <h1>SubEstatísticas de Atores</h1>
+
+        <section class="tabelas-subestatisticas">
+            <div class="tabela-container">
+                <h2>Cabelo</h2>
+                <table id="tabela-cabelo" class="estatisticas-tabela">
+                    <thead><tr><th>Cor do Cabelo</th><th>Número de Atores</th></tr></thead>
+                    <tbody id="tabela-cabelo-body"><tr><td colspan="2">Carregando dados...</td></tr></tbody>
+                </table>
+            </div>
+
+            <div class="tabela-container">
+                <h2>Olhos</h2>
+                <table id="tabela-olhos" class="estatisticas-tabela">
+                    <thead><tr><th>Cor dos Olhos</th><th>Número de Atores</th></tr></thead>
+                    <tbody id="tabela-olhos-body"><tr><td colspan="2">Carregando dados...</td></tr></tbody>
+                </table>
+            </div>
+
+            <div class="tabela-container">
+                <h2>Alturas (Mais Baixas e Mais Altas)</h2>
+                <table id="tabela-alturas" class="estatisticas-tabela">
+                    <thead><tr><th>Nome</th><th>Altura (cm)</th></tr></thead>
+                    <tbody id="tabela-alturas-baixas-body"><tr><th colspan="2">5 Mais Baixos</th></tr><tr><td colspan="2">Carregando...</td></tr></tbody>
+                    <tbody id="tabela-alturas-altas-body"><tr><th colspan="2">5 Mais Altos</th></tr><tr><td colspan="2">Carregando...</td></tr></tbody>
+                </table>
+            </div>
+
+            <div class="tabela-container">
+                <h2>Países</h2>
+                <table id="tabela-paises" class="estatisticas-tabela">
+                    <thead><tr><th>País</th><th>Número de Atores</th></tr></thead>
+                    <tbody id="tabela-paises-body"><tr><td colspan="2">Carregando dados...</td></tr></tbody>
+                </table>
+            </div>
+
+            <div class="tabela-container">
+                <h2>Países por Média de Nota</h2>
+                <table id="tabela-nota-pais" class="estatisticas-tabela">
+                    <thead><tr><th>País</th><th>Média de Nota</th></tr></thead>
+                    <tbody id="tabela-nota-pais-body"><tr><td colspan="2">Carregando dados...</td></tr></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
