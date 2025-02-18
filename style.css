@@ -1,10 +1,11 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js?v=20240126"; // Nota: firebase-app.js (não compat)
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js?v=20240126"; // Nota: firebase-firestore.js (não compat)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js?v=20240126"; // IMPORTANTE: firebase-app.js (não compat)
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js?v=20240126"; // IMPORTANTE: firebase-firestore.js (não compat)
 
 // Configuração do Firebase (mantenha isto)
 const firebaseConfig = { ... };
 const app = initializeApp(firebaseConfig); // Inicialize o app usando a API modular
 const db = getFirestore(app); // Inicialize o Firestore usando a API modular
+
 
 // Mesma função de teste que antes:
 async function testAddDoc() {
