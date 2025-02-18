@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js";
-import { getFirestore, collection, addDoc, getDocs, orderBy, limit, serverTimestamp, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js";
+import { getFirestore, collection, addDoc, getDocs, orderBy, limit, serverTimestamp, doc, getDoc, query } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js";
 
 // Configuração do Firebase (COLE A SUA CONFIGURAÇÃO AQUI)
 const firebaseConfig = {
@@ -295,11 +295,11 @@ function extrairInformacoes() {
 }
 
 
-// Função para carregar os últimos 12 atores do Firestore e exibir no div "ultimos-atores" (MODIFICADA PARA NOVO LAYOUT)
+// Função para carregar os últimos 15 atores do Firestore e exibir no div "ultimos-atores" (MODIFICADA PARA NOVO LAYOUT)
 async function carregarUltimosAtores() {
     console.log("carregarUltimosAtores chamada"); // DEBUG
     try {
-        const snapshot = await getDocs(query(collection(db, "atores"), orderBy('timestamp', 'desc'), limit(12)));
+        const snapshot = await getDocs(query(collection(db, "atores"), orderBy('timestamp', 'desc'), limit(15))); // Changed limit to 15
 
         console.log("carregarUltimosAtores - snapshot:", snapshot); // DEBUG
         console.log("carregarUltimosAtores - snapshot.docs.length:", snapshot.docs.length); // DEBUG
@@ -314,9 +314,9 @@ async function carregarUltimosAtores() {
         console.log("carregarUltimosAtores - ultimosAtores:", ultimosAtores); // DEBUG: Log ultimosAtores array
 
         mostrarAtores("ultimos-atores", ultimosAtores); // Chama mostrarAtores para o div "ultimos-atores"
-        console.log("Últimos 12 atores carregados do Firestore com sucesso!"); // Updated log message
+        console.log("Últimos 15 atores carregados do Firestore com sucesso!"); // Updated log message
     } catch (error) {
-        console.error("Erro ao carregar últimos 12 atores do Firestore: ", error); // Updated error message
+        console.error("Erro ao carregar últimos 15 atores do Firestore: ", error); // Updated error message
         alert("Erro ao carregar últimos atores do Firebase. Veja a consola para mais detalhes.");
     }
 }
@@ -378,7 +378,7 @@ async function carregarDetalhesAtor() {
 
 // Chame carregarUltimosAtores() e carregarAtores() quando a página index.html carregar (se estiver na index.html) - **CARREGARATORES() REMOVIDO!**
 if (document.location.pathname.endsWith('index.html') || document.location.pathname.endsWith('/')) { // Verifica se o caminho da página termina com 'index.html' ou é a raiz '/'
-    carregarUltimosAtores(); // Carrega e exibe os últimos 12 atores no div "ultimos-atores"
+    carregarUltimosAtores(); // Carrega e exibe os últimos 15 atores no div "ultimos-atores"
     // REMOVIDO: carregarAtores(); // Carrega e exibe TODOS os atores no div "atores-lista" (se quiser manter a lista completa)
 }
 
