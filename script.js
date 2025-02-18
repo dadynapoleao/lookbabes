@@ -1,3 +1,4 @@
+--- START OF FILE script.js ---
 // Configuração do Firebase (COLE A SUA CONFIGURAÇÃO AQUI)
 const firebaseConfig = {
     apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
@@ -293,6 +294,7 @@ function extrairInformacoes() {
     }
 }
 
+// **INSERT THESE FUNCTIONS HERE - SEARCH FUNCTIONS**
 // Função para carregar todos os nomes de atores do Firestore para pesquisa
 async function carregarTodosNomesAtores() {
     try {
@@ -337,6 +339,7 @@ function pesquisarAtores() {
         suggestionsDiv.style.display = 'none'; // Oculta se não houver sugestões
     }
 }
+// **END OF INSERTION**
 
 
 // Função para carregar os últimos 10 atores do Firestore e exibir no div "ultimos-atores" (MODIFICADA PARA NOVO LAYOUT)
@@ -438,3 +441,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+--- END OF FILE script.js ---
