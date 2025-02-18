@@ -1,0 +1,62 @@
+/* Estilos específicos para a página de nacionalidades (nacionalidades.html) */
+
+.nacionalidades-page {
+    text-align: left;
+    padding: 30px;
+}
+
+.nacionalidades-page h1, .nacionalidades-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.lista-nacionalidades-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #444;
+    border-radius: 8px;
+}
+
+.lista-nacionalidades {
+    list-style: none; /* Remove marcadores de lista padrão */
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Permite que os países quebrem para a linha seguinte */
+    gap: 10px; /* Espaçamento entre os países */
+    justify-content: center; /* Centraliza os países horizontalmente */
+}
+
+.lista-nacionalidades li {
+    margin: 5px;
+}
+
+.lista-nacionalidades li a {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #555;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.lista-nacionalidades li a:hover {
+    background-color: #777;
+}
+
+
+.atores-por-nacionalidade-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+}
+
+.atores-por-nacionalidade-section h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Reutilizando estilos de atores-container e ator-card de style.css para consistência */
+/* Pode ajustar ou adicionar estilos específicos aqui se necessário */
