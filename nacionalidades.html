@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nacionalidades de Atores</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nacionalidades_style.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="nacionalidades_script.js" type="module"></script>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" class="voltar-btn">⬅ Voltar à Página Principal</button>
+    <div class="container nacionalidades-page">
+        <h1>Nacionalidades de Atores</h1>
+
+        <section class="lista-nacionalidades-section">
+            <h2>Lista de Nacionalidades</h2>
+            <ul id="lista-nacionalidades" class="lista-nacionalidades">
+                <li>Carregando lista de nacionalidades...</li>  <!-- Mensagem inicial -->
+            </ul>
+        </section>
+
+        <section id="atores-por-nacionalidade-section" class="atores-por-nacionalidade-section" style="display:none;">
+            <h2 id="titulo-atores-nacionalidade">Atores de [Nacionalidade Selecionada]</h2> <!-- Título dinâmico -->
+            <div id="atores-por-nacionalidade" class="atores-container">
+                <!-- Atores do país selecionado serão carregados aqui -->
+            </div>
+        </section>
+    </div>
+</body>
+</html>
