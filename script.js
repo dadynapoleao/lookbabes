@@ -1,11 +1,22 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js?v=20240126"; // IMPORTANTE: firebase-app.js (não compat)
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js?v=20240126"; // IMPORTANTE: firebase-firestore.js (não compat)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js?v=20240126";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js?v=20240126";
 
-// Configuração do Firebase (mantenha isto)
-const firebaseConfig = { ... }; // **SUBSTITUA ISTO PELA SUA CONFIGURAÇÃO REAL DO FIREBASE!**
-const app = initializeApp(firebaseConfig); // Inicialize o app usando a API modular
-const db = getFirestore(app); // Inicialize o Firestore usando a API modular
+// Configuração do Firebase (COLE A SUA CONFIGURAÇÃO AQUI)
+const firebaseConfig = {
+    apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
+    authDomain: "babes-392fd.firebaseapp.com",
+    projectId: "babes-392fd",
+    storageBucket: "babes-392fd.appspot.com",
+    messagingSenderId: "376795361631",
+    appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea",
+    measurementId: "SEU_MEASUREMENT_ID" // OPCIONAL: Preencha se usar Google Analytics no Firebase
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Firestore
+const db = getFirestore(app);
 
 // Mesma função de teste que antes:
 async function testAddDoc() {
