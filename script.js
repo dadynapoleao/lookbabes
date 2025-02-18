@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js?v=20240126";
-import { getFirestore, collection, addDoc, getDocs, orderBy, limit, serverTimestamp, doc, getDoc, query } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js?v=20240126";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js";
+import { getFirestore, collection, addDoc, getDocs, orderBy, limit, serverTimestamp, doc, getDoc, query } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -179,53 +179,53 @@ function extrairInformacoes() {
     // Function to extract the country from the "Birthplace" line
     function extrairPais(birthplace) {
         if (!birthplace) return "N/A"; // If there is no "Birthplace" line, return "N/A"
-        const partes = birthplace.split(","); // Divide a string pelos separadores (vírgulas)
-        const pais = partes[partes.length - 1].trim(); // Pega o último elemento e remove espaços extras
-        return pais || "N/A"; // Retorna "N/A" se estiver vazio
+        const partes = birthplace.split(","); // Splits the string by separators (commas)
+        const pais = partes[partes.length - 1].trim(); // Gets the last element and removes extra spaces
+        return pais || "N/A"; // Returns "N/A" if empty
     }
 
     // Function to clean and extract ethnicity
     function limparEtnia(etnia) {
         if (!etnia) return "N/A"; // If there is no value, return "N/A"
-        return etnia.trim().replace(/[,;:\n].*/, "") || "N/A"; // Remove delimitadores e retorna "N/A" se vazio
+        return etnia.trim().replace(/[,;:\n].*/, "") || "N/A"; // Removes delimiters and returns "N/A" if empty
     }
 
     // Function to clean and extract hair color
     function limparCorCabelo(corCabelo) {
         if (!corCabelo) return "N/A"; // If there is no value, return "N/A"
-        return corCabelo.trim().replace(/[,;:\n].*/, "") || "N/A"; // Remove delimitadores e retorna "N/A" se vazio
+        return corCabelo.trim().replace(/[,;:\n].*/, "") || "N/A"; // Removes delimiters and returns "N/A" if empty
     }
 
     // Function to clean and extract eye color
     function limparCorOlhos(corOlhos) {
         if (!corOlhos) return "N/A"; // If there is no value, return "N/A"
-        return corOlhos.trim().replace(/[,;:\n].*/, "") || "N/A"; // Remove delimitadores e retorna "N/A" se vazio
+        return corOlhos.trim().replace(/[,;:\n].*/, "") || "N/A"; // Removes delimiters and returns "N/A" if empty
     }
 
     // Function to clean and extract height in centimeters
     function limparAltura(altura) {
         if (!altura) return "N/A"; // If there is no value, return "N/A"
-        const match = altura.match(/(\d+)\s?cm/); // Captura apenas o número antes de "cm"
-        return match ? match[1] : "N/A"; // Retorna o número ou "N/A" se não encontrado
+        const match = altura.match(/(\d+)\s?cm/); // Captures only the number before "cm"
+        return match ? match[1] : "N/A"; // Returns the number or "N/A" if not found
     }
 
     // Function to clean and extract weight in kilograms
     function limparPeso(peso) {
         if (!peso) return "N/A"; // If there is no value, return "N/A"
-        const match = peso.match(/(\d+)\s?kg/); // Captura apenas o número antes de "kg"
-        return match ? match[1] : "N/A"; // Retorna o número ou "N/A" se não encontrado
+        const match = peso.match(/(\d+)\s?kg/); // Captures only the number before "kg"
+        return match ? match[1] : "N/A"; // Returns the number or "N/A" if not found
     }
 
     // Function to clean and extract body type
     function limparTipoCorpo(tipoCorpo) {
         if (!tipoCorpo) return "N/A"; // If there is no value, return "N/A"
-        return tipoCorpo.trim().replace(/[,;:\n].*/, "") || "N/A"; // Remove delimitadores e retorna "N/A" se vazio
+        return tipoCorpo.trim().replace(/[,;:\n].*/, "") || "N/A"; // Removes delimiters and returns "N/A" if empty
     }
 
     // Function to clean and extract measurements
     function limparMedidas(medidas) {
-        if (!medidas) return "N/A"; // Se não houver valor, retorna "N/A"
-        return medidas.trim() || "N/A"; // Remove espaços extras e retorna "N/A" se vazio
+        if (!medidas) return "N/A"; // If there is no value, return "N/A"
+        return medidas.trim() || "N/A"; // Removes extra spaces and returns "N/A" if empty
     }
 
     // Filling the fields with the extracted information
@@ -295,28 +295,28 @@ function extrairInformacoes() {
 }
 
 
-// Function to load the latest 12 actors from Firestore and display in the div "ultimos-atores" (MODIFIED FOR NEW LAYOUT)
+// Function to load the latest 15 actors from Firestore and display in the "ultimos-atores" div (MODIFIED FOR NEW LAYOUT)
 async function carregarUltimosAtores() {
     console.log("carregarUltimosAtores chamada"); // DEBUG
     try {
-        const snapshot = await getDocs(query(collection(db, "atores"), orderBy('timestamp', 'desc'), limit(12)));
+        const snapshot = await getDocs(query(collection(db, "atores"), orderBy('timestamp', 'desc'), limit(15))); // Changed limit to 15
 
         console.log("carregarUltimosAtores - snapshot:", snapshot); // DEBUG
         console.log("carregarUltimosAtores - snapshot.docs.length:", snapshot.docs.length); // DEBUG
 
         if (snapshot.empty) {
-            console.warn("carregarUltimosAtores: Snapshot vazia, não foram encontrados atores."); // Debug: Log snapshot vazia
-            mostrarAtores("ultimos-atores", []); // Mostra mensagem de "sem atores"
+            console.warn("carregarUltimosAtores: Snapshot vazia, não foram encontrados atores."); // Debug: Log empty snapshot
+            mostrarAtores("ultimos-atores", []); // Show "no actors found" message
             return;
         }
 
-        const ultimosAtores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Inclui o ID do documento
+        const ultimosAtores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Includes document ID
         console.log("carregarUltimosAtores - ultimosAtores:", ultimosAtores); // DEBUG: Log ultimosAtores array
 
-        mostrarAtores("ultimos-atores", ultimosAtores); // Chama mostrarAtores para o div "ultimos-atores"
-        console.log("Últimos 12 atores carregados do Firestore com sucesso!"); // Updated log message
+        mostrarAtores("ultimos-atores", ultimosAtores); // Calls mostrarAtores for the "ultimos-atores" div
+        console.log("Últimos 15 atores carregados do Firestore com sucesso!"); // Updated log message
     } catch (error) {
-        console.error("Erro ao carregar últimos 12 atores do Firestore: ", error); // Updated error message
+        console.error("Erro ao carregar últimos 15 atores do Firestore: ", error); // Updated error message
         alert("Erro ao carregar últimos atores do Firebase. Veja a consola para mais detalhes.");
     }
 }
@@ -325,9 +325,9 @@ async function carregarUltimosAtores() {
 // Function to load ALL actors from Firestore and display on index.html page (MODIFIED TO FETCH FROM FIRESTORE)
 async function carregarAtores() {
     try {
-        const snapshot = await getDocs(collection(db, "atores")); // Busca todos os documentos da coleção 'atores'
-        const todosAtores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Inclui o ID do documento
-        mostrarAtores("atores-lista", todosAtores); // Chama mostrarAtores para o div "atores-lista" (se ainda quiser mostrar todos)
+        const snapshot = await getDocs(collection(db, "atores")); // Fetches all documents from the 'atores' collection
+        const todosAtores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Includes document ID
+        mostrarAtores("atores-lista", todosAtores); // Calls mostrarAtores for the "atores-lista" div (if you still want to show all)
         console.log("Todos os atores carregados do Firestore com sucesso!");
     } catch (error) {
         console.error("Erro ao carregar todos os atores do Firestore: ", error);
@@ -346,7 +346,7 @@ async function carregarDetalhesAtor() {
 
             if (atorDoc.exists()) {
                 const atorDetalhes = atorDoc.data();
-                // Preencher os campos na página ator.html com atorDetalhes
+                // Fill in the fields on ator.html page with atorDetalhes
                 document.getElementById("ator-nome").textContent = atorDetalhes.nome;
                 document.getElementById("ator-foto-detalhe").src = atorDetalhes.foto;
                 document.getElementById("ator-idade").textContent = atorDetalhes.idade;
@@ -360,7 +360,7 @@ async function carregarDetalhesAtor() {
                 document.getElementById("ator-tipo-corpo").textContent = atorDetalhes.tipoCorpo;
                 document.getElementById("ator-medidas").textContent = atorDetalhes.medidas;
                 document.getElementById("ator-nota").textContent = atorDetalhes.nota;
-                // ... preencher outros campos conforme necessário
+                // ... fill other fields as needed
             } else {
                 console.error("Ator não encontrado!");
                 alert("Ator não encontrado.");
@@ -376,13 +376,13 @@ async function carregarDetalhesAtor() {
 }
 
 
-// Chame carregarUltimosAtores() e carregarAtores() quando a página index.html carregar (se estiver na index.html) - **CARREGARATORES() REMOVIDO!**
-if (document.location.pathname.endsWith('index.html') || document.location.pathname.endsWith('/')) { // Verifica se o caminho da página termina com 'index.html' ou é a raiz '/'
-    carregarUltimosAtores(); // Carrega e exibe os últimos 12 atores no div "ultimos-atores"
-    // REMOVIDO: carregarAtores(); // Carrega e exibe TODOS os atores no div "atores-lista" (se quiser manter a lista completa)
+// Call carregarUltimosAtores() and carregarAtores() when index.html page loads (if on index.html) - **CARREGARATORES() REMOVED!**
+if (document.location.pathname.endsWith('index.html') || document.location.pathname.endsWith('/')) { // Checks if the page path ends with 'index.html' or is the root '/'
+    carregarUltimosAtores(); // Loads and displays the latest 15 actors in the "ultimos-atores" div
+    // REMOVED: carregarAtores(); // Loads and displays ALL actors in the "atores-lista" div (if you want to keep the complete list)
 }
 
-// Chame carregarDetalhesAtor() quando a página ator.html carregar
+// Call carregarDetalhesAtor() when ator.html page loads
 if (document.location.pathname.endsWith('ator.html')) {
     carregarDetalhesAtor();
 }
@@ -390,16 +390,16 @@ if (document.location.pathname.endsWith('ator.html')) {
 
 // Function to preview the image (KEEP - FUNCTIONALITY UNCHANGED)
 function previewImage() {
-    const fotoInput = document.getElementById("foto-input"); // Use o ID correto: foto-input
+    const fotoInput = document.getElementById("foto-input"); // Use the correct ID: foto-input
     const imagePreview = document.getElementById("image-preview");
     const imagePreviewContainer = document.getElementById("image-preview-container");
 
     if (fotoInput.value) {
-        // Define o src da imagem como o valor do input
+        // Set the src of the image as the input value
         imagePreview.src = fotoInput.value;
-        imagePreview.style.display = "block"; // Mostra a imagem
+        imagePreview.style.display = "block"; // Show the image
     } else {
-        // Oculta a imagem se o campo estiver vazio
+        // Hide the image if the field is empty
         imagePreview.style.display = "none";
     }
 }
