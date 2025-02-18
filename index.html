@@ -10,7 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-    <script src="script.js?v=12345" type="module"></script>
+    <script src="script.js" type="module"></script>
 </head>
 <body>
 
@@ -20,15 +20,14 @@
             <button onclick="window.location.href='criar.html'">Adicionar Ator</button>
             <button onclick="window.location.href='estatisticas.html'">Estatísticas</button>
             <button onclick="window.location.href='teste.html'">Teste (Espelho)</button>
-            <button onclick="window.location.href='criar_video.html'">Criar Vídeo</button> <!-- Nova opção -->
-            <button onclick="window.location.href='filmes.html'">Filmes</button> <!-- NEW: Filmes button -->
-            <button onclick="window.location.href='videos.html'">Vídeos</button> <!-- NEW: Vídeos button -->
+            <button onclick="window.location.href='criar_video.html'">Criar Vídeo</button>
+            <button onclick="window.location.href='filmes.html'">Filmes</button>
+            <button onclick="window.location.href='videos.html'">Vídeos</button>
         </div>
 
-        <!-- Barra de Pesquisa de Atores -->
-        <div class="search-container">
-            <input type="text" id="actor-search" placeholder="Pesquisar atores..." oninput="pesquisarAtores()">
-            <div id="search-suggestions" class="search-suggestions"></div>
+        <!-- Barra de Pesquisa -->
+        <div class="search-bar" style="margin-bottom: 20px;">
+            <input type="text" id="searchInput" placeholder="Pesquisar atores..." style="padding: 8px; border: 1px solid #555; border-radius: 5px; background-color: #333; color: white; width: 100%; max-width: 400px; margin: 0 auto; display: block;">
         </div>
 
         <!-- Resto do conteúdo da página (atores, etc.) -->
@@ -37,12 +36,11 @@
             <!-- Os últimos atores serão carregados aqui -->
         </div>
 
-        <!--  Remova essa parte se não quiser mostrar todos os atores na index
-        <h1>Todos os Atores</h1>
-        <div id="atores-lista" class="atores-container">
-
+        <h1>Resultados da Pesquisa</h1>
+        <div id="searchResults" class="atores-container">
+            <!-- Resultados da pesquisa de atores serão carregados aqui -->
         </div>
-        -->
+
 
     </div>
 
