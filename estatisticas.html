@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estatísticas de Atores</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="estatisticas_style.css">
+
+    <!-- Firebase SDK - **INCLUÍDO E VERIFICADO!** -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="estatisticas_script.js" type="module"></script>
+</head>
+<body>
+    <header class="menu">  <!-- Menu no topo -->
+        <button onclick="window.location.href='index.html'">⬅ Estatísticas Gerais</button>  <!-- Botão "Voltar" alterado para "Estatísticas Gerais" -->
+        <button id="subestatisticas-btn" onclick="window.location.href='subestatisticas.html'">SubEstatísticas</button> <!-- Novo botão "SubEstatísticas" -->
+    </header>
+    <div class="container estatisticas-page">
+        <h1>Estatísticas de Atores</h1>
+
+        <div class="filtros-estatisticas">
+            <h2>Filtros</h2>
+
+            <div class="filtro">
+                <label for="ordenar-idade">Ordenar por Idade:</label>
+                <select id="ordenar-idade">
+                    <option value="nenhum">Nenhum</option>
+                    <option value="mais-novos">Mais Novos</option>
+                    <option value="mais-velhos">Mais Velhos</option>
+                </select>
+            </div>
+
+            <div class="filtro">
+                <label for="ordenar-nota">Ordenar por Nota:</label>
+                <select id="ordenar-nota">
+                    <option value="nenhum">Nenhum</option>
+                    <option value="mais-alta">Mais Alta</option>
+                    <option value="mais-baixa">Mais Baixa</option>
+                </select>
+            </div>
+
+            <div class="filtro">
+                <label for="filtrar-nota">Filtrar por Nota (Maior ou Igual a):</label>
+                <select id="filtrar-nota">
+                    <option value="nenhum">Nenhuma</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+
+
+            <div class="filtro">
+                <label for="filtrar-pais">Filtrar por País:</label>
+                <select id="filtrar-pais">
+                    <option value="todos">Todos os Países</option>
+                    <!-- Opções de países serão adicionadas aqui com JavaScript -->
+                </select>
+            </div>
+
+            <!-- Adicionar mais filtros aqui -->
+
+        </div>
+
+        <div id="atores-tabela-container" class="atores-tabela-container">
+            <h2>Tabela de Atores</h2>
+            <table id="atores-tabela" class="atores-tabela">
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                        <th>Data de Nascimento</th>
+                        <th>País</th>
+                        <th>Etnia</th>
+                        <th>Cor do Cabelo</th>
+                        <th>Cor dos Olhos</th>
+                        <th>Altura (cm)</th>
+                        <th>Peso (kg)</th>
+                        <th>Tipo de Corpo</th>
+                        <th>Medidas</th>
+                        <th>Nota</th>
+                        <!-- Adicione mais cabeçalhos se necessário -->
+                    </tr>
+                </thead>
+                <tbody id="atores-tabela-body">
+                    <!-- Linhas da tabela serão carregadas aqui -->
+                    <tr>
+                        <td colspan="14">Carregando dados dos atores...</td
