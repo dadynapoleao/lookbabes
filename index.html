@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Site</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="script.js" type="module"></script>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Menu -->
+        <div class="menu">
+            <button onclick="window.location.href='criar.html'">Adicionar Ator</button>
+            <button onclick="window.location.href='estatisticas.html'">Estatísticas</button>
+            <button onclick="window.location.href='teste.html'">Teste (Espelho)</button>
+            <button onclick="window.location.href='criar_video.html'">Criar Vídeo</button> <!-- Nova opção -->
+            <button onclick="window.location.href='filmes.html'">Filmes</button> <!-- NEW: Filmes button -->
+            <button onclick="window.location.href='videos.html'">Vídeos</button> <!-- NEW: Vídeos button -->
+        </div>
+
+        <!-- Resto do conteúdo da página (atores, etc.) -->
+        <h1>Atores Recentes</h1>
+        <div id="ultimos-atores" class="atores-container">
+            <!-- Os últimos atores serão carregados aqui -->
+        </div>
+
+        <!--  Remova essa parte se não quiser mostrar todos os atores na index
+        <h1>Todos os Atores</h1>
+        <div id="atores-lista" class="atores-container">
+
+        </div>
+        -->
+
+    </div>
+
+</body>
+</html>
