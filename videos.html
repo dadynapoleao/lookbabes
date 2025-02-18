@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vídeos e Cenas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- You can create a new videos_style.css if needed for specific styles -->
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="videos_script.js" type="module"></script>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" class="voltar-btn">⬅ Voltar à Página Principal</button>
+    <div class="container videos-page">
+        <h1>Vídeos e Cenas</h1>
+
+        <div class="filtros-videos">
+            <div class="filtro-ano">
+                <label for="ano-filtro">Filtrar por Ano:</label>
+                <select id="ano-filtro">
+                    <option value="">Todos os Anos</option>
+                    <!-- Years will be dynamically loaded here -->
+                </select>
+            </div>
+
+            <div class="filtro-ator">
+                <label for="ator-filtro-search">Filtrar por Ator:</label>
+                <div class="searchable-select">
+                    <input type="text" id="ator-filtro-search" placeholder="Pesquisar atores..." oninput="filtrarAtoresParaVideos()">
+                    <div id="ator-filtro-lista" class="select-lista multi-select">
+                        <!-- Actor options will be loaded here -->
+                    </div>
+                    <input type="hidden" id="ator-filtro" name="ator-filtro" value="">
+                </div>
+                <!-- Container for selected actor chips -->
+                <div id="selected-videos-atores-chips" class="selected-chips-container">
+                    <!-- Selected actor chips will be appended here -->
+                </div>
+            </div>
+
+            <div class="filtro-filme">
+                <label for="filme-filtro-search">Filtrar por Filme (Cenas):</label>
+                <div class="searchable-select">
+                    <input type="text" id="filme-filtro-search" placeholder="Pesquisar filmes..." oninput="filtrarFilmesParaVideos()">
+                    <div id="filme-filtro-lista" class="select-lista">
+                        <!-- Film options will be loaded here -->
+                    </div>
+                    <input type="hidden" id="filme-filtro" name="filme-filtro" value="">
+                </div>
+                <!-- No need for chips for Film filter (single select) -->
+            </div>
+        </div>
+
+        <div id="videos-lista" class="filmes-videos-container">
+            <!-- Videos and Cenas will be loaded here -->
+            <p>Carregando vídeos e cenas...</p>
+        </div>
+    </div>
+</body>
+</html>
