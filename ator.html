@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página do Ator - {{ator.nome}}</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ator_style.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="ator_script.js" type="module"></script>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" class="voltar-btn">⬅ Voltar à Página Principal</button>
+    <div class="container ator-page">
+        <h1 id="ator-nome-completo">{{ator.nome}}</h1>
+        <div class="ator-detalhes">
+            <div class="ator-foto-e-nota">
+                <img id="ator-foto-detalhe" src="{{ator.foto}}" alt="{{ator.nome}}" class="ator-foto-detalhe">
+                <p class="ator-nota-detalhe-container"><strong>Nota:</strong> <span id="ator-nota-detalhe">{{ator.nota}}/10</span></p>
+            </div>
+            <div class="ator-info-completa">
+                <p><strong>Idade:</strong> <span id="ator-idade-detalhe">{{ator.idade}} anos</span></p>
+                <p><strong>Data de Nascimento:</strong> <span id="ator-data-nascimento-detalhe">{{ator.dataNascimento}}</span></p>
+                <p><strong>País:</strong> <span id="ator-pais-detalhe">
+                    <a id="ator-pais-link" href="{{ator.nacionalidades.html}}" style="color: #eee; text-decoration: underline;">{{ator.pais}}</a>
+                </span></p>
+                <p><strong>Etnia:</strong> <span id="ator-etnia-detalhe">{{ator.etnia}}</span></p>
+                <p><strong>Cor do Cabelo:</strong> <span id="ator-cor-cabelo-detalhe">{{ator.corCabelo}}</span></p>
+                <p><strong>Cor dos Olhos:</strong> <span id="ator-cor-olhos-detalhe">{{ator.corOlhos}}</span></p>
+                <p><strong>Altura:</strong> <span id="ator-altura-detalhe">{{ator.altura}} cm</span></p>
+                <p><strong>Peso:</strong> <span id="ator-peso-detalhe">{{ator.peso}} kg</span></p>
+                <p><strong>Tipo de Corpo:</strong> <span id="ator-tipo-corpo-detalhe">{{ator.tipoCorpo}}</span></p>
+                <p><strong>Medidas:</strong> <span id="ator-medidas-detalhe">{{ator.medidas}}</span></p>
+            </div>
+        </div>
+
+        <section id="conteudo-ator-section" class="conteudo-ator-section"> <!-- NOVA SECÇÃO "Conteúdo do Ator" -->
+            <div class="conteudo-selector">
+                <!-- Buttons removed in previous steps -->
+            </div>
+
+            <div id="filmes-container" class="conteudo-lista active">
+                <h2 id="filmes-heading">Filmes de {{ator.nome}}</h2>  <!-- ADDED ID: filmes-heading -->
+                <div id="filmes-lista" class="filmes-videos-container limited-list">
+                    <p>Carregando filmes...</p>
+                </div>
+                <button id="ver-mais-filmes-btn" class="ver-mais-btn">Ver Mais Filmes</button>
+            </div>
+
+            <div id="videos-container" class="conteudo-lista">
+                <h2 id="videos-cenas-heading">Vídeos e Cenas de {{ator.nome}}</h2> <!-- ADDED ID: videos-cenas-heading -->
+                <div id="videos-lista" class="filmes-videos-container limited-list">
+                     <p>Carregando vídeos e cenas...</p>
+                </div>
+                <button id="ver-mais-videos-btn" class="ver-mais-btn">Ver Mais Vídeos e Cenas</button>
+            </div>
+        </section>
+
+
+        <section id="atores-semelhantes-section" class="atores-semelhantes-section">
+            <h2>Atores Semelhantes</h2>
+            <div id="atores-semelhantes-lista" class="atores-container">
+                <!-- Atores semelhantes serão carregados aqui -->
+                <p>Carregando atores semelhantes...</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
