@@ -1,3 +1,4 @@
+--- START OF FILE style.css ---
 body {
   font-family: Arial, sans-serif;
   background-color: #222;
@@ -34,6 +35,7 @@ body {
     background-color: #777;
 }
 
+/* **INSERT THIS SECTION HERE - SEARCH BAR STYLES** */
 /* Estilos para a Barra de Pesquisa */
 .search-container {
     position: relative;
@@ -83,6 +85,7 @@ body {
 .search-suggestions div:hover {
     background-color: #555;
 }
+/* **END OF INSERTION** */
 
 
 .form-container {
@@ -511,3 +514,4 @@ button:hover {
 .selected-chips-container, .ator-chip, .remove-chip-btn, .remove-chip-btn:hover {
     /* ... (Your existing styles for searchable select and chips - from previous steps) ... */
 }
+--- END OF FILE style.css ---
