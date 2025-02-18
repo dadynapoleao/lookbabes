@@ -25,6 +25,12 @@
             <button onclick="window.location.href='videos.html'">Vídeos</button> <!-- NEW: Vídeos button -->
         </div>
 
+        <!-- Barra de Pesquisa de Atores -->
+        <div class="search-container">
+            <input type="text" id="actor-search" placeholder="Pesquisar atores..." oninput="pesquisarAtores()">
+            <div id="search-suggestions" class="search-suggestions"></div>
+        </div>
+
         <!-- Resto do conteúdo da página (atores, etc.) -->
         <h1>Atores Recentes</h1>
         <div id="ultimos-atores" class="atores-container">
