@@ -1,4 +1,4 @@
---- START OF FILE style.css ---
+
 body {
   font-family: Arial, sans-serif;
   background-color: #222;
@@ -514,4 +514,4 @@ button:hover {
 .selected-chips-container, .ator-chip, .remove-chip-btn, .remove-chip-btn:hover {
     /* ... (Your existing styles for searchable select and chips - from previous steps) ... */
 }
---- END OF FILE style.css ---
+
