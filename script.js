@@ -1,4 +1,4 @@
---- START OF FILE script.js ---
+
 // Configuração do Firebase (COLE A SUA CONFIGURAÇÃO AQUI)
 const firebaseConfig = {
     apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
