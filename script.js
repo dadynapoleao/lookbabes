@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js";
-import { getFirestore, collection, addDoc, getDocs, orderBy, limit, serverTimestamp, doc, getDoc, query } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js?v=20240126";
+import { getFirestore, collection, addDoc, getDocs, orderBy, limit, serverTimestamp, doc, getDoc, query } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore-compat.js?v=20240126";
 
 // Firebase configuration
 const firebaseConfig = {
