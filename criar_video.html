@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Vídeo</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <!-- Carrega o script.js como um módulo with cache-busting parameter -->
+    <script src="criar_video.js?v=1" type="module"></script>
+</head>
+<body>
+
+    <div class="container">
+        <button class="voltar-btn" onclick="window.location.href='index.html'">Voltar</button>
+        <h1>Criar Conteúdo</h1>
+
+        <!-- Formulário Criar Filme -->
+        <div class="form-container">
+            <h2>Criar Filme</h2>
+            <form id="criar-filme-form">
+                <label for="filme-nome">Nome do Filme:</label>
+                <input type="text" id="filme-nome" name="filme-nome" required>
+
+                <label for="filme-ano">Ano:</label>
+                <input type="number" id="filme-ano" name="filme-ano" required>
+
+                <label for="filme-imagem">Link da Imagem:</label>
+                <input type="url" id="filme-imagem" name="filme-imagem">
+
+                <label for="filme-pagina">Link da Página Web:</label>
+                <input type="url" id="filme-pagina" name="filme-pagina">
+
+                <button type="submit">Criar Filme</button>
+            </form>
+        </div>
+
+        <!-- Formulário Criar Cena -->
+        <div class="form-container">
+            <h2>Criar Cena</h2>
+            <form id="criar-cena-form">
+                <label for="cena-filme-search">Escolha do Filme:</label>
+                <div class="searchable-select">
+                    <input type="text" id="cena-filme-search" placeholder="Pesquisar filmes..." oninput="filtrarFilmes()">
+                    <div id="cena-filme-lista" class="select-lista">
+                        <!-- Opções de filme serão carregadas aqui -->
+                    </div>
+                    <input type="hidden" id="cena-filme" name="cena-filme" value="">
+                </div>
+
+                <!-- Número da Cena -->
+                <label for="cena-numero">Número da Cena (0-10):</label>
+                <select id="cena-numero" name="cena-numero" required>
+                    <option value="" disabled selected>Selecione o número da cena</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+
+                <!-- New field: Atores na Cena -->
+                <label for="cena-atores-search">Atores na Cena:</label>
+                <div class="searchable-select">
+                    <input type="text" id="cena-atores-search" placeholder="Pesquisar atores..." oninput="filtrarAtoresParaCena()">
+                    <div id="cena-atores-lista" class="select-lista multi-select">
+                        <!-- Opções de atores serão carregadas aqui -->
+                    </div>
+                    <input type="hidden" id="cena-atores" name="cena-atores" value="">
+                </div>
+                <!-- Container for selected actor chips (Cena Form) -->
+                <div id="selected-cena-atores-chips" class="selected-chips-container">
+                    <!-- Selected actor chips for Cena form will be appended here -->
+                </div>
+
+                <label for="cena-nome">Nome da Cena:</label>
+                <input type="text" id="cena-nome" name="cena-nome" required>
+
+                <label for="cena-ano">Ano:</label>
+                <input type="number" id="cena-ano" name="cena-ano" required>
+
+                <label for="cena-imagem">Link da Imagem:</label>
+                <input type="url" id="cena-imagem" name="cena-imagem">
+
+                <label for="cena-pagina">Link da Página Web:</label>
+                <input type="url" id="cena-pagina" name="cena-pagina">
+
+                <button type="submit">Criar Cena</button>
+            </form>
+        </div>
+
+        <!-- Formulário Criar Vídeo -->
+        <div class="form-container">
+            <h2>Criar Vídeo</h2>
+            <form id="criar-video-form">
+                <label for="video-nome">Nome do Vídeo:</label>
+                <input type="text" id="video-nome" name="video-nome" required>
+
+                <label for="video-ano">Ano:</label>
+                <input type="number" id="video-ano" name="video-ano" required>
+
+                <label for="video-imagem">Link da Imagem:</label>
+                <input type="url" id="video-imagem" name="video-imagem">
+
+                <label for="video-pagina">Link da Página Web:</label>
+                <input type="url" id="video-pagina" name="video-pagina">
+
+                <label for="video-atores-search">Atores no Vídeo:</label>
+                <div class="searchable-select">
+                    <input type="text" id="video-atores-search" placeholder="Pesquisar atores..." oninput="filtrarAtoresParaVideo()">
+                    <div id="video-atores-lista" class="select-lista multi-select">
+                        <!-- Opções de atores serão carregadas aqui -->
+                    </div>
+                    <input type="hidden" id="video-atores" name="video-atores" value=""> <!-- Hidden input for selected actor IDs -->
+                </div>
+                <!-- Container for selected actor chips -->
+                <div id="selected-atores-chips" class="selected-chips-container">
+                    <!-- Selected actor chips will be appended here -->
+                </div>
+
+                <button type="submit">Criar Vídeo</button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>
