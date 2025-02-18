@@ -1,4 +1,4 @@
-
+/* style.css */
 body {
   font-family: Arial, sans-serif;
   background-color: #222;
@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-  max-width: 1200px; /* Aumentei a largura máxima do container para acomodar a tabela */
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -34,58 +34,6 @@ body {
 .menu button:hover {
     background-color: #777;
 }
-
-/* **INSERT THIS SECTION HERE - SEARCH BAR STYLES** */
-/* Estilos para a Barra de Pesquisa */
-.search-container {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-#actor-search {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #333;
-    color: white;
-    font-size: 16px;
-    box-sizing: border-box; /* Garante que o padding não aumenta a largura total */
-}
-
-#actor-search:focus {
-    border-color: purple;
-    outline: none; /* Remove a borda de foco padrão */
-    box-shadow: 0 0 5px purple; /* Adiciona um brilho roxo ao focar */
-}
-
-
-.search-suggestions {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    background-color: #333;
-    border: 1px solid #555;
-    border-top: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    overflow: hidden; /* Garante que as bordas arredondadas funcionem */
-    z-index: 10; /* Garante que fique acima de outros conteúdos */
-    display: none; /* Oculto por padrão, mostrado por JavaScript */
-}
-
-.search-suggestions div {
-    padding: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: left; /* Alinha o texto das sugestões à esquerda */
-}
-
-.search-suggestions div:hover {
-    background-color: #555;
-}
-/* **END OF INSERTION** */
 
 
 .form-container {
@@ -307,7 +255,6 @@ button:hover {
 }
 
 
-
 /* ... (Your existing CSS for searchable-select and select-lista) ... */
 
 .selected-chips-container {
@@ -336,9 +283,6 @@ button:hover {
 .remove-chip-btn:hover {
     color: black; /* Darker color on hover */
 }
-
-
-
 
 
 /* style.css - Add these styles for filmes.html filters */
@@ -515,7 +459,6 @@ button:hover {
     /* ... (Your existing styles for searchable select and chips - from previous steps) ... */
 }
 
-
 /* Estilos específicos para os resultados da pesquisa na barra de pesquisa */
 #searchResults {
     margin-top: 10px; /* Reduzir a margem superior se necessário */
@@ -529,7 +472,10 @@ button:hover {
 }
 
 #searchResults .ator-foto {
-    height: 150px; /* Altura menor para as fotos na pesquisa */
+    width: 100%; /* Para ocupar toda a largura do container pai */
+    height: 150px; /* Altura fixa desejada (pode ajustar este valor) */
+    object-fit: cover; /* Para garantir que a imagem preenche a área, cortando se necessário */
+    border-radius: 8px 8px 0 0; /* Manter o border-radius no topo, remover em baixo se quiser */
     margin-bottom: 8px; /* Margem inferior menor para as fotos */
 }
 
