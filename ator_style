@@ -1,0 +1,205 @@
+/* Estilos específicos para a página do ator (ator.html) */
+
+.ator-page {
+    text-align: left;
+    padding: 30px;
+}
+
+.ator-page h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.ator-detalhes {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    max-width: 900px;
+    margin: auto;
+}
+
+.ator-foto-e-nota {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ator-foto-detalhe {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.ator-nota-detalhe-container {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.ator-info-completa {
+    flex: 1;
+}
+
+.ator-info-completa p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #eee;
+}
+
+.ator-info-completa strong {
+    color: white;
+}
+
+/* Estilos para a secção "Atores Semelhantes" */
+.atores-semelhantes-section {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    text-align: center; /* Centraliza o título e os cards */
+}
+
+.atores-semelhantes-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.atores-semelhantes-lista .ator-card { /* Estilos específicos para cards na lista de semelhantes */
+    padding: 10px; /* Reduzi o padding interno dos cards */
+    margin-bottom: 10px; /* **Reduzi a margem inferior dos cards de semelhantes** */
+}
+
+.atores-semelhantes-lista h3 {
+    font-size: 1.1em; /* Reduzi o tamanho do nome */
+    margin-bottom: 2px; /* **Reduzi a margem inferior do nome** */
+    line-height: 1.2; /* **Reduzi o line-height do nome** */
+}
+
+.atores-semelhantes-lista h3 .percentagem-semelhanca { /* Estilo para a percentagem de semelhança */
+    font-size: 0.8em; /* Percentagem menor */
+    color: #aaa; /* Cor mais discreta para a percentagem */
+    display: block; /* Força a percentagem para uma nova linha (bloco) */
+    margin-bottom: 2px; /* **Reduzi a margem inferior da percentagem** */
+}
+
+.atores-semelhantes-lista .ator-card p { /* **Estilos para parágrafos DENTRO dos cards de semelhantes** */
+    margin-bottom: 2px; /* **Reduzi a margem inferior dos parágrafos** */
+    line-height: 1.2; /* **Reduzi o line-height dos parágrafos** */
+    font-size: 0.9em; /* Reduzi o tamanho da fonte dos parágrafos */
+}
+
+
+.atores-tabela-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+    margin-top: 30px; /* **Adicionado margem superior para separar da secção de semelhantes** */
+}
+
+.atores-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: white;
+}
+
+.atores-tabela th, .atores-tabela td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+}
+
+.atores-tabela th {
+    background-color: #555;
+    font-weight: bold;
+    text-align: center;
+}
+
+#tabela-alturas-baixas-body th,
+#tabela-alturas-altas-body th {
+    background-color: #666;
+    font-size: 1.1em;
+}
+
+/*  ator_style.css - Add these styles at the bottom of your file */
+
+.filmes-videos-container {
+    display: grid; /* Use grid layout for better card arrangement */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Spacing between cards */
+    padding: 20px; /* Padding around the container */
+}
+
+.filme-video-card {
+    background-color: #444; /* Slightly lighter background for cards */
+    border-radius: 10px; /* Rounded corners for cards */
+    overflow: hidden; /* Ensure image corners are also rounded */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+    display: flex; /* Use flexbox for vertical alignment of content */
+    flex-direction: column;
+}
+
+.filme-video-card:hover {
+    transform: scale(1.03); /* Slight scale up on hover */
+}
+
+.filme-video-imagem {
+    width: 100%;
+    height: 200px; /* Fixed height for images - adjust as needed */
+    object-fit: cover; /* Cover container, cropping if necessary */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.filme-video-card h3 {
+    font-size: 1.2em;
+    margin: 15px 10px 5px 10px; /* Adjusted margins */
+    color: white;
+    text-align: center; /* Center the title */
+}
+
+.filme-video-card p {
+    font-size: 1em;
+    margin: 0 10px 10px 10px; /* Adjusted margins */
+    color: #ddd;
+    text-align: center; /* Center the year */
+}
+
+.filme-video-card a {
+    display: block; /* Make link a block to take full width */
+    background-color: #555; /* Button-like background */
+    color: white;
+    text-align: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.filme-video-card a:hover {
+    background-color: #666; /* Slightly darker on hover */
+}
+
+/* ator_style.css - Add these styles for "Ver Mais" buttons */
+.ver-mais-btn {
+    display: none; /* Hidden by default, shown by JS when needed */
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 15px auto 20px auto; /* Center button and add margin */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease-in-out;
+    width: fit-content; /* Adjust width to content */
+    display: block; /* Ensure it's a block to center with margin auto */
+    text-decoration: none; /* In case you decide to make it an <a> tag later */
+    text-align: center; /* Center text within button */
+}
+
+.ver-mais-btn:hover {
+    background-color: #666;
+}
