@@ -34,6 +34,56 @@ body {
     background-color: #777;
 }
 
+/* Estilos para a Barra de Pesquisa */
+.search-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#actor-search {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box; /* Garante que o padding não aumenta a largura total */
+}
+
+#actor-search:focus {
+    border-color: purple;
+    outline: none; /* Remove a borda de foco padrão */
+    box-shadow: 0 0 5px purple; /* Adiciona um brilho roxo ao focar */
+}
+
+
+.search-suggestions {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background-color: #333;
+    border: 1px solid #555;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: hidden; /* Garante que as bordas arredondadas funcionem */
+    z-index: 10; /* Garante que fique acima de outros conteúdos */
+    display: none; /* Oculto por padrão, mostrado por JavaScript */
+}
+
+.search-suggestions div {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left; /* Alinha o texto das sugestões à esquerda */
+}
+
+.search-suggestions div:hover {
+    background-color: #555;
+}
+
 
 .form-container {
   display: flex;
