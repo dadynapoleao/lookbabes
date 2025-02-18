@@ -1,0 +1,105 @@
+/* Estilos específicos para a página de estatísticas (estatisticas.html) */
+
+.estatisticas-page {
+    text-align: left;
+    padding: 30px;
+}
+
+.estatisticas-page h1, .estatisticas-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filtros-estatisticas {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #444;
+    border-radius: 5px;
+}
+
+.filtros-estatisticas h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.filtro {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filtros-estatisticas label {
+    color: #ccc;
+    font-size: 16px;
+    width: 120px;
+    text-align: right;
+}
+
+.filtros-estatisticas select {
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #444;
+    color: white;
+    font-size: 16px;
+    flex: 1;
+    min-width: 150px;
+}
+
+.atores-tabela-container {
+    overflow-x: auto;
+    margin-bottom: 30px; /* Adicionado margem inferior para separar as tabelas */
+}
+
+.atores-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: white;
+}
+
+.atores-tabela th, .atores-tabela td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+}
+
+.atores-tabela th {
+    background-color: #555;
+    font-weight: bold;
+    text-align: center; /* Centraliza o texto dos cabeçalhos */
+}
+
+/* Estilos específicos para as tabelas de subestatísticas */
+.tabelas-subestatisticas {
+    display: flex;
+    flex-direction: column; /* Empilha as tabelas verticalmente */
+    gap: 30px; /* Espaçamento entre as tabelas */
+}
+
+.tabela-container {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.tabela-container h2 {
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.estatisticas-tabela {
+    width: 100%;
+}
+
+.estatisticas-tabela th, .estatisticas-tabela td {
+    text-align: center; /* Centraliza o texto nas células das tabelas de estatísticas */
+}
+
+#tabela-alturas-baixas-body th,
+#tabela-alturas-altas-body th {
+    background-color: #666; /* Destaque para os títulos "5 Mais Baixos" e "5 Mais Altos" */
+    font-size: 1.1em;
+}
