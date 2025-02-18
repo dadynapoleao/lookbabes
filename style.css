@@ -515,3 +515,30 @@ button:hover {
     /* ... (Your existing styles for searchable select and chips - from previous steps) ... */
 }
 
+
+/* Estilos específicos para os resultados da pesquisa na barra de pesquisa */
+#searchResults {
+    margin-top: 10px; /* Reduzir a margem superior se necessário */
+    margin-bottom: 20px; /* Manter ou ajustar a margem inferior */
+    gap: 10px; /* Reduzir o espaço entre os cards na pesquisa */
+}
+
+#searchResults .ator-card {
+    width: 150px; /* Largura menor para os cards de pesquisa */
+    padding: 10px; /* Padding menor dentro dos cards */
+}
+
+#searchResults .ator-foto {
+    height: 150px; /* Altura menor para as fotos na pesquisa */
+    margin-bottom: 8px; /* Margem inferior menor para as fotos */
+}
+
+#searchResults .ator-nome-card {
+    font-size: 1em; /* Tamanho da fonte menor para o nome */
+    margin-bottom: 3px; /* Margem inferior menor para o nome */
+}
+
+#searchResults .ator-nacionalidade-card,
+#searchResults .ator-idade-card {
+    font-size: 0.8em; /* Tamanho da fonte ainda menor para nacionalidade e idade */
+}
