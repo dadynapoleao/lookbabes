@@ -1,13 +1,15 @@
-// **IMPORTANTE: SUBSTITUA TODOS OS "PLACEHOLDERS" ABAIXO COM AS SUAS CONFIGURAÇÕES REAIS DO FIREBASE!**
-// **VOCÊ PRECISA OBTER ESSAS INFORMAÇÕES NO CONSOLE DO SEU PROJETO FIREBASE.**
+// videos_script.js
+
+// **IMPORTANTE: SUBSTITUA "YOUR_API_KEY" PELA SUA CHAVE DE API REAL DO FIREBASE!**
+// **"SEU_MEASUREMENT_ID" É OPCIONAL (SÓ SUBSTITUA SE USAR GOOGLE ANALYTICS).**
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY", // **REPLACE WITH YOUR ACTUAL API KEY FROM FIREBASE!**
+    apiKey: "YOUR_API_KEY", // **SUBSTITUA POR SUA API KEY REAL DO FIREBASE!** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
     authDomain: "babes-392fd.firebaseapp.com",
     projectId: "babes-392fd",
     storageBucket: "babes-392fd.appspot.com",
     messagingSenderId: "376795361631",
     appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea",
-    measurementId: "SEU_MEASUREMENT_ID" // OPCIONAL: Preencha se usar Google 
+    measurementId: "SEU_MEASUREMENT_ID" // OPCIONAL: Preencha se usar Google Analytics no Firebase
 };
 
 // Inicializar o Firebase
@@ -38,18 +40,22 @@ async function carregarVideosCenas() {
     videosListaContainer.innerHTML = "<p>Carregando vídeos e cenas...</p>";
 
     try {
+        console.log("carregarVideosCenas: Iniciando busca no Firestore..."); // DEBUG 1
         const videosSnapshot = await db.collection('videos').orderBy('timestamp', 'desc').get();
+        console.log("carregarVideosCenas: Busca de vídeos concluída, snapshot:", videosSnapshot); // DEBUG 2
         const cenasSnapshot = await db.collection('cenas').orderBy('timestamp', 'desc').get();
+        console.log("carregarVideosCenas: Busca de cenas concluída, snapshot:", cenasSnapshot); // DEBUG 3
 
         const videos = videosSnapshot.docs.map(doc => ({ type: 'video', id: doc.id, ...doc.data() }));
         const cenas = cenasSnapshot.docs.map(doc => ({ type: 'cena', id: doc.id, ...doc.data() }));
+        console.log("carregarVideosCenas: Vídeos e cenas mapeados:", videos, cenas); // DEBUG 4
 
         videosCenasCache = [...videos, ...cenas]; // Combine videos and cenas in cache
         carregarAnosVideosCenas(); // Load years after data is cached
         filtrarMostrarVideosCenas(); // Initial load and display
     } catch (error) {
         console.error("Erro ao carregar vídeos e cenas: ", error);
-        videosListaContainer.innerHTML = "<p>Erro ao carregar vídeos e cenas. Consulte o console para mais detalhes.</p>"; // Mensagem de erro mais útil
+        videosListaContainer.innerHTML = "<p>Erro ao carregar vídeos e cenas. Consulte o console para mais detalhes.</p>";
     }
 }
 
