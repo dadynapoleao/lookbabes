@@ -1,4 +1,4 @@
-// script.js (Código Completo e Corrigido)
+// script.js (Código Completo e Corrigido com DEBUG para extrairInformacoes())
 
 // **IMPORTANTE: SUBSTITUA "YOUR_API_KEY" PELA SUA CHAVE DE API REAL DO FIREBASE!**
 const firebaseConfig = {
@@ -114,19 +114,29 @@ async function adicionarAtor() {
 function extrairInformacoes() {
     console.log("extrairInformacoes() chamada"); // Para debug
     const texto = document.getElementById("info-texto").value;
+    console.log("Texto de entrada:", texto); // DEBUG: Mostrar o texto de entrada
 
     // Expressões regulares atualizadas para encontrar as informações
     const idadeMatch = texto.match(/Age:\s*(\d+)/);
-    // Expressão regular ajustada para o formato "Born: Monday 24th of January 1994"
+    console.log("idadeMatch:", idadeMatch); // DEBUG: Mostrar o resultado do regex para idade
     const nascimentoMatch = texto.match(/Born:\s*(?:[A-Za-z]+\s+)?(\d{1,2})(?:th|st|nd|rd)?\s+of\s+([A-Za-z]+)\s+(\d{4})/i);
+    console.log("nascimentoMatch:", nascimentoMatch); // DEBUG: Mostrar o resultado do regex para nascimento
     const birthplaceMatch = texto.match(/Birthplace:\s*(.*)/); // Captura toda a linha "Birthplace"
+    console.log("birthplaceMatch:", birthplaceMatch); // DEBUG: Mostrar o resultado do regex para birthplace
     const etniaMatch = texto.match(/Ethnicity:\s*([\w\s]+)(?=[,\n:])/); // Etnia (até vírgula, quebra de linha ou dois pontos)
+    console.log("etniaMatch:", etniaMatch); // DEBUG: Mostrar o resultado do regex para etnia
     const cabeloMatch = texto.match(/Hair color:\s*([\w\s]+)(?=[,\n:])/); // Cor do cabelo (até vírgula, quebra de linha ou dois pontos)
+    console.log("cabeloMatch:", cabeloMatch); // DEBUG: Mostrar o resultado do regex para cabelo
     const olhosMatch = texto.match(/Eye color:\s*([\w\s]+)(?=[,\n:])/); // Cor dos olhos (até vírgula, quebra de linha ou dois pontos)
+    console.log("olhosMatch:", olhosMatch); // DEBUG: Mostrar o resultado do regex para olhos
     const alturaMatch = texto.match(/Height:\s*(?:[\d'"]+.*?\d{1,2}\s?cm|[\d]+(?:\.\d+)?\s?cm)/); // Altura (apenas números em cm)
+    console.log("alturaMatch:", alturaMatch); // DEBUG: Mostrar o resultado do regex para altura
     const pesoMatch = texto.match(/Weight:\s*(?:[\d]+(?:\.\d+)?\s?lbs \(or\s([\d]+)\s?kg\)|[\d]+(?:\.\d+)?\s?kg)/); // Peso (apenas números em kg)
+    console.log("pesoMatch:", pesoMatch); // DEBUG: Mostrar o resultado do regex para peso
     const tipoCorpoMatch = texto.match(/Body type:\s*([\w\s]+)(?=[,\n:])/); // Tipo de corpo (até vírgula, quebra de linha ou dois pontos)
+    console.log("tipoCorpoMatch:", tipoCorpoMatch); // DEBUG: Mostrar o resultado do regex para tipoCorpo
     const medidasMatch = texto.match(/Measurements:\s*([\dA-Za-z\-]+)/); // Medidas
+    console.log("medidasMatch:", medidasMatch); // DEBUG: Mostrar o resultado do regex para medidas
 
     // Função para extrair o país da linha "Birthplace"
     function extrairPais(birthplace) {
@@ -190,6 +200,9 @@ function extrairInformacoes() {
 
     if (idadeMatch) {
         document.getElementById("idade").value = idadeMatch[1];
+        console.log("Idade definida:", idadeMatch[1]); // DEBUG: Mostrar o valor definido para idade
+    } else {
+        console.log("Idade não encontrada no texto."); // DEBUG: Mensagem se não encontrar idade
     }
     if (nascimentoMatch) {
         // Extrai dia, mês e ano do regex
@@ -206,38 +219,65 @@ function extrairInformacoes() {
         // Formata a data para YYYY-MM-DD (formato do input type="date")
         const dataFormatada = `${ano}-${mesFormatado}-${diaFormatado}`;
         document.getElementById("data-nascimento").value = dataFormatada;
+        console.log("Data de Nascimento definida:", dataFormatada); // DEBUG: Mostrar a data de nascimento definida
+    } else {
+        console.log("Data de Nascimento não encontrada no texto."); // DEBUG: Mensagem se não encontrar data de nascimento
     }
     if (birthplaceMatch) {
         const pais = extrairPais(birthplaceMatch[1]); // Extrai o país da linha "Birthplace"
         document.getElementById("pais").value = pais;
+        console.log("País definido:", pais); // DEBUG: Mostrar o país definido
+    } else {
+        console.log("País não encontrado no texto."); // DEBUG: Mensagem se não encontrar país
     }
     if (etniaMatch) {
         const etnia = limparEtnia(etniaMatch[1]); // Limpa e extrai a etnia corretamente
         document.getElementById("etnia").value = etnia;
+        console.log("Etnia definida:", etnia); // DEBUG: Mostrar a etnia definida
+    } else {
+        console.log("Etnia não encontrada no texto."); // DEBUG: Mensagem se não encontrar etnia
     }
     if (cabeloMatch) {
         const corCabelo = limparCorCabelo(cabeloMatch[1]); // Limpa e extrai a cor do cabelo corretamente
         document.getElementById("cor-cabelo").value = corCabelo;
+        console.log("Cor do Cabelo definida:", corCabelo); // DEBUG: Mostrar a cor do cabelo definida
+    } else {
+        console.log("Cor do Cabelo não encontrada no texto."); // DEBUG: Mensagem se não encontrar cor do cabelo
     }
     if (olhosMatch) {
         const corOlhos = limparCorOlhos(olhosMatch[1]); // Limpa e extrai a cor dos olhos corretamente
         document.getElementById("cor-olhos").value = corOlhos;
+        console.log("Cor dos Olhos definida:", corOlhos); // DEBUG: Mostrar a cor dos olhos definida
+    } else {
+        console.log("Cor dos Olhos não encontrada no texto."); // DEBUG: Mensagem se não encontrar cor dos olhos
     }
     if (alturaMatch) {
         const alturaCm = limparAltura(alturaMatch[0]); // Limpa e extrai apenas o valor em centímetros
         document.getElementById("altura").value = alturaCm;
+        console.log("Altura definida:", alturaCm); // DEBUG: Mostrar a altura definida
+    } else {
+        console.log("Altura não encontrada no texto."); // DEBUG: Mensagem se não encontrar altura
     }
     if (pesoMatch) {
         const pesoKg = limparPeso(pesoMatch[0]); // Limpa e extrai apenas o valor em quilogramas
         document.getElementById("peso").value = pesoKg;
+        console.log("Peso definido:", pesoKg); // DEBUG: Mostrar o peso definido
+    } else {
+        console.log("Peso não encontrado no texto."); // DEBUG: Mensagem se não encontrar peso
     }
     if (tipoCorpoMatch) {
         const tipoCorpo = limparTipoCorpo(tipoCorpoMatch[1]); // Limpa e extrai apenas o tipo de corpo
         document.getElementById("tipo-corpo").value = tipoCorpo;
+        console.log("Tipo de Corpo definido:", tipoCorpo); // DEBUG: Mostrar o tipo de corpo definido
+    } else {
+        console.log("Tipo de Corpo não encontrado no texto."); // DEBUG: Mensagem se não encontrar tipo de corpo
     }
     if (medidasMatch) {
         const medidas = limparMedidas(medidasMatch[1]); // Limpa e extrai as medidas
         document.getElementById("medidas").value = medidas;
+        console.log("Medidas definidas:", medidas); // DEBUG: Mostrar as medidas definidas
+    } else {
+        console.log("Medidas não encontradas no texto."); // DEBUG: Mensagem se não encontrar medidas
     }
 }
 
