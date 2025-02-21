@@ -1,13 +1,15 @@
-// script.js (Código Completo e Corrigido com DEBUG para extrairInformacoes())
+// filmes_script.js
 
 // **IMPORTANTE: SUBSTITUA "YOUR_API_KEY" PELA SUA CHAVE DE API REAL DO FIREBASE!**
+// **"SEU_MEASUREMENT_ID" É OPCIONAL (SÓ SUBSTITUA SE USAR GOOGLE ANALYTICS).**
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY", // **SUBSTITUA POR SUA API KEY REAL DO FIREBASE!**
+    apiKey: "YOUR_API_KEY", // **SUBSTITUA POR SUA API KEY REAL DO FIREBASE!** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
     authDomain: "babes-392fd.firebaseapp.com",
     projectId: "babes-392fd",
     storageBucket: "babes-392fd.appspot.com",
     messagingSenderId: "376795361631",
-    appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
+    appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea",
+    measurementId: "SEU_MEASUREMENT_ID" // OPCIONAL: Preencha se usar Google Analytics no Firebase
 };
 
 // Inicializar o Firebase
@@ -20,327 +22,264 @@ try {
 
 const db = firebase.firestore();
 
-// Função para verificar se o nome do ator já existe no Firestore
-async function verificarNomeAtor(nomeAtor) {
-    const atoresRef = db.collection("atores");
-    const snapshot = await atoresRef.where("nome", "==", nomeAtor).get();
-    return !snapshot.empty; // Retorna true se o nome já existe, false se não
-}
-
-// Função para adicionar um novo ator (MODIFICADA PARA VERIFICAÇÃO DE NOME)
-async function adicionarAtor() {
-    console.log("adicionarAtor() chamada"); // Debug
-    const nome = document.getElementById("nome").value;
-    const idade = document.getElementById("idade").value;
-    const dataNascimento = document.getElementById("data-nascimento").value;
-    const pais = document.getElementById("pais").value;
-    const etnia = document.getElementById("etnia").value;
-    const corCabelo = document.getElementById("cor-cabelo").value;
-    const corOlhos = document.getElementById("cor-olhos").value;
-    const altura = document.getElementById("altura").value;
-    const peso = document.getElementById("peso").value;
-    const tipoCorpo = document.getElementById("tipo-corpo").value;
-    const medidas = document.getElementById("medidas").value;
-    const nota = document.getElementById("nota").value;
-    const foto = document.getElementById("foto-input").value;
-
-    if (!nome || !idade || !dataNascimento || !pais || !etnia || !corCabelo || !corOlhos || !altura || !peso || !tipoCorpo || !medidas || !nota || !foto) {
-        alert("Por favor, preencha todos os campos.");
-        return;
-    }
-
-    // Verificar se o nome já existe ANTES de adicionar
-    const nomeExiste = await verificarNomeAtor(nome);
-    if (nomeExiste) {
-        document.getElementById("nome-feedback").textContent = "Este nome já existe. Por favor, use um nome diferente.";
-        document.getElementById("nome-feedback").style.color = "red";
-        return; // Não continua com a adição se o nome já existe
-    } else {
-        document.getElementById("nome-feedback").textContent = "Nome disponível."; // Mensagem de nome disponível
-        document.getElementById("nome-feedback").style.color = "green";
-    }
-
-
-    const novoAtor = {
-        nome,
-        idade,
-        dataNascimento,
-        pais,
-        etnia,
-        corCabelo,
-        corOlhos,
-        altura,
-        peso,
-        tipoCorpo,
-        medidas,
-        nota,
-        foto,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    };
-
-    // Salvar no Firestore
-    try {
-        const docRef = await db.collection("atores").add(novoAtor);
-        console.log("Ator adicionado ao Firestore com sucesso, ID:", docRef.id);
-        alert("Ator adicionado com sucesso e salvo no Firebase!");
-    } catch (error) {
-        console.error("Erro ao adicionar ator ao Firestore: ", error);
-        alert("Erro ao salvar ator no Firebase. Veja a consola para mais detalhes.");
-        return;
-    }
-
-    // Redirecionar para index.html após adicionar o ator
-    window.location.href = 'index.html';
-
-    // Limpar o formulário após adicionar
-    document.getElementById("info-texto").value = "";
-    document.getElementById("nome").value = "";
-    document.getElementById("idade").value = "";
-    document.getElementById("data-nascimento").value = "";
-    document.getElementById("pais").value = "";
-    document.getElementById("etnia").value = "";
-    document.getElementById("cor-cabelo").value = "";
-    document.getElementById("cor-olhos").value = "";
-    document.getElementById("altura").value = "";
-    document.getElementById("peso").value = "";
-    document.getElementById("tipo-corpo").value = "";
-    document.getElementById("medidas").value = "";
-    document.getElementById("nota").value = "0";
-    document.getElementById("foto-input").value = "";
-}
-
-
-// Função para extrair as informações do texto e preencher os campos automaticamente
-function extrairInformacoes() {
-    console.log("extrairInformacoes() chamada"); // Para debug
-    const texto = document.getElementById("info-texto").value;
-    console.log("Texto de entrada:", texto); // DEBUG: Mostrar o texto de entrada
-
-    // Expressões regulares atualizadas para encontrar as informações
-    const idadeMatch = texto.match(/Age:\s*(\d+)/);
-    console.log("idadeMatch:", idadeMatch); // DEBUG: Mostrar o resultado do regex para idade
-    const nascimentoMatch = texto.match(/Born:\s*(?:[A-Za-z]+\s+)?(\d{1,2})(?:th|st|nd|rd)?\s+of\s+([A-Za-z]+)\s+(\d{4})/i);
-    console.log("nascimentoMatch:", nascimentoMatch); // DEBUG: Mostrar o resultado do regex para nascimento
-    const birthplaceMatch = texto.match(/Birthplace:\s*(.*)/); // Captura toda a linha "Birthplace"
-    console.log("birthplaceMatch:", birthplaceMatch); // DEBUG: Mostrar o resultado do regex para birthplace
-    const etniaMatch = texto.match(/Ethnicity:\s*([\w\s]+)(?=[,\n:])/); // Etnia (até vírgula, quebra de linha ou dois pontos)
-    console.log("etniaMatch:", etniaMatch); // DEBUG: Mostrar o resultado do regex para etnia
-    const cabeloMatch = texto.match(/Hair color:\s*([\w\s]+)(?=[,\n:])/); // Cor do cabelo (até vírgula, quebra de linha ou dois pontos)
-    console.log("cabeloMatch:", cabeloMatch); // DEBUG: Mostrar o resultado do regex para cabelo
-    const olhosMatch = texto.match(/Eye color:\s*([\w\s]+)(?=[,\n:])/); // Cor dos olhos (até vírgula, quebra de linha ou dois pontos)
-    console.log("olhosMatch:", olhosMatch); // DEBUG: Mostrar o resultado do regex para olhos
-    const alturaMatch = texto.match(/Height:\s*(?:[\d'"]+.*?\d{1,2}\s?cm|[\d]+(?:\.\d+)?\s?cm)/); // Altura (apenas números em cm)
-    console.log("alturaMatch:", alturaMatch); // DEBUG: Mostrar o resultado do regex para altura
-    const pesoMatch = texto.match(/Weight:\s*(?:[\d]+(?:\.\d+)?\s?lbs \(or\s([\d]+)\s?kg\)|[\d]+(?:\.\d+)?\s?kg)/); // Peso (apenas números em kg)
-    console.log("pesoMatch:", pesoMatch); // DEBUG: Mostrar o resultado do regex para peso
-    const tipoCorpoMatch = texto.match(/Body type:\s*([\w\s]+)(?=[,\n:])/); // Tipo de corpo (até vírgula, quebra de linha ou dois pontos)
-    console.log("tipoCorpoMatch:", tipoCorpoMatch); // DEBUG: Mostrar o resultado do regex para tipoCorpo
-    const medidasMatch = texto.match(/Measurements:\s*([\dA-Za-z\-]+)/); // Medidas
-    console.log("medidasMatch:", medidasMatch); // DEBUG: Mostrar o resultado do regex para medidas
-
-    // Função para extrair o país da linha "Birthplace"
-    function extrairPais(birthplace) {
-        if (!birthplace) return "N/A"; // Se não houver linha "Birthplace", retorna "N/A"
-        const partes = birthplace.split(","); // Divide a string pelos separadores (vírgulas)
-        const pais = partes[partes.length - 1].trim(); // Pega o último elemento e remove espaços extras
-        return pais || "N/A"; // Retorna "N/A" se estiver vazio
-    }
-
-    // Funções para limpar e extrair informações (já definidas anteriormente - mantenha-as)
-    function limparEtnia(etnia) {
-        if (!etnia) return "N/A";
-        return etnia.trim().replace(/[,;:\n].*/, "") || "N/A";
-    }
-
-    function limparCorCabelo(corCabelo) {
-        if (!corCabelo) return "N/A";
-        return corCabelo.trim().replace(/[,;:\n].*/, "") || "N/A";
-    }
-
-    function limparCorOlhos(corOlhos) {
-        if (!corOlhos) return "N/A";
-        return corOlhos.trim().replace(/[,;:\n].*/, "") || "N/A";
-    }
-
-    function limparAltura(altura) {
-        if (!altura) return "N/A";
-        const match = altura.match(/(\d+)\s?cm/);
-        return match ? match[1] : "N/A";
-    }
-
-    function limparPeso(peso) {
-        if (!peso) return "N/A";
-        const match = peso.match(/(\d+)\s?kg/);
-        return match ? match[1] : "N/A";
-    }
-
-    function limparTipoCorpo(tipoCorpo) {
-        if (!tipoCorpo) return "N/A";
-        return tipoCorpo.trim().replace(/[,;:\n].*/, "") || "N/A";
-    }
-
-    function limparMedidas(medidas) {
-        if (!medidas) return "N/A";
-        return medidas.trim() || "N/A";
-    }
-
-
-    // Preenchendo os campos com as informações extraídas
-    document.getElementById("nome").value = "N/A"; // Inicializa com "N/A"
-    document.getElementById("idade").value = "N/A";
-    document.getElementById("data-nascimento").value = ""; // Defina para string vazia "" em vez de "N/A" - CORREÇÃO AQUI!
-    document.getElementById("pais").value = "N/A";
-    document.getElementById("etnia").value = "N/A";
-    document.getElementById("cor-cabelo").value = "N/A";
-    document.getElementById("cor-olhos").value = "N/A";
-    document.getElementById("altura").value = "N/A";
-    document.getElementById("peso").value = "N/A";
-    document.getElementById("tipo-corpo").value = "N/A";
-    document.getElementById("medidas").value = "N/A";
-
-    if (idadeMatch) {
-        document.getElementById("idade").value = idadeMatch[1];
-        console.log("Idade definida:", idadeMatch[1]); // DEBUG: Mostrar o valor definido para idade
-    } else {
-        console.log("Idade não encontrada no texto."); // DEBUG: Mensagem se não encontrar idade
-    }
-    if (nascimentoMatch) {
-        // Extrai dia, mês e ano do regex
-        const dia = nascimentoMatch[1];
-        const mesNome = nascimentoMatch[2];
-        const ano = nascimentoMatch[3];
-
-        // Converte o nome do mês para número (ex: "January" para 1)
-        const mesNumero = new Date(Date.parse(mesNome + " 1, 2000")).getMonth() + 1; // Usando um ano qualquer para o parse
-        const mesFormatado = mesNumero < 10 ? '0' + mesNumero : mesNumero; // Adiciona '0' se for menor que 10
-        const diaFormatado = dia < 10 ? '0' + dia : dia; // Adiciona '0' se for menor que 10
-
-
-        // Formata a data para YYYY-MM-DD (formato do input type="date")
-        const dataFormatada = `${ano}-${mesFormatado}-${diaFormatado}`;
-        document.getElementById("data-nascimento").value = dataFormatada;
-        console.log("Data de Nascimento definida:", dataFormatada); // DEBUG: Mostrar a data de nascimento definida
-    } else {
-        console.log("Data de Nascimento não encontrada no texto."); // DEBUG: Mensagem se não encontrar data de nascimento
-    }
-    if (birthplaceMatch) {
-        const pais = extrairPais(birthplaceMatch[1]); // Extrai o país da linha "Birthplace"
-        document.getElementById("pais").value = pais;
-        console.log("País definido:", pais); // DEBUG: Mostrar o país definido
-    } else {
-        console.log("País não encontrado no texto."); // DEBUG: Mensagem se não encontrar país
-    }
-    if (etniaMatch) {
-        const etnia = limparEtnia(etniaMatch[1]); // Limpa e extrai a etnia corretamente
-        document.getElementById("etnia").value = etnia;
-        console.log("Etnia definida:", etnia); // DEBUG: Mostrar a etnia definida
-    } else {
-        console.log("Etnia não encontrada no texto."); // DEBUG: Mensagem se não encontrar etnia
-    }
-    if (cabeloMatch) {
-        const corCabelo = limparCorCabelo(cabeloMatch[1]); // Limpa e extrai a cor do cabelo corretamente
-        document.getElementById("cor-cabelo").value = corCabelo;
-        console.log("Cor do Cabelo definida:", corCabelo); // DEBUG: Mostrar a cor do cabelo definida
-    } else {
-        console.log("Cor do Cabelo não encontrada no texto."); // DEBUG: Mensagem se não encontrar cor do cabelo
-    }
-    if (olhosMatch) {
-        const corOlhos = limparCorOlhos(olhosMatch[1]); // Limpa e extrai a cor dos olhos corretamente
-        document.getElementById("cor-olhos").value = corOlhos;
-        console.log("Cor dos Olhos definida:", corOlhos); // DEBUG: Mostrar a cor dos olhos definida
-    } else {
-        console.log("Cor dos Olhos não encontrada no texto."); // DEBUG: Mensagem se não encontrar cor dos olhos
-    }
-    if (alturaMatch) {
-        const alturaCm = limparAltura(alturaMatch[0]); // Limpa e extrai apenas o valor em centímetros
-        document.getElementById("altura").value = alturaCm;
-        console.log("Altura definida:", alturaCm); // DEBUG: Mostrar a altura definida
-    } else {
-        console.log("Altura não encontrada no texto."); // DEBUG: Mensagem se não encontrar altura
-    }
-    if (pesoMatch) {
-        const pesoKg = limparPeso(pesoMatch[0]); // Limpa e extrai apenas o valor em quilogramas
-        document.getElementById("peso").value = pesoKg;
-        console.log("Peso definido:", pesoKg); // DEBUG: Mostrar o peso definido
-    } else {
-        console.log("Peso não encontrado no texto."); // DEBUG: Mensagem se não encontrar peso
-    }
-    if (tipoCorpoMatch) {
-        const tipoCorpo = limparTipoCorpo(tipoCorpoMatch[1]); // Limpa e extrai apenas o tipo de corpo
-        document.getElementById("tipo-corpo").value = tipoCorpo;
-        console.log("Tipo de Corpo definido:", tipoCorpo); // DEBUG: Mostrar o tipo de corpo definido
-    } else {
-        console.log("Tipo de Corpo não encontrado no texto."); // DEBUG: Mensagem se não encontrar tipo de corpo
-    }
-    if (medidasMatch) {
-        const medidas = limparMedidas(medidasMatch[1]); // Limpa e extrai as medidas
-        document.getElementById("medidas").value = medidas;
-        console.log("Medidas definidas:", medidas); // DEBUG: Mostrar as medidas definidas
-    } else {
-        console.log("Medidas não encontradas no texto."); // DEBUG: Mensagem se não encontrar medidas
-    }
-}
-
-
-// Função para pré-visualizar a imagem (MANTER - FUNCIONALIDADE INALTERADA)
-function previewImage() {
-    const fotoInput = document.getElementById("foto-input");
-    const imagePreview = document.getElementById("image-preview");
-    const imagePreviewContainer = document.getElementById("image-preview-container");
-
-    if (fotoInput.value) {
-        // Define o src da imagem como o valor do input
-        imagePreview.src = fotoInput.value;
-        imagePreview.style.display = "block"; // Mostra a imagem
-    } else {
-        // Oculta a imagem se o campo estiver vazio
-        imagePreview.style.display = "none";
-    }
-}
-
+let filmesCache = [];
+let todosAtoresCache = []; // Cache for all actors for actor filter
+let selectedActorIdsFilmes = []; // Selected actor IDs for Filmes filter
+let atoresCacheFilmes = []; // Cache for actors in Filmes filter search
 
 document.addEventListener('DOMContentLoaded', () => {
-    const extrairInfoButton = document.getElementById('extrair-info-btn');
-    if (extrairInfoButton) {
-        extrairInfoButton.addEventListener('click', extrairInformacoes);
+    carregarFilmes();
+    carregarAnosFilmes(); // Load years for year filter
+    carregarAtoresParaFiltroFilmes(); // Load actors for actor filter
+
+    const atorFiltroSearchInput = document.getElementById('ator-filtro-search');
+    if (atorFiltroSearchInput) {
+        atorFiltroSearchInput.addEventListener('input', filtrarAtoresParaFilmes); // Adiciona o listener
     } else {
-        console.error("Botão 'Extrair Informações' não encontrado!");
+        console.error("Input 'ator-filtro-search' não encontrado em filmes.html!");
+    }
+});
+
+async function carregarFilmes() {
+    const filmesListaContainer = document.getElementById('filmes-lista');
+    filmesListaContainer.innerHTML = "<p>Carregando filmes...</p>";
+
+    try {
+        const snapshot = await db.collection('filmes')
+            .orderBy('timestamp', 'desc')
+            .get();
+        filmesCache = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        carregarAnosFilmes(); // Load years after films are cached
+        filtrarMostrarFilmes(); // Initial load and display (with filters if any)
+    } catch (error) {
+        console.error("Erro ao carregar filmes: ", error);
+        filmesListaContainer.innerHTML = "<p>Erro ao carregar filmes.</p>";
+    }
+}
+
+function mostrarFilmes(filmes) {
+    const filmesListaContainer = document.getElementById('filmes-lista');
+    filmesListaContainer.innerHTML = ''; // Clear loading message or previous content
+
+    if (filmes.length === 0) {
+        filmesListaContainer.innerHTML = "<p>Nenhum filme encontrado com os filtros selecionados.</p>";
+        return;
     }
 
-    const fotoInput = document.getElementById('foto-input');
-    if (fotoInput) {
-        fotoInput.addEventListener('input', previewImage); // Attach previewImage to input event
-    } else {
-        console.error("Input 'foto' não encontrado!");
+    filmes.forEach(filme => {
+        const filmeDiv = document.createElement('div');
+        filmeDiv.className = 'filme-video-card'; // You might want to reuse or create a new style for film cards
+        filmeDiv.innerHTML = `
+            <img src="${filme.imagem || 'URL_IMAGEM_PADRAO'}" alt="${filme.nome}" class="filme-video-imagem">
+            <h3>${filme.nome}</h3>
+            <p>Ano: ${filme.ano}</p>
+            <a href="${filme.pagina || '#'}" target="_blank">Ver Mais</a>
+        `;
+        filmesListaContainer.appendChild(filmeDiv);
+    });
+}
+
+async function carregarAnosFilmes() {
+    const anosSelect = document.getElementById('ano-filtro');
+    const anosSet = new Set();
+    filmesCache.forEach(filme => {
+        if (filme.ano) { // Check if filme.ano exists to avoid errors
+            anosSet.add(filme.ano);
+        }
+    });
+    const anos = [...anosSet]; // Get unique years from cached films
+    anos.sort((a, b) => b - a); // Sort years in descending order
+
+    anosSelect.innerHTML = '<option value="">Todos os Anos</option>'; // Clear existing options but keep "Todos os Anos"
+    anos.forEach(ano => {
+        const option = document.createElement('option');
+        option.value = ano;
+        option.textContent = ano;
+        anosSelect.appendChild(option);
+    });
+
+    anosSelect.addEventListener('change', filtrarMostrarFilmes); // Attach filter function to year select change
+}
+
+
+// Function to filter and show films based on filters
+function filtrarMostrarFilmes() {
+    const anoSelecionado = document.getElementById('ano-filtro').value;
+    const atoresSelecionados = selectedActorIdsFilmes;
+
+    let filmesFiltrados = filmesCache;
+
+    if (anoSelecionado) {
+        filmesFiltrados = filmesFiltrados.filter(filme => filme.ano === parseInt(anoSelecionado));
     }
 
-    const adicionarAtorButton = document.getElementById('adicionar-ator-btn');
-    if (adicionarAtorButton) {
-        adicionarAtorButton.addEventListener('click', adicionarAtor); // Attach adicionarAtor to click event
-    } else {
-        console.error("Botão 'Adicionar Ator' não encontrado!");
-    }
-
-    // Event listener para verificar o nome enquanto digita
-    const nomeInput = document.getElementById('nome');
-    if (nomeInput) {
-        nomeInput.addEventListener('input', async () => { // Use 'input' event para verificação em tempo real
-            const nomeDigitado = nomeInput.value;
-            if (nomeDigitado.trim() === "") { // Se o campo nome estiver vazio, limpa o feedback
-                document.getElementById("nome-feedback").textContent = "";
-                return; // Não faz a verificação se o nome está vazio
+    if (atoresSelecionados && atoresSelecionados.length > 0) {
+        filmesFiltrados = filmesFiltrados.filter(filme => {
+            if (filme.atores && filme.atores.length > 0) {
+                return filme.atores.some(atorId => atoresSelecionados.includes(atorId));
             }
-            const nomeExiste = await verificarNomeAtor(nomeDigitado);
-            const feedbackDiv = document.getElementById("nome-feedback");
-            if (nomeExiste) {
-                feedbackDiv.textContent = "Este nome já existe. Por favor, use um nome diferente.";
-                feedbackDiv.style.color = "red";
-            } else {
-                feedbackDiv.textContent = "Nome disponível.";
-                feedbackDiv.style.color = "green";
-            }
+            return false;
         });
+    }
+
+    mostrarFilmes(filmesFiltrados);
+}
+
+// Function to load actors for the filter (reusing logic from criar_video.js - adapt as needed)
+async function carregarAtoresParaFiltroFilmes() {
+    const atoresLista = document.getElementById('ator-filtro-lista');
+    atoresLista.innerHTML = ''; // Clear list before reload
+    try {
+        const snapshot = await db.collection('atores')
+            .orderBy('nome')
+            .get();
+        atoresCacheFilmes = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        atoresCacheFilmes.forEach((ator) => {
+            const atorDiv = document.createElement('div');
+            atorDiv.textContent = ator.nome;
+            atorDiv.setAttribute('data-ator-id', ator.id);
+
+            // Check if actor is already selected and add 'selected' class if so
+            if (selectedActorIdsFilmes.includes(ator.id)) {
+                atorDiv.classList.add('selected');
+            }
+
+            atorDiv.addEventListener('click', () => {
+                const atorId = ator.id;
+                const atorNome = ator.nome;
+                const index = selectedActorIdsFilmes.indexOf(atorId);
+
+                if (index === -1) {
+                    selectedActorIdsFilmes.push(atorId);
+                    adicionarAtorChipFilmes(ator); // Call function to add chip
+                    atorDiv.classList.add('selected');
+                } else {
+                    selectedActorIdsFilmes.splice(index, 1);
+                    removerAtorChipFilmes(atorId); // Call function to remove chip
+                    atorDiv.classList.remove('selected');
+                }
+                document.getElementById('ator-filtro').value = selectedActorIdsFilmes.join(',');
+                document.getElementById('ator-filtro-search').value = ''; // Clear search input after selection
+                document.getElementById('ator-filtro-lista').classList.remove('show'); // Hide dropdown
+                filtrarMostrarFilmes(); // Re-filter and show films after actor selection
+            });
+            atoresLista.appendChild(atorDiv);
+        });
+    } catch (error) {
+        console.error("Erro ao carregar atores para filtro de filmes: ", error);
+        // Handle error appropriately - maybe display a message in the UI
+    }
+}
+
+
+// Function to filter actors in the searchable list for Filmes filter (reusing from criar_video.js - adapt)
+window.filtrarAtoresParaFilmes = window.filtrarAtoresParaFilmes  || function() { // Make global and avoid redeclaration
+    const filtro = document.getElementById('ator-filtro-search').value.toUpperCase();
+    const atoresLista = document.getElementById('ator-filtro-lista');
+    atoresLista.classList.add('show');
+    let nenhumResultado = true;
+
+    atoresLista.querySelectorAll('div').forEach(atorDiv => {
+        const atorNome = atorDiv.textContent.toUpperCase();
+        if (atorNome.indexOf(filtro) > -1) {
+            atorDiv.style.display = "";
+            nenhumResultado = false;
+             // Check if actor is already selected and add 'selected' class if so
+            if (selectedActorIdsFilmes.includes(atorDiv.getAttribute('data-ator-id'))) {
+                atorDiv.classList.add('selected');
+            }
+        } else {
+            atorDiv.style.display = "none";
+        }
+    });
+
+    if (nenhumResultado) {
+        atoresLista.innerHTML = '<div>Nenhum ator encontrado</div>';
     } else {
-        console.error("Input 'nome' não encontrado!");
+        if (atoresLista.querySelector('div').textContent === 'Nenhum ator encontrado') {
+            atoresLista.innerHTML = '';
+            atoresCacheFilmes.forEach((ator) => {
+                const atorDiv = document.createElement('div');
+                atorDiv.textContent = ator.nome;
+                atorDiv.setAttribute('data-ator-id', ator.id);
+                // Check if actor is already selected and add 'selected' class if so
+                if (selectedActorIdsFilmes.includes(ator.id)) {
+                    atorDiv.classList.add('selected');
+                }
+                atorDiv.addEventListener('click', () => {
+                    const atorId = ator.id;
+                    const atorNome = ator.nome;
+                    const index = selectedActorIdsFilmes.indexOf(atorId);
+
+                    if (index === -1) {
+                        selectedActorIdsFilmes.push(atorId);
+                        adicionarAtorChipFilmes(ator); // Call function to add chip
+                        atorDiv.classList.add('selected');
+                    } else {
+                        selectedActorIdsFilmes.splice(index, 1);
+                        removerAtorChipFilmes(atorId); // Call function to remove chip
+                        atorDiv.classList.remove('selected');
+                    }
+                    document.getElementById('ator-filtro').value = selectedActorIdsFilmes.join(',');
+                    document.getElementById('ator-filtro-search').value = ''; // Clear search input after selection
+                    document.getElementById('ator-filtro-lista').classList.remove('show'); // Hide dropdown
+                    filtrarMostrarFilmes(); // Re-filter and show films after actor selection
+                });
+                atoresLista.appendChild(atorDiv);
+            });
+        }
+    }
+};
+
+// Function to add actor chip for Filmes filter (reusing from criar_video.js - adapt)
+function adicionarAtorChipFilmes(ator) {
+    const chipsContainer = document.getElementById('selected-filmes-atores-chips');
+    if (!chipsContainer) {
+       console.error("chipsContainer is null in adicionarAtorChipFilmes!");
+       return;
+    }
+
+    const chip = document.createElement('div');
+    chip.classList.add('ator-chip');
+    chip.textContent = ator.nome;
+    chip.dataset.atorId = ator.id; // Store atorId in dataset
+
+    const removeBtn = document.createElement('span');
+    removeBtn.classList.add('remove-chip-btn');
+    removeBtn.innerHTML = ' × '; // 'x' symbol - you can use an icon instead
+    removeBtn.addEventListener('click', () => {
+        const atorIdToRemove = ator.id;
+        selectedActorIdsFilmes = selectedActorIdsFilmes.filter(id => id !== atorIdToRemove); // Remove from selected IDs array
+        document.getElementById('ator-filtro').value = selectedActorIdsFilmes.join(','); // Update hidden input
+        removerAtorChipFilmes(atorIdToRemove); // Remove chip from display
+        // OPTIONAL: Update selection in dropdown list if it's currently open (for visual consistency, but dropdown usually closes on selection)
+        const atorDivInList = document.querySelector(`#ator-filtro-lista div[data-ator-id="${atorIdToRemove}"]`);
+        if (atorDivInList) {
+            atorDivInList.classList.remove('selected');
+        }
+        filtrarMostrarFilmes(); // Re-filter and show films after chip removal
+    });
+    chip.appendChild(removeBtn);
+    chipsContainer.appendChild(chip); // Append chip to container
+}
+
+// Function to remove actor chip for Filmes filter (reusing from criar_video.js - adapt)
+function removerAtorChipFilmes(atorIdToRemove) {
+    const chipsContainer = document.getElementById('selected-filmes-atores-chips');
+    if (!chipsContainer) {
+       console.error("chipsContainer is null in removerAtorChipFilmes!");
+       return;
+    }
+    const chipToRemove = chipsContainer.querySelector(`.ator-chip[data-ator-id='${atorIdToRemove}']`);
+    if (chipToRemove) {
+        chipsContainer.removeChild(chipToRemove);
+    }
+}
+
+
+// Close dropdowns if clicked outside (reusing from criar_video.js - adapt)
+window.addEventListener('click', function(event) {
+    if (!event.target.closest('.searchable-select')) {
+        document.querySelectorAll('.select-lista.show').forEach(list => list.classList.remove('show'));
     }
 });
