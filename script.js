@@ -1,4 +1,4 @@
-// script.js (Código Completo e Corrigido com Verificação de Nome)
+// script.js (Código Completo e Corrigido)
 
 // **IMPORTANTE: SUBSTITUA "YOUR_API_KEY" PELA SUA CHAVE DE API REAL DO FIREBASE!**
 const firebaseConfig = {
@@ -110,7 +110,7 @@ async function adicionarAtor() {
 }
 
 
-// Função para extrair as informações do texto e preencher os campos automaticamente (MANTER - FUNCIONALIDADE DE EXTRAÇÃO INALTERADA)
+// Função para extrair as informações do texto e preencher os campos automaticamente
 function extrairInformacoes() {
     console.log("extrairInformacoes() chamada"); // Para debug
     const texto = document.getElementById("info-texto").value;
@@ -137,19 +137,48 @@ function extrairInformacoes() {
     }
 
     // Funções para limpar e extrair informações (já definidas anteriormente - mantenha-as)
-    function limparEtnia(etnia) { /* ... */ }
-    function limparCorCabelo(corCabelo) { /* ... */ }
-    function limparCorOlhos(corOlhos) { /* ... */ }
-    function limparAltura(altura) { /* ... */ }
-    function limparPeso(peso) { /* ... */ }
-    function limparTipoCorpo(tipoCorpo) { /* ... */ }
-    function limparMedidas(medidas) { /* ... */ }
+    function limparEtnia(etnia) {
+        if (!etnia) return "N/A";
+        return etnia.trim().replace(/[,;:\n].*/, "") || "N/A";
+    }
+
+    function limparCorCabelo(corCabelo) {
+        if (!corCabelo) return "N/A";
+        return corCabelo.trim().replace(/[,;:\n].*/, "") || "N/A";
+    }
+
+    function limparCorOlhos(corOlhos) {
+        if (!corOlhos) return "N/A";
+        return corOlhos.trim().replace(/[,;:\n].*/, "") || "N/A";
+    }
+
+    function limparAltura(altura) {
+        if (!altura) return "N/A";
+        const match = altura.match(/(\d+)\s?cm/);
+        return match ? match[1] : "N/A";
+    }
+
+    function limparPeso(peso) {
+        if (!peso) return "N/A";
+        const match = peso.match(/(\d+)\s?kg/);
+        return match ? match[1] : "N/A";
+    }
+
+    function limparTipoCorpo(tipoCorpo) {
+        if (!tipoCorpo) return "N/A";
+        return tipoCorpo.trim().replace(/[,;:\n].*/, "") || "N/A";
+    }
+
+    function limparMedidas(medidas) {
+        if (!medidas) return "N/A";
+        return medidas.trim() || "N/A";
+    }
 
 
     // Preenchendo os campos com as informações extraídas
     document.getElementById("nome").value = "N/A"; // Inicializa com "N/A"
     document.getElementById("idade").value = "N/A";
-    // document.getElementById("data-nascimento").value = ""; // REMOVIDO: Não definir valor padrão para data
+    document.getElementById("data-nascimento").value = ""; // Defina para string vazia "" em vez de "N/A" - CORREÇÃO AQUI!
     document.getElementById("pais").value = "N/A";
     document.getElementById("etnia").value = "N/A";
     document.getElementById("cor-cabelo").value = "N/A";
