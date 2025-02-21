@@ -1,15 +1,13 @@
-// videos_script.js
-
 // **IMPORTANTE: SUBSTITUA TODOS OS "PLACEHOLDERS" ABAIXO COM AS SUAS CONFIGURAÇÕES REAIS DO FIREBASE!**
 // **VOCÊ PRECISA OBTER ESSAS INFORMAÇÕES NO CONSOLE DO SEU PROJETO FIREBASE.**
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY_REAL_AQUI", // **SUBSTITUA POR SUA API KEY REAL DO FIREBASE!** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
-    authDomain: "SEU_PROJECT_ID_AQUI.firebaseapp.com", // **SUBSTITUA PELO SEU authDomain** -  Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
-    projectId: "SEU_PROJECT_ID_AQUI",        // **SUBSTITUA PELO SEU Project ID** - Encontre no Console Firebase -> Configurações do Projeto -> Geral
-    storageBucket: "SEU_PROJECT_ID_AQUI.appspot.com", // **SUBSTITUA PELO SEU storageBucket** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web (ou Storage, se configurado separadamente)
-    messagingSenderId: "SEU_MESSAGING_SENDER_ID_AQUI", // **SUBSTITUA PELO SEU messagingSenderId** - Encontre no Console Firebase -> Configurações do Projeto -> Mensagens na Nuvem (Cloud Messaging)
-    appId: "SEU_APP_ID_AQUI",            // **SUBSTITUA PELO SEU App ID** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
-    measurementId: "SEU_MEASUREMENT_ID_AQUI" // **OPCIONAL: Preencha se usar Google Analytics no Firebase** - Encontre no Console Firebase -> Configurações do Projeto -> Integrações -> Google Analytics (se configurado)
+    apiKey: "YOUR_API_KEY", // **REPLACE WITH YOUR ACTUAL API KEY FROM FIREBASE!**
+    authDomain: "babes-392fd.firebaseapp.com",
+    projectId: "babes-392fd",
+    storageBucket: "babes-392fd.appspot.com",
+    messagingSenderId: "376795361631",
+    appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea",
+    measurementId: "SEU_MEASUREMENT_ID" // OPCIONAL: Preencha se usar Google 
 };
 
 // Inicializar o Firebase
