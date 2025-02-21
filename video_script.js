@@ -1,18 +1,25 @@
 // videos_script.js
 
-// **Importante: Substitua com suas configurações reais!**
+// **IMPORTANTE: SUBSTITUA TODOS OS "PLACEHOLDERS" ABAIXO COM AS SUAS CONFIGURAÇÕES REAIS DO FIREBASE!**
+// **VOCÊ PRECISA OBTER ESSAS INFORMAÇÕES NO CONSOLE DO SEU PROJETO FIREBASE.**
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY", // **REPLACE WITH YOUR ACTUAL API KEY FROM FIREBASE!**
-    authDomain: "babes-392fd.firebaseapp.com",
-    projectId: "babes-392fd",
-    storageBucket: "babes-392fd.appspot.com",
-    messagingSenderId: "376795361631",
-    appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea",
-    measurementId: "SEU_MEASUREMENT_ID" // OPCIONAL: Preencha se usar Google Analytics no Firebase
+    apiKey: "SUA_API_KEY_REAL_AQUI", // **SUBSTITUA POR SUA API KEY REAL DO FIREBASE!** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
+    authDomain: "SEU_PROJECT_ID_AQUI.firebaseapp.com", // **SUBSTITUA PELO SEU authDomain** -  Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
+    projectId: "SEU_PROJECT_ID_AQUI",        // **SUBSTITUA PELO SEU Project ID** - Encontre no Console Firebase -> Configurações do Projeto -> Geral
+    storageBucket: "SEU_PROJECT_ID_AQUI.appspot.com", // **SUBSTITUA PELO SEU storageBucket** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web (ou Storage, se configurado separadamente)
+    messagingSenderId: "SEU_MESSAGING_SENDER_ID_AQUI", // **SUBSTITUA PELO SEU messagingSenderId** - Encontre no Console Firebase -> Configurações do Projeto -> Mensagens na Nuvem (Cloud Messaging)
+    appId: "SEU_APP_ID_AQUI",            // **SUBSTITUA PELO SEU App ID** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
+    measurementId: "SEU_MEASUREMENT_ID_AQUI" // **OPCIONAL: Preencha se usar Google Analytics no Firebase** - Encontre no Console Firebase -> Configurações do Projeto -> Integrações -> Google Analytics (se configurado)
 };
 
 // Inicializar o Firebase
-firebase.initializeApp(firebaseConfig);
+try {
+    firebase.initializeApp(firebaseConfig);
+} catch (error) {
+    console.error("Erro ao inicializar o Firebase:", error);
+    alert("Erro ao inicializar o Firebase. Verifique o console para mais detalhes."); // Alerta mais amigável
+}
+
 const db = firebase.firestore();
 
 let videosCenasCache = []; // Cache for both videos and cenas
@@ -44,7 +51,7 @@ async function carregarVideosCenas() {
         filtrarMostrarVideosCenas(); // Initial load and display
     } catch (error) {
         console.error("Erro ao carregar vídeos e cenas: ", error);
-        videosListaContainer.innerHTML = "<p>Erro ao carregar vídeos e cenas.</p>";
+        videosListaContainer.innerHTML = "<p>Erro ao carregar vídeos e cenas. Consulte o console para mais detalhes.</p>"; // Mensagem de erro mais útil
     }
 }
 
@@ -126,7 +133,7 @@ async function carregarAtoresParaFiltroVideos() {
     try {
         const snapshot = await db.collection('atores').orderBy('nome').get();
         atoresCacheVideos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        atoresCacheVideos.forEach(ator => { /* ... (rest of carregarAtoresParaFiltroVideos - similar to filmes_script.js) ... */
+        atoresCacheVideos.forEach(ator => {
             const atorDiv = document.createElement('div');
             atorDiv.textContent = ator.nome;
             atorDiv.setAttribute('data-ator-id', ator.id);
@@ -157,7 +164,7 @@ async function carregarAtoresParaFiltroVideos() {
     }
 }
 
-window.filtrarAtoresParaVideos = window.filtrarAtoresParaVideos || function() { /* ... (filtrarAtoresParaVideos function - similar to filmes_script.js) ... */
+window.filtrarAtoresParaVideos = window.filtrarAtoresParaVideos || function() {
     const filtro = document.getElementById('ator-filtro-search').value.toUpperCase();
     const atoresLista = document.getElementById('ator-filtro-lista');
     atoresLista.classList.add('show');
@@ -174,7 +181,7 @@ window.filtrarAtoresParaVideos = window.filtrarAtoresParaVideos || function() { 
     if (!nenhumResultado) atoresLista.innerHTML = '<div>Nenhum ator encontrado</div>';
 };
 
-function adicionarAtorChipVideos(ator) { /* ... (adicionarAtorChipVideos function - similar to filmes_script.js) ... */
+function adicionarAtorChipVideos(ator) {
     const chipsContainer = document.getElementById('selected-videos-atores-chips');
     const chip = document.createElement('div');
     chip.classList.add('ator-chip');
@@ -194,7 +201,7 @@ function adicionarAtorChipVideos(ator) { /* ... (adicionarAtorChipVideos functio
     chipsContainer.appendChild(chip);
 }
 
-function removerAtorChipVideos(atorIdToRemove) { /* ... (removerAtorChipVideos function - similar to filmes_script.js) ... */
+function removerAtorChipVideos(atorIdToRemove) {
     const chipsContainer = document.getElementById('selected-videos-atores-chips');
     const chipToRemove = chipsContainer.querySelector(`.ator-chip[data-ator-id='${atorIdToRemove}']`);
     if (chipToRemove) chipsContainer.removeChild(chipToRemove);
@@ -216,7 +223,7 @@ async function carregarFilmesParaFiltroVideos() {
                 selectedFilmeIdVideos = filme.id;
                 document.getElementById('filme-filtro').value = filme.id;
                 document.getElementById('filme-filtro-search').value = filme.nome;
-                filmeLista.classList.remove('show');
+                filmesLista.classList.remove('show'); // Corrigido: Usar filmesLista em vez de filmeLista
                 filtrarMostrarVideosCenas(); // Re-filter on film selection
             });
             filmesLista.appendChild(filmeDiv);
@@ -226,7 +233,7 @@ async function carregarFilmesParaFiltroVideos() {
     }
 }
 
-window.filtrarFilmesParaVideos = window.filtrarFilmesParaVideos || function() { /* ... (filtrarFilmesParaVideos function - similar to filmes_script.js) ... */
+window.filtrarFilmesParaVideos = window.filtrarFilmesParaVideos || function() {
     const filtro = document.getElementById('filme-filtro-search').value.toUpperCase();
     const filmesLista = document.getElementById('filme-filtro-lista');
     filmesLista.classList.add('show');
