@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filmes</title>
+    <title>Filmes - Seu Site</title>
     <link rel="stylesheet" href="style.css">
-    <!-- You can create a new filmes_style.css if needed for specific styles -->
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
@@ -14,39 +13,45 @@
     <script src="filmes_script.js" type="module"></script>
 </head>
 <body>
-    <button onclick="window.location.href='index.html'" class="voltar-btn">⬅ Voltar à Página Principal</button>
-    <div class="container filmes-page">
-        <h1>Filmes</h1>
 
-        <div class="filtros-filmes">
-            <div class="filtro-ano">
+    <div class="container">
+        <!-- Menu (Opcional - se quiser manter o menu nesta página também) -->
+        <div class="menu">
+            <button onclick="window.location.href='index.html'">Página Inicial</button>  <!-- Botão para voltar à página inicial -->
+            <button onclick="window.location.href='criar.html'">Adicionar Ator</button>
+            <button onclick="window.location.href='estatisticas.html'">Estatísticas</button>
+            <button onclick="window.location.href='teste.html'">Teste (Espelho)</button>
+            <button onclick="window.location.href='criar_video.html'">Criar Vídeo</button>
+            <button onclick="window.location.href='filmes.html'">Filmes</button>
+            <button onclick="window.location.href='videos.html'">Vídeos</button>
+        </div>
+
+        <h1>Lista de Filmes</h1>
+
+        <div class="filtros">
+            <div>
                 <label for="ano-filtro">Filtrar por Ano:</label>
                 <select id="ano-filtro">
                     <option value="">Todos os Anos</option>
-                    <!-- Years will be dynamically loaded here -->
                 </select>
             </div>
 
-            <div class="filtro-ator">
+            <div class="searchable-select">
                 <label for="ator-filtro-search">Filtrar por Ator:</label>
-                <div class="searchable-select">
-                    <input type="text" id="ator-filtro-search" placeholder="Pesquisar atores..." oninput="filtrarAtoresParaFilmes()">
-                    <div id="ator-filtro-lista" class="select-lista multi-select">
-                        <!-- Actor options will be loaded here -->
-                    </div>
-                    <input type="hidden" id="ator-filtro" name="ator-filtro" value="">
+                <input type="text" id="ator-filtro-search" placeholder="Pesquisar atores...">
+                <div id="ator-filtro-lista" class="select-lista">
+                    <!-- Lista de atores carregada por Javascript aqui -->
                 </div>
-                <!-- Container for selected actor chips -->
-                <div id="selected-filmes-atores-chips" class="selected-chips-container">
-                    <!-- Selected actor chips will be appended here -->
-                </div>
+            </div>
+            <div id="selected-filmes-atores-chips" class="chips-container">
+                <!-- Chips de atores selecionados aparecem aqui -->
             </div>
         </div>
 
-        <div id="filmes-lista" class="filmes-videos-container">
-            <!-- Filmes will be loaded here -->
-            <p>Carregando filmes...</p>
+        <div id="filmes-lista" class="filmes-container">
+            <!-- Filmes serão carregados aqui -->
         </div>
     </div>
+
 </body>
 </html>
