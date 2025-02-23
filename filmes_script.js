@@ -1,9 +1,8 @@
 // filmes_script.js
 
-// **IMPORTANTE: SUBSTITUA "YOUR_API_KEY" PELA SUA CHAVE DE API REAL DO FIREBASE!**
-// **"SEU_MEASUREMENT_ID" É OPCIONAL (SÓ SUBSTITUA SE USAR GOOGLE ANALYTICS).**
+// **Importante: Substitua com suas configurações reais!**
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY", // **SUBSTITUA POR SUA API KEY REAL DO FIREBASE!** - Encontre no Console Firebase -> Configurações do Projeto -> Geral -> Seus aplicativos -> Aplicativo Web
+    apiKey: "YOUR_API_KEY", // **REPLACE WITH YOUR ACTUAL API KEY FROM FIREBASE!**
     authDomain: "babes-392fd.firebaseapp.com",
     projectId: "babes-392fd",
     storageBucket: "babes-392fd.appspot.com",
@@ -13,13 +12,7 @@ const firebaseConfig = {
 };
 
 // Inicializar o Firebase
-try {
-    firebase.initializeApp(firebaseConfig);
-} catch (error) {
-    console.error("Erro ao inicializar o Firebase:", error);
-    alert("Erro ao inicializar o Firebase. Verifique o console para mais detalhes.");
-}
-
+firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 let filmesCache = [];
@@ -31,13 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarFilmes();
     carregarAnosFilmes(); // Load years for year filter
     carregarAtoresParaFiltroFilmes(); // Load actors for actor filter
-
-    const atorFiltroSearchInput = document.getElementById('ator-filtro-search');
-    if (atorFiltroSearchInput) {
-        atorFiltroSearchInput.addEventListener('input', filtrarAtoresParaFilmes); // Adiciona o listener
-    } else {
-        console.error("Input 'ator-filtro-search' não encontrado em filmes.html!");
-    }
 });
 
 async function carregarFilmes() {
