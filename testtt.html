@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,203 +7,268 @@
     <!-- Firebase SDKs via CDN -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
     <style>
-        /* ... your CSS styles from the previous code ... */
         body {
             font-family: 'Arial', sans-serif;
+            background-color: #121212; /* Darker background */
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1em 0;
-            text-align: center;
-        }
-
-        nav {
-            background-color: #444;
-            color: #fff;
-            padding: 0.5em 0;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 1em;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5em 1em;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            background-color: #555;
-        }
-
-        .actresses-container {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 30px; /* Increased padding */
+            background-color: #1e1e1e; /* Slightly lighter container background */
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            animation: fadeIn 0.5s ease-out forwards; /* Fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu {
+            display: flex;
             justify-content: center;
-            padding: 20px;
+            gap: 15px; /* Increased gap */
+            margin-bottom: 30px; /* Increased margin */
         }
 
-        .actress-card {
-            background-color: #fff;
-            border-radius: 8px;
-            margin: 10px;
-            padding: 15px;
-            width: 200px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .actress-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .actress-card img {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .actress-card h3 {
-            margin-top: 0;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .actress-card p {
-            margin: 0;
-            color: #777;
-            font-size: 0.9em;
-        }
-
-        .actress-card .rating {
-            margin-top: 10px;
-            font-weight: bold;
-            color: #e44d26; /* Cor destaque para a nota */
-        }
-
-        footer {
+        .menu button {
+            padding: 12px 20px; /* Larger buttons */
+            border: none;
+            border-radius: 8px; /* Rounded button corners */
             background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+            font-size: 1em; /* Slightly larger font */
+        }
+
+        .menu button:hover {
+            background-color: #555;
+            transform: scale(1.05); /* Scale up on hover */
+        }
+
+        h1 {
             color: #fff;
             text-align: center;
-            padding: 1em 0;
-            position: fixed;
-            bottom: 0;
+            margin-bottom: 30px; /* Increased margin */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Stronger text shadow */
+            font-size: 2.2em; /* Larger heading */
+            letter-spacing: 1px; /* Slight letter spacing */
+        }
+
+        .atores-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Wider cards */
+            gap: 25px; /* Increased gap */
+            margin-bottom: 30px;
+            padding: 20px; /* Padding inside actor container */
+            background-color: #252525; /* Container background for actors */
+            border-radius: 10px;
+        }
+
+        .ator-card {
+            background-color: #333;
+            border-radius: 10px; /* Rounded card corners */
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Elastic hover effect */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 20px; /* Increased padding */
+            text-align: center;
+            position: relative; /* For note badge positioning */
+        }
+
+        .ator-card:hover {
+            transform: scale(1.1); /* Larger scale on hover */
+        }
+
+        .ator-foto {
             width: 100%;
+            height: auto;
+            border-radius: 10px 10px 0 0; /* Rounded corners on top of image */
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+
+        .ator-nome-card {
+            color: #fff;
+            margin: 15px 0 8px 0; /* Increased margin */
+            font-size: 1.2em; /* Larger name font */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Stronger name shadow */
+            letter-spacing: 0.5px; /* Slight letter spacing */
+        }
+
+        .ator-info-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px; /* Increased gap */
+        }
+
+        .ator-nacionalidade-card, .ator-idade-card {
+            color: #bbb;
+            font-size: 1em; /* Slightly larger info font */
+            margin: 0;
+        }
+
+        .atores-container p {
+            color: #ccc;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .ator-note-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ffc107; /* Yellow badge color */
+            color: #333;
+            padding: 8px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
     </style>
+
 </head>
 <body>
-    <header>
-        <h1>Website de Atrizes</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#">Estatísticas</a></li>
-            <li><a href="#">Filmes</a></li>
-            <li><a href="#">Vídeos</a></li>
-            <li><a href="#">Adicionar Ator</a></li>
-            <li><a href="#">Criar Vídeo</a></li>
-        </ul>
-    </nav>
 
-    <div class="actresses-container" id="actressesContainer">
-        <!-- Actresses cards will be loaded here by JavaScript -->
+    <div class="container">
+        <!-- Menu -->
+        <div class="menu">
+            <button onclick="window.location.href='estatisticas.html'">Estatísticas</button>
+            <button onclick="window.location.href='filmes.html'">Filmes</button>
+            <button onclick="window.location.href='videos.html'">Vídeos</button>
+            <button onclick="window.location.href='criar.html'">Adicionar Ator</button>
+            <button onclick="window.location.href='criar_video.html'">Criar Vídeo</button>
+        </div>
+
+        <!-- Actors Display -->
+        <h1>Últimas Atrizes Adicionadas</h1>
+        <div id="ultimos-atores" class="atores-container">
+            <!-- Last actors will be loaded here -->
+        </div>
+
     </div>
 
-    <footer>
-        <p>© 2024 Website de Atrizes</p>
-    </footer>
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
+            authDomain: "babes-392fd.firebaseapp.com",
+            projectId: "babes-392fd",
+            storageBucket: "babes-392fd.appspot.com",
+            messagingSenderId: "376795361631",
+            appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
+        };
 
-    <script type="module">
-        // Firebase configuration
-     const firebaseConfig = {
-    apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
-    authDomain: "babes-392fd.firebaseapp.com",
-    projectId: "babes-392fd",
-    storageBucket: "babes-392fd.appspot.com",
-    messagingSenderId: "376795361631",
-    appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
-};
-
-        // Initialize Firebase App (Compat)
+        // Initialize Firebase
         const firebaseApp = firebase.initializeApp(firebaseConfig);
         const db = firebaseApp.firestore();
 
-
-        async function loadLastActresses() {
-            const actressesContainer = document.getElementById('actressesContainer');
-            const actressesRef = db.collection('atores');
-            const q = actressesRef.orderBy('createdAt', 'desc').limit(15);
-
-            const querySnapshot = await q.get();
-            actressesContainer.innerHTML = ''; // Clear existing content
-
-            querySnapshot.forEach((doc) => {
-                const actressData = doc.data();
-                const actressCard = document.createElement('div');
-                actressCard.classList.add('actress-card');
-
-                const imageUrl = actressData.foto || 'placeholder-image-url.jpg'; // Use placeholder if no image URL
-                const name = actressData.nome || 'Nome Desconhecido';
-                const birthDateString = actressData.dataNascimento;
-                const rating = actressData.nota || 'Sem nota';
-
-                let age = 'Idade desconhecida';
-                if (birthDateString) {
-                    age = calculateAge(birthDateString);
-                }
-
-
-                actressCard.innerHTML = `
-                    <a href="babe.html?id=${doc.id}" style="text-decoration: none; color: inherit;">
-                        <img src="${imageUrl}" alt="${name}">
-                        <h3>${name}</h3>
-                        <p>Idade: ${age}</p>
-                        <p class="rating">Nota: ${rating}</p>
-                    </a>
-                `;
-                actressesContainer.appendChild(actressCard);
-            });
-        }
-
+        // Function to calculate age from birth date string (YYYY-MM-DD)
         function calculateAge(birthDateString) {
-            const birthDate = new Date(birthDateString);
+            if (!birthDateString) return 'N/A';
             const today = new Date();
+            const birthDate = new Date(birthDateString);
             let age = today.getFullYear() - birthDate.getFullYear();
-            const month = today.getMonth() - birthDate.getMonth();
-            if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
                 age--;
             }
             return age;
         }
 
+        // Function to display actors on the page
+        function mostrarAtores(containerId, atoresParaMostrar) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`Elemento '${containerId}' não encontrado na página!`);
+                return;
+            }
+            container.innerHTML = "";
 
-        loadLastActresses(); // Call function to load actresses when page loads
+            if (!atoresParaMostrar || atoresParaMostrar.length === 0) {
+                container.innerHTML = "<p>Nenhuma atriz encontrada.</p>";
+                return;
+            }
 
+            atoresParaMostrar.forEach((ator) => {
+                const cardLink = document.createElement("a");
+                cardLink.href = `babe.html?id=${ator.id}`; // Link to babe.html
+                cardLink.style.textDecoration = 'none';
 
+                const card = document.createElement("div");
+                card.className = "ator-card";
+
+                const age = calculateAge(ator.dataNascimento);
+                const note = ator.nota !== undefined ? ator.nota : 'N/A'; // Handle cases where 'nota' might be undefined
+
+                card.innerHTML = `
+                    <img src="${ator.foto}" alt="${ator.nome}" class="ator-foto">
+                    <h3 class="ator-nome-card">${ator.nome}</h3>
+                    <div class="ator-info-stack">
+                        <p class="ator-idade-card">${age} anos</p>
+                        <p class="ator-nacionalidade-card">${ator.pais || 'Nacionalidade Desconhecida'}</p>
+                    </div>
+                    ${note !== 'N/A' ? `<span class="ator-note-badge">${note}</span>` : ''}
+                `;
+
+                cardLink.appendChild(card);
+                container.appendChild(cardLink);
+            });
+        }
+
+        // Function to load the latest 15 actors from Firestore
+        async function carregarUltimosAtores() {
+            try {
+                const snapshot = await db.collection("atores")
+                    .orderBy('timestamp', 'desc') // Assuming you have a 'timestamp' field to order by creation
+                    .limit(15)
+                    .get();
+
+                if (snapshot.empty) {
+                    console.warn("carregarUltimosAtores: Snapshot vazia, não foram encontrados atores.");
+                    mostrarAtores("ultimos-atores", []);
+                    return;
+                }
+
+                const ultimosAtores = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    return { id: doc.id, ...data, dataNascimento: data.dataNascimento }; // Ensure dataNascimento is passed
+                });
+
+                mostrarAtores("ultimos-atores", ultimosAtores);
+                console.log("Últimos 15 atores carregados do Firestore com sucesso!");
+            } catch (error) {
+                console.error("Erro ao carregar últimos 15 atores do Firestore: ", error);
+                alert("Erro ao carregar últimos atores do Firebase. Veja a consola para mais detalhes.");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarUltimosAtores();
+        });
     </script>
+
 </body>
 </html>
