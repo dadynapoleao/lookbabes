@@ -5,7 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site de Atores Sensuais (Exemplo)</title>
     <style>
-        /* ... your CSS styles ... */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 0.5em 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 1em;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .actors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .actor-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .actor-card:hover {
+            transform: scale(1.05);
+        }
+
+        .actor-card img {
+            width: 100%;
+            height: auto; /* Ajustar altura automaticamente */
+            display: block;
+            border-bottom: 1px solid #eee;
+        }
+
+        .actor-details {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .actor-name {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .actor-info {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 3px;
+        }
+
+        .actor-rating {
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Efeitos Bonitos (Exemplos Simples) */
+        nav ul li a {
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0%;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .actor-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .actor-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
