@@ -233,10 +233,10 @@
             loadLastActors();
         });
 
-      async function loadLastActors() {
+    async function loadLastActors() {
             const actorsGrid = document.getElementById('actorsGrid');
             actorsGrid.innerHTML = '<p>Loading actors...</p>';
-            console.log("loadLastActors: Starting data fetch from Firestore..."); // Added log
+            console.log("loadLastActors: Starting data fetch from Firestore...");
 
             try {
                 const snapshot = await db.collection('atores')
@@ -244,9 +244,9 @@
                     .limit(15)
                     .get();
 
-                console.log("loadLastActors: Firestore query completed."); // Added log
-                console.log("loadLastActors: snapshot.empty:", snapshot.empty); // Added log
-                console.log("loadLastActors: snapshot.docs.length:", snapshot.docs.length); // Added log
+                console.log("loadLastActors: Firestore query completed.");
+                console.log("loadLastActors: snapshot.empty:", snapshot.empty);
+                console.log("loadLastActors: snapshot.docs.length:", snapshot.docs.length);
 
                 if (snapshot.empty) {
                     console.warn("loadLastActors: Snapshot is empty, no actors found.");
@@ -255,7 +255,7 @@
                 }
 
                 const actorsArray = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-                console.log("loadLastActors: actorsArray created:", actorsArray); // Added log
+                console.log("loadLastActors: actorsArray created:", actorsArray);
 
                 actorsArray.forEach((actor, index) => {
                     const actorCard = createActorCard(actor);
@@ -264,7 +264,7 @@
                         actorCard.classList.add('visible');
                     }, index * 100);
                 });
-                console.log("loadLastActors: Actor cards rendered."); // Added log
+                console.log("loadLastActors: Actor cards rendered.");
 
               } catch (error) {
                 console.error("loadLastActors: Error fetching actors from Firestore:", error);
