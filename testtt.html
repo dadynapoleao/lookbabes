@@ -270,7 +270,11 @@
         }
 
 
-        function createActorCard(actor) {
+    function createActorCard(actor) {
+            const cardLink = document.createElement("a"); // Create link element
+            cardLink.href = `babe.html?id=${actor.id}`; // **Updated link with actor.id**
+            cardLink.style.textDecoration = 'none'; // Remove default link underline
+
             const card = document.createElement('div');
             card.classList.add('actor-card');
 
@@ -299,14 +303,9 @@
 
             card.appendChild(img);
             card.appendChild(details);
+            cardLink.appendChild(card); // Append card to the link
 
-            card.addEventListener('click', () => {
-                // Redirect to actor's page (atores.html) - you'll need to create atores.html
-                cardLink.href = `babe.html?id=${actor.id}`; // Use actor.id from Firestore document
-
-            });
-
-            return card;
+            return cardLink; // Return the link element (cardLink)
         }
 
         function calculateAge(dateString) {
