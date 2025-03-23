@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Ator</title>
+    <title>Site de Atores Sensuais (Exemplo)</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #181818;
-            color: #e0e0e0;
             margin: 0;
             padding: 0;
+            background-color: #181818; /* Dark background */
+            color: #e0e0e0; /* Light text color */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -18,85 +18,202 @@
 
         .container {
             width: 95%;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #222;
+            background-color: #222; /* Slightly lighter dark container */
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center content horizontally */
+            align-items: stretch;
         }
 
-        h1 {
+        header {
+            background-color: #333; /* Dark header background */
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+            border-bottom: 1px solid #555; /* Separator line */
+            margin-bottom: 20px;
+        }
+
+        nav {
+            background-color: #444; /* Darker nav background */
+            color: #fff;
+            padding: 0.5em 0;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 1em;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+            background-color: #555;
+        }
+
+        .actors-section {
+            margin-bottom: 30px;
+        }
+
+        .actors-section h2 {
             color: #fff;
             text-align: center;
             margin-bottom: 20px;
             text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
         }
 
-        .actor-image {
-            max-width: 100%;
-            height: auto;
+        .actors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .actor-card {
+            background-color: #333; /* Dark actor card background */
             border-radius: 8px;
-            margin-bottom: 20px;
-            display: block; /* Ensure image is block level */
-            margin-left: auto;  /* Center horizontally */
-            margin-right: auto; /* Center horizontally */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+        .actor-card:hover {
+            transform: scale(1.05);
+        }
+
+        .actor-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid #555; /* Separator line for image */
+            border-radius: 8px 8px 0 0;
+            object-fit: cover;
+            aspect-ratio: 1/1; /* Ensure square images */
         }
 
         .actor-details {
-            text-align: left; /* Align details to the left */
-            width: 100%;       /* Take full width of container */
+            padding: 15px;
+            text-align: center;
         }
 
-        .actor-details p {
-            margin-bottom: 10px;
-            line-height: 1.6;
+        .actor-name {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        .detail-label {
+        .actor-info {
+            font-size: 0.9em;
+            color: #bbb; /* Muted info text color */
+            margin-bottom: 3px;
+        }
+
+        .actor-rating {
+            font-size: 1em;
             font-weight: bold;
-            color: #bbb; /* Muted label color */
-            margin-right: 10px;
-            display: inline-block; /* Keep label and value on same line */
-            width: 120px;       /* Fixed width for labels */
-            text-align: right;  /* Align labels to the right */
+            color: #ddd;
         }
 
-        .detail-value {
-            display: inline-block; /* Keep label and value on same line */
+        footer {
+            background-color: #333; /* Dark footer background */
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 40px;
+            border-top: 1px solid #555; /* Separator line */
+        }
+
+        /* Efeitos Bonitos (Exemplos Simples) */
+        nav ul li a {
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0%;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .actor-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .actor-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Site de Atores Sensuais (Exemplo)</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Estatísticas</a></li>
+            <li><a href="#">Filmes</a></li>
+            <li><a href="#">Vídeos</a></li>
+            <li><a href="#">Adicionar Ator</a></li>
+            <li><a href="#">Criar Vídeo</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
-        <h1 id="actor-name-header">Detalhes do Ator</h1> <!-- Placeholder for actor name -->
-        <img id="actor-image" src="" alt="Actor Image" class="actor-image" style="display:none;">
-        <div id="actor-details" class="actor-details">
-            <p><span class="detail-label">Nome:</span> <span id="actor-detail-nome" class="detail-value"></span></p>
-            <p><span class="detail-label">Idade:</span> <span id="actor-detail-idade" class="detail-value"></span></p>
-            <p><span class="detail-label">Data de Nascimento:</span> <span id="actor-detail-dataNascimento" class="detail-value"></span></p>
-            <p><span class="detail-label">País:</span> <span id="actor-detail-pais" class="detail-value"></span></p>
-            <p><span class="detail-label">Etnia:</span> <span id="actor-detail-etnia" class="detail-value"></span></p>
-            <p><span class="detail-label">Cor do Cabelo:</span> <span id="actor-detail-corCabelo" class="detail-value"></span></p>
-            <p><span class="detail-label">Cor dos Olhos:</span> <span id="actor-detail-corOlhos" class="detail-value"></span></p>
-            <p><span class="detail-label">Altura:</span> <span id="actor-detail-altura" class="detail-value"></span></p>
-            <p><span class="detail-label">Peso:</span> <span id="actor-detail-peso" class="detail-value"></span></p>
-            <p><span class="detail-label">Tipo de Corpo:</span> <span id="actor-detail-tipoCorpo" class="detail-value"></span></p>
-            <p><span class="detail-label">Medidas:</span> <span id="actor-detail-medidas" class="detail-value"></span></p>
-            <p><span class="detail-label">Nota:</span> <span id="actor-detail-nota" class="detail-value"></span></p>
-            <!-- Add more details as needed -->
-        </div>
+        <section class="actors-section">
+            <h2>Últimos Atores Adicionados</h2>
+            <div class="actors-grid" id="actorsGrid">
+                <p>Loading actors...</p> <!-- Initial loading message -->
+            </div>
+        </section>
     </div>
 
-    <!-- Firebase SDK (using CDN) - Make sure to include -->
+    <footer>
+        <p>© 2024 Site de Atores. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Firebase SDK (using CDN) - UPDATED for FIRESTORE -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <script type="module">
-        // **IMPORTANT:**  Use the same Firebase config as in index.html
+        // **IMPORTANT:** Replace with your actual Firebase project configuration!
         const firebaseConfig = {
           apiKey: "YOUR_API_KEY",
           authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -109,60 +226,99 @@
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+
+        // Initialize Firestore
         const db = firebase.firestore();
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadActorDetails();
+            loadLastActors();
         });
 
-        async function loadActorDetails() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const actorId = urlParams.get('id'); // Get the 'id' from the URL query parameters
+        async function loadLastActors() {
+            const actorsGrid = document.getElementById('actorsGrid');
+            actorsGrid.innerHTML = '<p>Loading actors...</p>';
 
-            if (!actorId) {
-                console.error("No actor ID provided in URL.");
-                document.getElementById('actor-details').innerHTML = '<p>Actor ID inválido.</p>';
-                return;
-            }
+            db.collection('atores')
+              .orderBy('timestamp', 'desc') // Assuming you have a 'timestamp' field
+              .limit(15)
+              .get()
+              .then((querySnapshot) => {
+                actorsGrid.innerHTML = '';
+                if (!querySnapshot.empty) {
+                    const actorsArray = [];
+                    querySnapshot.forEach((doc) => {
+                        const actorData = doc.data();
+                        actorsArray.push(actorData);
+                    });
 
-            try {
-                const docSnapshot = await db.collection('atores').doc(actorId).get(); // Fetch actor by ID
-                if (docSnapshot.exists) {
-                    const actorData = docSnapshot.data();
-                    displayActorDetails(actorData);
+                    actorsArray.forEach((actor, index) => {
+                        const actorCard = createActorCard(actor);
+                        actorsGrid.appendChild(actorCard);
+                        setTimeout(() => {
+                            actorCard.classList.add('visible');
+                        }, index * 100);
+                    });
                 } else {
-                    console.log(`Actor with ID ${actorId} not found.`);
-                    document.getElementById('actor-details').innerHTML = '<p>Ator não encontrado.</p>';
+                    console.log("No actors found in Firestore.");
+                    actorsGrid.innerHTML = '<p>No actors available.</p>';
                 }
-            } catch (error) {
-                console.error("Error fetching actor details:", error);
-                document.getElementById('actor-details').innerHTML = '<p>Erro ao carregar detalhes do ator.</p>';
-            }
+              })
+              .catch((error) => {
+                console.error("Error fetching actors from Firestore:", error);
+                actorsGrid.innerHTML = '<p>Error loading actors.</p>';
+              });
         }
 
-        function displayActorDetails(actor) {
-            document.getElementById('actor-name-header').textContent = actor.nome; // Set page header to actor's name
-            document.getElementById('actor-detail-nome').textContent = actor.nome || 'N/A';
-            document.getElementById('actor-detail-idade').textContent = actor.idade || 'N/A';
-            document.getElementById('actor-detail-dataNascimento').textContent = actor.dataNascimento || 'N/A';
-            document.getElementById('actor-detail-pais').textContent = actor.pais || 'N/A';
-            document.getElementById('actor-detail-etnia').textContent = actor.etnia || 'N/A';
-            document.getElementById('actor-detail-corCabelo').textContent = actor.corCabelo || 'N/A';
-            document.getElementById('actor-detail-corOlhos').textContent = actor.corOlhos || 'N/A';
-            document.getElementById('actor-detail-altura').textContent = actor.altura || 'N/A';
-            document.getElementById('actor-detail-peso').textContent = actor.peso || 'N/A';
-            document.getElementById('actor-detail-tipoCorpo').textContent = actor.tipoCorpo || 'N/A';
-            document.getElementById('actor-detail-medidas').textContent = actor.medidas || 'N/A';
-            document.getElementById('actor-detail-nota').textContent = actor.nota || 'N/A';
 
-            const actorImage = document.getElementById('actor-image');
-            if (actor.foto) {
-                actorImage.src = actor.foto;
-                actorImage.style.display = 'block'; // Show image if URL is available
-            } else {
-                actorImage.style.display = 'none'; // Hide image if no URL
-            }
+        function createActorCard(actor) {
+            const card = document.createElement('div');
+            card.classList.add('actor-card');
+
+            const img = document.createElement('img');
+            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto";
+            img.alt = actor.nome;
+
+            const details = document.createElement('div');
+            details.classList.add('actor-details');
+
+            const name = document.createElement('h3');
+            name.classList.add('actor-name');
+            name.textContent = actor.nome;
+
+            const age = document.createElement('p');
+            age.classList.add('actor-info');
+            age.textContent = `Idade: ${calculateAge(actor.dataNascimento)}`;
+
+            const rating = document.createElement('p');
+            rating.classList.add('actor-rating');
+            rating.textContent = `Nota: ${actor.nota}`;
+
+            details.appendChild(name);
+            details.appendChild(age);
+            details.appendChild(rating);
+
+            card.appendChild(img);
+            card.appendChild(details);
+
+            card.addEventListener('click', () => {
+                // Redirect to actor's page (atores.html) - you'll need to create atores.html
+                window.location.href = `atores.html?id=${actor.nome.replace(/\s+/g, '-').toLowerCase()}`;
+            });
+
+            return card;
         }
+
+        function calculateAge(dateString) {
+            const today = new Date();
+            const birthDate = new Date(dateString);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const month = today.getMonth() - birthDate.getMonth();
+            if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
     </script>
 </body>
 </html>
