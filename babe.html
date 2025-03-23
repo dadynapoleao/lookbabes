@@ -8,7 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <style>
- body {
+        body {
             font-family: 'Arial', sans-serif;
             background-color: #121212;
             color: #e0e0e0;
@@ -28,7 +28,7 @@
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
             display: flex;
-            flex-direction: column; /* Main container direction is column */
+            flex-direction: column; /* Main container is column */
             align-items: stretch;
             gap: 20px;
             animation: fadeIn 0.5s ease-out forwards;
@@ -44,21 +44,21 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
             font-size: 1em;
             margin-bottom: 20px;
-            align-self: flex-start; /* Keep back button left-aligned */
+            align-self: flex-start;
         }
 
-        .image-info-row {
-            display: flex;            /* Enable Flexbox for side-by-side layout */
-            flex-direction: row;        /* Arrange items horizontally */
-            align-items: flex-start;    /* Align items to the top */
+        .image-info-wrapper {
+            display: flex;            /* Enable Flexbox for side-by-side containers */
+            flex-direction: row;        /* Arrange image and details containers horizontally */
+            align-items: flex-start;    /* Align to top */
+            gap: 30px;                /* Spacing between image and details */
             width: 100%;              /* Take full width */
-            gap: 30px;                /* Spacing between image and info */
         }
 
         .actress-image-container {
-            flex: 0 0 35%;          /* Fixed width for image container - ADJUST PERCENTAGE AS NEEDED */
-            max-width: 35%;          /* Limit max width */
-            text-align: left;        /* Align text within container left */
+            flex: 0 0 35%;            /* Fixed width for image container (adjust percentage as needed) */
+            max-width: 35%;            /* Limit max width */
+            text-align: left;          /* Align text within */
         }
 
         .actress-image {
@@ -69,9 +69,13 @@
             display: block;
         }
 
+        .actress-details-container {
+            flex: 1;                 /* Allow details container to take remaining space */
+            padding-top: 0;          /* Adjust padding if needed */
+        }
+
         .actress-info {
-            flex: 1;                 /* Allow info section to take remaining space */
-            display: grid;            /* Enable grid layout for info boxes */
+            display: grid;            /* Grid layout for info boxes */
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             row-gap: 25px;
@@ -79,12 +83,12 @@
 
         h1 {
             color: #fff;
-            text-align: left;        /* Align actress name to the left in info section */
+            text-align: left;          /* Align actress name left within details container */
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             font-size: 2.5em;
             letter-spacing: 1px;
-            width: 100%;              /* Take full width of info section */
+            width: 100%;              /* Take full width of details container */
         }
 
         .info-item {
