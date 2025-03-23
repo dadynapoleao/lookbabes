@@ -1,50 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de Atores Sensuais (Exemplo)</title>
+    <title>Website de Atrizes</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #181818; /* Dark background */
-            color: #e0e0e0; /* Light text color */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .container {
-            width: 95%;
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #222; /* Slightly lighter dark container */
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
         header {
-            background-color: #333; /* Dark header background */
+            background-color: #333;
             color: #fff;
             padding: 1em 0;
             text-align: center;
-            border-bottom: 1px solid #555; /* Separator line */
-            margin-bottom: 20px;
         }
 
         nav {
-            background-color: #444; /* Darker nav background */
+            background-color: #444;
             color: #fff;
             padding: 0.5em 0;
             text-align: center;
-            margin-bottom: 20px;
-            border-radius: 5px;
         }
 
         nav ul {
@@ -59,132 +39,81 @@
         }
 
         nav ul li a {
-            text-decoration: none;
             color: #fff;
-            transition: color 0.3s ease;
-            padding: 8px 15px;
+            text-decoration: none;
+            padding: 0.5em 1em;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         nav ul li a:hover {
-            color: #ddd;
             background-color: #555;
         }
 
-        .actors-section {
-            margin-bottom: 30px;
-        }
-
-        .actors-section h2 {
-            color: #fff;
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
-        }
-
-        .actors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .actor-card {
-            background-color: #333; /* Dark actor card background */
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
+        .actresses-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 15px;
-            text-align: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
         }
 
-        .actor-card:hover {
-            transform: scale(1.05);
-        }
-
-        .actor-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-bottom: 1px solid #555; /* Separator line for image */
-            border-radius: 8px 8px 0 0;
-            object-fit: cover;
-            aspect-ratio: 1/1; /* Ensure square images */
-        }
-
-        .actor-details {
+        .actress-card {
+            background-color: #fff;
+            border-radius: 8px;
+            margin: 10px;
             padding: 15px;
+            width: 200px;
             text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
-        .actor-name {
-            font-size: 1.2em;
+        .actress-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .actress-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .actress-card h3 {
+            margin-top: 0;
             margin-bottom: 5px;
-            color: #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            color: #333;
         }
 
-        .actor-info {
+        .actress-card p {
+            margin: 0;
+            color: #777;
             font-size: 0.9em;
-            color: #bbb; /* Muted info text color */
-            margin-bottom: 3px;
         }
 
-        .actor-rating {
-            font-size: 1em;
+        .actress-card .rating {
+            margin-top: 10px;
             font-weight: bold;
-            color: #ddd;
+            color: #e44d26; /* Cor destaque para a nota */
         }
 
         footer {
-            background-color: #333; /* Dark footer background */
+            background-color: #333;
             color: #fff;
             text-align: center;
             padding: 1em 0;
-            margin-top: 40px;
-            border-top: 1px solid #555; /* Separator line */
-        }
-
-        /* Efeitos Bonitos (Exemplos Simples) */
-        nav ul li a {
-            position: relative;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 0%;
-            height: 2px;
-            background-color: #fff;
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
+            position: fixed;
+            bottom: 0;
             width: 100%;
-        }
-
-        .actor-card {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .actor-card.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Site de Atores Sensuais (Exemplo)</h1>
+        <h1>Website de Atrizes</h1>
     </header>
-
     <nav>
         <ul>
             <li><a href="#">Estatísticas</a></li>
@@ -195,125 +124,72 @@
         </ul>
     </nav>
 
-    <div class="container">
-        <section class="actors-section">
-            <h2>Últimos Atores Adicionados</h2>
-            <div class="actors-grid" id="actorsGrid">
-                <p>Loading actors...</p> <!-- Initial loading message -->
-            </div>
-        </section>
+    <div class="actresses-container" id="actressesContainer">
+        <!-- Actresses cards will be loaded here by JavaScript -->
     </div>
 
     <footer>
-        <p>© 2024 Site de Atores. Todos os direitos reservados.</p>
+        <p>© 2024 Website de Atrizes</p>
     </footer>
 
-    <!-- Firebase SDK (using CDN) - UPDATED for FIRESTORE -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
     <script type="module">
-        // **REPLACE THE ENTIRE firebaseConfig OBJECT BELOW WITH YOUR DATA**
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+        import { getFirestore, collection, getDocs, orderBy, limit } from "firebase/firestore";
+
+        // Your web app's Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
-          authDomain: "babes-392fd.firebaseapp.com",
-          projectId: "babes-392fd",
-          storageBucket: "babes-392fd.appspot.com",
-          messagingSenderId: "376795361631",
-          appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
+            apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
+            authDomain: "babes-392fd.firebaseapp.com",
+            projectId: "babes-392fd",
+            storageBucket: "babes-392fd.appspot.com",
+            messagingSenderId: "376795361631",
+            appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
         };
 
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        // Initialize Firestore
-        const db = firebase.firestore();
+        async function loadLastActresses() {
+            const actressesContainer = document.getElementById('actressesContainer');
+            const actressesRef = collection(db, 'atores');
+            const q = query(actressesRef, orderBy('createdAt', 'desc'), limit(15)); // Assuming you have a 'createdAt' field to order by, if not, use another timestamp field or order by name if creation order is not tracked.
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadLastActors();
-        });
+            const querySnapshot = await getDocs(q);
+            actressesContainer.innerHTML = ''; // Clear existing content
 
-    async function loadLastActors() {
-            const actorsGrid = document.getElementById('actorsGrid');
-            actorsGrid.innerHTML = '<p>Loading actors...</p>';
-            console.log("loadLastActors: Starting data fetch from Firestore...");
+            querySnapshot.forEach((doc) => {
+                const actressData = doc.data();
+                const actressCard = document.createElement('div');
+                actressCard.classList.add('actress-card');
 
-            try {
-                const snapshot = await db.collection('atores')
-                    .orderBy('timestamp', 'desc')
-                    .limit(15)
-                    .get();
+                const imageUrl = actressData.foto || 'placeholder-image-url.jpg'; // Use placeholder if no image URL
+                const name = actressData.nome || 'Nome Desconhecido';
+                const birthDateString = actressData.dataNascimento;
+                const rating = actressData.nota || 'Sem nota';
 
-                console.log("loadLastActors: Firestore query completed.");
-                console.log("loadLastActors: snapshot.empty:", snapshot.empty);
-                console.log("loadLastActors: snapshot.docs.length:", snapshot.docs.length);
-
-                if (snapshot.empty) {
-                    console.warn("loadLastActors: Snapshot is empty, no actors found.");
-                    actorsGrid.innerHTML = '<p>No actors available.</p>';
-                    return;
+                let age = 'Idade desconhecida';
+                if (birthDateString) {
+                    age = calculateAge(birthDateString);
                 }
 
-                const actorsArray = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-                console.log("loadLastActors: actorsArray created:", actorsArray);
 
-                actorsArray.forEach((actor, index) => {
-                    const actorCard = createActorCard(actor);
-                    actorsGrid.appendChild(actorCard);
-                    setTimeout(() => {
-                        actorCard.classList.add('visible');
-                    }, index * 100);
-                });
-                console.log("loadLastActors: Actor cards rendered.");
-
-              } catch (error) {
-                console.error("loadLastActors: Error fetching actors from Firestore:", error);
-                actorsGrid.innerHTML = '<p>Error loading actors.</p>';
-              }
+                actressCard.innerHTML = `
+                    <a href="babe.html?id=${doc.id}" style="text-decoration: none; color: inherit;">
+                        <img src="${imageUrl}" alt="${name}">
+                        <h3>${name}</h3>
+                        <p>Idade: ${age}</p>
+                        <p class="rating">Nota: ${rating}</p>
+                    </a>
+                `;
+                actressesContainer.appendChild(actressCard);
+            });
         }
 
-
-        function createActorCard(actor) {
-            const cardLink = document.createElement("a"); // Create link element
-            cardLink.href = `babe.html?id=${actor.id}`; // **Link to babe.html with actor.id**
-            cardLink.style.textDecoration = 'none'; // Remove default link underline
-
-            const card = document.createElement('div');
-            card.classList.add('actor-card');
-
-            const img = document.createElement('img');
-            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto";
-            img.alt = actor.nome;
-
-            const details = document.createElement('div');
-            details.classList.add('actor-details');
-
-            const name = document.createElement('h3');
-            name.classList.add('actor-name');
-            name.textContent = actor.nome;
-
-            const age = document.createElement('p');
-            age.classList.add('actor-info');
-            age.textContent = `Idade: ${calculateAge(actor.dataNascimento)}`;
-
-            const rating = document.createElement('p');
-            rating.classList.add('actor-rating');
-            rating.textContent = `Nota: ${actor.nota}`;
-
-            details.appendChild(name);
-            details.appendChild(age);
-            details.appendChild(rating);
-
-            card.appendChild(img);
-            card.appendChild(details);
-            cardLink.appendChild(card); // Append card to the link
-
-            return cardLink; // Return the link element (cardLink)
-        }
-
-        function calculateAge(dateString) {
+        function calculateAge(birthDateString) {
+            const birthDate = new Date(birthDateString);
             const today = new Date();
-            const birthDate = new Date(dateString);
             let age = today.getFullYear() - birthDate.getFullYear();
             const month = today.getMonth() - birthDate.getMonth();
             if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
@@ -321,6 +197,12 @@
             }
             return age;
         }
+
+
+        import { query } from "firebase/firestore"; // Import query
+
+        loadLastActresses(); // Call function to load actresses when page loads
+
 
     </script>
 </body>
