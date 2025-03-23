@@ -8,7 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <style>
-     body {
+        body {
             font-family: 'Arial', sans-serif;
             background-color: #121212;
             color: #e0e0e0;
@@ -21,7 +21,7 @@
 
         .container {
             width: 95%;
-            max-width: 1200px;
+            max-width: 1400px; /* Wider container for 3 columns */
             margin: 20px auto;
             padding: 30px;
             background-color: #1e1e1e;
@@ -31,137 +31,233 @@
             flex-direction: column;
             align-items: stretch;
             gap: 20px;
+            animation: fadeIn 0.5s ease-out forwards;
         }
 
-        .image-info-wrapper {
-            display: flex;
-            flex-direction: row; /* Side-by-side layout */
+        .back-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1em;
+            margin-bottom: 20px;
+            align-self: flex-start;
         }
 
+        .three-column-layout {
+            display: flex; /* Enable Flexbox for 3 columns */
+            flex-direction: row;
+            gap: 30px; /* Spacing between columns */
+            width: 100%;
+        }
+
+        .column {
+            flex: 1; /* Equal width columns */
+            padding: 20px;
+            background-color: #252525;
+            border-radius: 10px;
+        }
+
+        .column h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        /* Column 1 Styles (Actress Info) */
         .actress-image-container {
-            width: 40%; /* Fixed width for image container for testing */
-        }
-
-        .actress-details-container {
-            width: 60%; /* Fixed width for details container for testing */
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .actress-image {
             max-width: 100%;
+            max-height: 400px; /* Adjust max height for column layout */
             height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             display: block;
+            margin-bottom: 15px;
         }
 
-        .actress-details-container {
-            flex: 1;                 /* Allow details container to take remaining space */
-            padding-top: 0;          /* Adjust padding if needed */
+        .actress-name-header {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
         }
 
         .actress-info {
-            display: grid;            /* Grid layout for info boxes */
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            row-gap: 25px;
-        }
-
-        h1 {
-            color: #fff;
-            text-align: left;          /* Align actress name left within details container */
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-size: 2.5em;
-            letter-spacing: 1px;
-            width: 100%;              /* Take full width of details container */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
         }
 
         .info-item {
-            padding: 20px;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .info-label {
             color: #bbb;
             font-weight: bold;
-            margin-bottom: 5px;
             display: block;
+            margin-bottom: 5px;
             font-size: 0.9em;
         }
 
         .info-value {
             color: #eee;
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
-        .note-badge {
-            background-color: #ffc107;
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        /* Column 2 Styles (Video Cards) */
+        .video-cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
+
+        .video-card {
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .video-card-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px 8px 0 0;
+            aspect-ratio: 16/9; /* Example aspect ratio */
+            object-fit: cover;
+        }
+
+        .video-card-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .video-card-title {
+            color: #fff;
+            font-size: 1.1em;
+            margin: 0;
+        }
+
+        .video-card-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #555;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .video-card-button:hover {
+            background-color: #777;
+        }
+
+        /* Column 3 Styles (Empty for now) */
+        /* ... Add styles for column 3 if needed ... */
+
+
     </style>
 </head>
 <body>
     <div class="container">
         <button class="back-button" onclick="window.history.back()">Voltar</button>
-        <h1 id="actress-name">Nome da Atriz</h1>
-        <div class="actress-image-container">
-            <img id="actress-photo" src="" alt="Foto da Atriz" class="actress-image">
-        </div>
-        <div class="actress-info">
-            <div class="info-item">
-                <span class="info-label">Nacionalidade:</span>
-                <span id="actress-pais" class="info-value"></span>
+
+        <div class="three-column-layout">
+
+            <!-- Column 1: Actress Image, Name, Info -->
+            <div class="column" id="column-actress-info">
+                <h2>Informações da Atriz</h2>
+                <div class="actress-image-container">
+                    <img id="actress-photo" src="" alt="Foto da Atriz" class="actress-image">
+                </div>
+                <h1 id="actress-name" class="actress-name-header">Nome da Atriz</h1>
+                <div class="actress-info">
+                    <div class="info-item">
+                        <span class="info-label">Nacionalidade:</span>
+                        <span id="actress-pais" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Idade:</span>
+                        <span id="actress-idade" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Data de Nascimento:</span>
+                        <span id="actress-dataNascimento" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Nota:</span>
+                        <span id="actress-nota" class="info-value">
+                            <span id="actress-note-badge" class="note-badge"></span>
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Altura:</span>
+                        <span id="actress-altura" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Peso:</span>
+                        <span id="actress-peso" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Cor do Cabelo:</span>
+                        <span id="actress-corCabelo" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Cor dos Olhos:</span>
+                        <span id="actress-corOlhos" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Etnia:</span>
+                        <span id="actress-etnia" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Medidas:</span>
+                        <span id="actress-medidas" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Tipo de Corpo:</span>
+                        <span id="actress-tipoCorpo" class="info-value"></span>
+                    </div>
+                </div>
             </div>
-            <div class="info-item">
-                <span class="info-label">Idade:</span>
-                <span id="actress-idade" class="info-value"></span>
+
+            <!-- Column 2: Video Cards -->
+            <div class="column" id="column-video-cards">
+                <h2>Vídeos da Atriz</h2>
+                <div id="video-cards-container" class="video-cards-container">
+                    <!-- Video cards will be loaded here -->
+                </div>
             </div>
-            <div class="info-item">
-                <span class="info-label">Data de Nascimento:</span>
-                <span id="actress-dataNascimento" class="info-value"></span>
+
+            <!-- Column 3: (Optional - Empty for now) -->
+            <div class="column" id="column-3">
+                <h2>Coluna 3</h2>
+                <p>Conteúdo da Coluna 3 aqui...</p>
             </div>
-            <div class="info-item">
-                <span class="info-label">Nota:</span>
-                <span id="actress-nota" class="info-value">
-                    <span id="actress-note-badge" class="note-badge"></span>
-                </span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Altura:</span>
-                <span id="actress-altura" class="info-value"></span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Peso:</span>
-                <span id="actress-peso" class="info-value"></span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Cor do Cabelo:</span>
-                <span id="actress-corCabelo" class="info-value"></span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Cor dos Olhos:</span>
-                <span id="actress-corOlhos" class="info-value"></span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Etnia:</span>
-                <span id="actress-etnia" class="info-value"></span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Medidas:</span>
-                <span id="actress-medidas" class="info-value"></span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Tipo de Corpo:</span>
-                <span id="actress-tipoCorpo" class="info-value"></span>
-            </div>
-            <!-- Add more info items here as needed -->
-        </div>
+
+        </div> <!-- End three-column-layout -->
+
     </div>
 
     <script>
@@ -198,6 +294,7 @@
 
             if (actressId) {
                 loadActressDetails(actressId);
+                loadActressVideos(actressId); // Load videos for the actress
             } else {
                 console.error("No actress ID provided in URL.");
                 alert("Erro: ID da atriz não encontrado.");
@@ -223,97 +320,64 @@
         }
 
         function populatePage(data) {
-            const nameElement = document.getElementById('actress-name');
-            if (nameElement) {
-                nameElement.textContent = data.nome || 'Nome Desconhecido';
-            } else {
-                console.error("Element with ID 'actress-name' not found.");
-            }
+            document.getElementById('actress-name').textContent = data.nome || 'Nome Desconhecido';
+            document.getElementById('actress-photo').src = data.foto || 'placeholder_image_url.jpg'; // Fallback image
+            document.getElementById('actress-pais').textContent = data.pais || 'Desconhecido';
+            document.getElementById('actress-dataNascimento').textContent = data.dataNascimento || 'Desconhecida';
+            document.getElementById('actress-idade').textContent = calculateAge(data.dataNascimento);
+            document.getElementById('actress-nota-badge').textContent = data.nota || 'N/A';
+            document.getElementById('actress-altura').textContent = data.altura || 'Desconhecida';
+            document.getElementById('actress-peso').textContent = data.peso || 'Desconhecido';
+            document.getElementById('actress-corCabelo').textContent = data.corCabelo || 'Desconhecida';
+            document.getElementById('actress-corOlhos').textContent = data.corOlhos || 'Desconhecida';
+            document.getElementById('actress-etnia').textContent = data.etnia || 'Desconhecida';
+            document.getElementById('actress-medidas').textContent = data.medidas || 'Desconhecidas';
+            document.getElementById('actress-tipoCorpo').textContent = data.tipoCorpo || 'Desconhecido';
+            // ... populate other fields
+        }
 
-            const photoElement = document.getElementById('actress-photo');
-            if (photoElement) {
-                photoElement.src = data.foto || 'placeholder_image_url.jpg'; // Fallback image
-            } else {
-                console.error("Element with ID 'actress-photo' not found.");
-            }
+        async function loadActressVideos(actressId) {
+            try {
+                const snapshot = await db.collection('videos')
+                    .where('atores', 'array-contains', actressId)
+                    .get();
 
-            const paisElement = document.getElementById('actress-pais');
-            if (paisElement) {
-                paisElement.textContent = data.pais || 'Desconhecido';
-            } else {
-                console.error("Element with ID 'actress-pais' not found.");
-            }
+                const videos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                console.log("Videos for actress:", videos);
+                displayVideoCards(videos);
 
-            const dataNascimentoElement = document.getElementById('actress-dataNascimento');
-            if (dataNascimentoElement) {
-                dataNascimentoElement.textContent = data.dataNascimento || 'Desconhecida';
-            } else {
-                console.error("Element with ID 'actress-dataNascimento' not found.");
-            }
-
-            const idadeElement = document.getElementById('actress-idade');
-            if (idadeElement) {
-                idadeElement.textContent = calculateAge(data.dataNascimento);
-            } else {
-                console.error("Element with ID 'actress-idade' not found.");
-            }
-
-            const notaBadgeElement = document.getElementById('actress-nota-badge');
-            if (notaBadgeElement) {
-                notaBadgeElement.textContent = data.nota || 'N/A';
-            } else {
-                console.error("Element with ID 'actress-nota-badge' not found.");
-            }
-
-            const alturaElement = document.getElementById('actress-altura');
-            if (alturaElement) {
-                alturaElement.textContent = data.altura || 'Desconhecida';
-            } else {
-                console.error("Element with ID 'actress-altura' not found.");
-            }
-
-            const pesoElement = document.getElementById('actress-peso');
-            if (pesoElement) {
-                pesoElement.textContent = data.peso || 'Desconhecido';
-            } else {
-                console.error("Element with ID 'actress-peso' not found.");
-            }
-
-            const corCabeloElement = document.getElementById('actress-corCabelo');
-            if (corCabeloElement) {
-                corCabeloElement.textContent = data.corCabelo || 'Desconhecida';
-            } else {
-                console.error("Element with ID 'actress-corCabelo' not found.");
-            }
-
-            const corOlhosElement = document.getElementById('actress-corOlhos');
-            if (corOlhosElement) {
-                corOlhosElement.textContent = data.corOlhos || 'Desconhecida';
-            } else {
-                console.error("Element with ID 'actress-corOlhos' not found.");
-            }
-
-            const etniaElement = document.getElementById('actress-etnia');
-            if (etniaElement) {
-                etniaElement.textContent = data.etnia || 'Desconhecida';
-            } else {
-                console.error("Element with ID 'actress-etnia' not found.");
-            }
-
-            const medidasElement = document.getElementById('actress-medidas');
-            if (medidasElement) {
-                medidasElement.textContent = data.medidas || 'Desconhecidas';
-            } else {
-                console.error("Element with ID 'actress-medidas' not found.");
-            }
-
-            const tipoCorpoElement = document.getElementById('actress-tipoCorpo');
-            if (tipoCorpoElement) {
-                tipoCorpoElement.textContent = data.tipoCorpo || 'Desconhecido';
-            } else {
-                console.error("Element with ID 'actress-tipoCorpo' not found.");
+            } catch (error) {
+                console.error("Error fetching videos for actress:", error);
+                alert("Erro ao carregar vídeos da atriz.");
             }
         }
+
+        function displayVideoCards(videos) {
+            const container = document.getElementById('video-cards-container');
+            container.innerHTML = ''; // Clear existing cards
+
+            if (videos.length === 0) {
+                container.innerHTML = "<p>Nenhum vídeo encontrado para esta atriz.</p>";
+                return;
+            }
+
+            videos.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+
+                card.innerHTML = `
+                    <img src="${video.image}" alt="${video.nome}" class="video-card-image">
+                    <div class="video-card-content">
+                        <h3 class="video-card-title">${video.nome}</h3>
+                        <a href="${video.pagina}" class="video-card-button" target="_blank">Ver</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+
     </script>
+
 </body>
 </html>
