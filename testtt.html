@@ -5,141 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site de Atores Sensuais (Exemplo)</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1em 0;
-            text-align: center;
-        }
-
-        nav {
-            background-color: #444;
-            color: #fff;
-            padding: 0.5em 0;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 1em;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #fff;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #ddd;
-        }
-
-        .container {
-            width: 90%;
-            margin: 20px auto;
-            overflow: hidden;
-        }
-
-        .actors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .actor-card {
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .actor-card:hover {
-            transform: scale(1.05);
-        }
-
-        .actor-card img {
-            width: 100%;
-            height: auto; /* Ajustar altura automaticamente */
-            display: block;
-            border-bottom: 1px solid #eee;
-        }
-
-        .actor-details {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .actor-name {
-            font-size: 1.2em;
-            margin-bottom: 5px;
-        }
-
-        .actor-info {
-            font-size: 0.9em;
-            color: #777;
-            margin-bottom: 3px;
-        }
-
-        .actor-rating {
-            font-size: 1em;
-            font-weight: bold;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1em 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        /* Efeitos Bonitos (Exemplos Simples) */
-        nav ul li a {
-            position: relative;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 0%;
-            height: 2px;
-            background-color: #fff;
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .actor-card {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .actor-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* ... your CSS styles ... */
     </style>
 </head>
 <body>
@@ -170,7 +36,14 @@
         <p>© 2024 Site de Atores. Todos os direitos reservados.</p>
     </footer>
 
-    <script>
+    <!-- Firebase SDK (using CDN) -->
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
+
+    <script type="module"> // Add type="module" here!
+        // Import necessary Firebase modules (using CDN, they are globally available now)
+        // import { initializeApp } from "firebase/app"; // No need for import with CDN
+
         // Firebase configuration (as provided)
         const firebaseConfig = {
           apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
@@ -181,129 +54,46 @@
           appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
         };
 
-        // **Important:** You need to initialize Firebase and fetch data from your Firebase database here.
-        // This code is a placeholder and will not work without the Firebase SDK and your database setup.
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig); // Use firebase.initializeApp
+
+        const database = firebase.database(); // Get database reference
 
         document.addEventListener('DOMContentLoaded', () => {
             loadLastActors();
         });
 
         async function loadLastActors() {
-            // **Placeholder for Firebase data fetching**
-            // In a real application, you would use the Firebase SDK to:
-            // 1. Initialize Firebase app using firebaseConfig.
-            // 2. Connect to your Firebase database.
-            // 3. Fetch the last 15 actors from the 'atores' collection, ordered by creation date.
-            // 4. Replace the `getFakeActors()` call with your actual Firebase data fetching logic.
+            // **Firebase data fetching**
+            const actorsRef = database.ref('atores').limitToLast(15); // Reference to 'atores' and get last 15
 
-            const actors = getFakeActors(); // Replace this with Firebase data fetching
-
-            const actorsGrid = document.getElementById('actorsGrid');
-            actors.forEach((actor, index) => {
-                const actorCard = createActorCard(actor);
-                actorsGrid.appendChild(actorCard);
-                // Add a delay for staggered appearance effect
-                setTimeout(() => {
-                    actorCard.classList.add('visible');
-                }, index * 100); // 100ms delay per card
+            actorsRef.once('value', (snapshot) => { // Read data once
+                const actorsData = snapshot.val();
+                if (actorsData) {
+                    const actorsArray = Object.values(actorsData); // Convert object to array
+                    const actorsGrid = document.getElementById('actorsGrid');
+                    actorsGrid.innerHTML = ''; // Clear placeholder content
+                    actorsArray.forEach((actor, index) => {
+                        const actorCard = createActorCard(actor);
+                        actorsGrid.appendChild(actorCard);
+                        setTimeout(() => {
+                            actorCard.classList.add('visible');
+                        }, index * 100);
+                    });
+                } else {
+                    console.log("No actors found in Firebase.");
+                    actorsGrid.innerHTML = '<p>No actors available.</p>'; // Display message if no actors
+                }
+            }, (errorObject) => {
+                console.error("Error fetching data:", errorObject);
+                actorsGrid.innerHTML = '<p>Error loading actors.</p>'; // Display error message
             });
         }
 
+
         function getFakeActors() {
-            // **Fake data for demonstration purposes**
-            // Replace this with data fetched from Firebase
-            return [
-                {
-                    nome: "Ator 1",
-                    foto: "https://placekitten.com/200/300", // Placeholder image
-                    dataNascimento: "1990-05-15",
-                    nota: 4.5
-                },
-                {
-                    nome: "Atriz 2",
-                    foto: "https://placekitten.com/201/301", // Placeholder image
-                    dataNascimento: "1995-10-20",
-                    nota: 4.8
-                },
-                {
-                    nome: "Ator 3",
-                    foto: "https://placekitten.com/202/302", // Placeholder image
-                    dataNascimento: "1988-03-10",
-                    nota: 4.2
-                },
-                {
-                    nome: "Atriz 4",
-                    foto: "https://placekitten.com/203/303", // Placeholder image
-                    dataNascimento: "1992-07-01",
-                    nota: 4.9
-                },
-                {
-                    nome: "Ator 5",
-                    foto: "https://placekitten.com/204/304", // Placeholder image
-                    dataNascimento: "1997-12-25",
-                    nota: 4.6
-                },
-                {
-                    nome: "Atriz 6",
-                    foto: "https://placekitten.com/205/305", // Placeholder image
-                    dataNascimento: "1993-09-08",
-                    nota: 4.7
-                },
-                {
-                    nome: "Ator 7",
-                    foto: "https://placekitten.com/206/306", // Placeholder image
-                    dataNascimento: "1985-02-14",
-                    nota: 4.3
-                },
-                {
-                    nome: "Atriz 8",
-                    foto: "https://placekitten.com/207/307", // Placeholder image
-                    dataNascimento: "1999-06-30",
-                    nota: 4.9
-                },
-                {
-                    nome: "Ator 9",
-                    foto: "https://placekitten.com/208/308", // Placeholder image
-                    dataNascimento: "1991-11-05",
-                    nota: 4.4
-                },
-                {
-                    nome: "Atriz 10",
-                    foto: "https://placekitten.com/209/309", // Placeholder image
-                    dataNascimento: "1996-08-12",
-                    nota: 4.8
-                },
-                {
-                    nome: "Ator 11",
-                    foto: "https://placekitten.com/210/310", // Placeholder image
-                    dataNascimento: "1989-04-22",
-                    nota: 4.1
-                },
-                {
-                    nome: "Atriz 12",
-                    foto: "https://placekitten.com/211/311", // Placeholder image
-                    dataNascimento: "1994-01-28",
-                    nota: 4.7
-                },
-                {
-                    nome: "Ator 13",
-                    foto: "https://placekitten.com/212/312", // Placeholder image
-                    dataNascimento: "1987-06-05",
-                    nota: 4.0
-                },
-                {
-                    nome: "Atriz 14",
-                    foto: "https://placekitten.com/213/313", // Placeholder image
-                    dataNascimento: "2000-09-18",
-                    nota: 5.0
-                },
-                {
-                    nome: "Ator 15",
-                    foto: "https://placekitten.com/214/314", // Placeholder image
-                    dataNascimento: "1998-03-20",
-                    nota: 4.6
-                }
-            ];
+            // **Fake data removed - Firebase is used now**
+            return []; // No more fake data
         }
 
         function createActorCard(actor) {
@@ -311,7 +101,7 @@
             card.classList.add('actor-card');
 
             const img = document.createElement('img');
-            img.src = actor.foto;
+            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto"; // Use placeholder if no image
             img.alt = actor.nome;
 
             const details = document.createElement('div');
@@ -355,13 +145,6 @@
             return age;
         }
 
-        // **Important:** To use Firebase, you need to include the Firebase SDK in your HTML file.
-        // You can do this by adding the following script tags before the closing </body> tag:
-        /*
-        <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
-        */
-        // And then initialize and use Firebase in the `loadLastActors` function.
     </script>
 </body>
 </html>
