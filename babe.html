@@ -28,95 +28,10 @@
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
             display: flex;
-            flex-direction: column; /* Main container is vertical */
-            align-items: stretch; /* Stretch items to full container width */
+            flex-direction: column; /* Main container direction is column */
+            align-items: stretch;
             gap: 20px;
             animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .image-info-row {
-            display: flex;         /* Enable Flexbox for image and info row */
-            flex-direction: row;     /* Arrange image and info side-by-side */
-            align-items: flex-start; /* Align items to the top in the row */
-            gap: 30px;             /* Spacing between image and info */
-            width: 100%;           /* Take full width of container */
-        }
-
-        .actress-image-container {
-            text-align: left;
-            margin-bottom: 0;
-            flex: 0 0 auto;      /* Size based on image content */
-            max-width: none;
-            width: auto;          /* Width auto to fit image */
-            display: flex;
-            justify-content: flex-start; /* Align image to the left */
-        }
-
-        .actress-image {
-            max-width: 100%;
-            max-height: 600px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            display: block;
-            margin: 0;
-        }
-
-        .actress-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            row-gap: 25px;
-            margin-bottom: 20px;
-            flex: 1;              /* Take remaining width */
-            min-width: 0;
-            text-align: right;    /* Default text alignment in info section to right */
-        }
-
-        h1 { /* Actress Name - now inside actress-info, so aligned right */
-            color: #fff;
-            text-align: right;    /* Align name to the right */
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-size: 2.5em;
-            letter-spacing: 1px;
-            width: 100%;          /* Take full width of info section */
-            align-self: flex-end; /* Right align within info section */
-        }
-
-        .info-item {
-            padding: 20px;
-            background-color: #2a2a2a;
-            border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-            text-align: left;     /* Override default right alignment for info-item content */
-        }
-
-        .info-label {
-            color: #bbb;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-            font-size: 0.9em;
-            text-align: right;    /* Right align labels within info-item */
-        }
-
-        .info-value {
-            color: #eee;
-            font-size: 1.1em;
-            text-align: left;     /* Left align values within info-item */
-        }
-
-
-        .note-badge {
-            background-color: #ffc107;
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .back-button {
@@ -128,9 +43,79 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
             font-size: 1em;
-            margin-top: 20px;
             margin-bottom: 20px;
             align-self: flex-start; /* Keep back button left-aligned */
+        }
+
+        .image-info-row {
+            display: flex;            /* Enable Flexbox for side-by-side layout */
+            flex-direction: row;        /* Arrange items horizontally */
+            align-items: flex-start;    /* Align items to the top */
+            width: 100%;              /* Take full width */
+            gap: 30px;                /* Spacing between image and info */
+        }
+
+        .actress-image-container {
+            flex: 0 0 35%;          /* Fixed width for image container - ADJUST PERCENTAGE AS NEEDED */
+            max-width: 35%;          /* Limit max width */
+            text-align: left;        /* Align text within container left */
+        }
+
+        .actress-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            display: block;
+        }
+
+        .actress-info {
+            flex: 1;                 /* Allow info section to take remaining space */
+            display: grid;            /* Enable grid layout for info boxes */
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            row-gap: 25px;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: left;        /* Align actress name to the left in info section */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            width: 100%;              /* Take full width of info section */
+        }
+
+        .info-item {
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .info-label {
+            color: #bbb;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .info-value {
+            color: #eee;
+            font-size: 1.1em;
+        }
+
+        .note-badge {
+            background-color: #ffc107;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
     </style>
 </head>
