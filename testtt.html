@@ -119,6 +119,11 @@
 
 
     </style>
+
+    <!-- Firebase SDKs via CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
 </head>
 <body>
     <nav>
@@ -139,12 +144,8 @@
         <!-- Os atores serão adicionados aqui pelo JavaScript -->
     </div>
 
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "firebase/app";
-        import { getFirestore, collection, getDocs } from "firebase/firestore";
-
-        // Your web app's Firebase configuration
+    <script> // Alterado para script normal, não type="module"
+        // Initialize Firebase (usando configuração global)
         const firebaseConfig = {
           apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
           authDomain: "babes-392fd.firebaseapp.com",
@@ -154,16 +155,17 @@
           appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
         };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        // Initialize Firebase App
+        const app = firebase.initializeApp(firebaseConfig); // Acesso via namespace global firebase
+        const db = firebase.firestore(app); // Acesso via namespace global firebase
+
 
         const atoresContainer = document.getElementById('atores-container');
 
         async function carregarAtores() {
             try {
-                const atoresCollection = collection(db, 'atores');
-                const atoresSnapshot = await getDocs(atoresCollection);
+                const atoresCollection = firebase.firestore().collection(db, 'atores'); // Acesso via namespace global firebase
+                const atoresSnapshot = await firebase.firestore().getDocs(atoresCollection); // Acesso via namespace global firebase
                 const atoresData = atoresSnapshot.docs.map(doc => doc.data());
 
                 // Ordenar por data de criação (se disponível) ou usar os últimos 15 retornados
