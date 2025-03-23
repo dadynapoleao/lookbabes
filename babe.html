@@ -1,0 +1,37 @@
+        function createActorCard(actor) {
+            const cardLink = document.createElement("a"); // Create link element
+            cardLink.href = `babe.html?id=${actor.id}`; // **Updated link with actor.id**
+            cardLink.style.textDecoration = 'none'; // Remove default link underline
+
+            const card = document.createElement('div');
+            card.classList.add('actor-card');
+
+            const img = document.createElement('img');
+            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto";
+            img.alt = actor.nome;
+
+            const details = document.createElement('div');
+            details.classList.add('actor-details');
+
+            const name = document.createElement('h3');
+            name.classList.add('actor-name');
+            name.textContent = actor.nome;
+
+            const age = document.createElement('p');
+            age.classList.add('actor-info');
+            age.textContent = `Idade: ${calculateAge(actor.dataNascimento)}`;
+
+            const rating = document.createElement('p');
+            rating.classList.add('actor-rating');
+            rating.textContent = `Nota: ${actor.nota}`;
+
+            details.appendChild(name);
+            details.appendChild(age);
+            details.appendChild(rating);
+
+            card.appendChild(img);
+            card.appendChild(details);
+            cardLink.appendChild(card); // Append card to the link
+
+            return cardLink; // Return the link element (cardLink)
+        }
