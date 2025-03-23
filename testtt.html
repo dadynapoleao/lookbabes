@@ -9,22 +9,42 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #181818; /* Dark background */
+            color: #e0e0e0; /* Light text color */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #222; /* Slightly lighter dark container */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
         }
 
         header {
-            background-color: #333;
+            background-color: #333; /* Dark header background */
             color: #fff;
             padding: 1em 0;
             text-align: center;
+            border-bottom: 1px solid #555; /* Separator line */
+            margin-bottom: 20px;
         }
 
         nav {
-            background-color: #444;
+            background-color: #444; /* Darker nav background */
             color: #fff;
             padding: 0.5em 0;
             text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
         }
 
         nav ul {
@@ -42,16 +62,24 @@
             text-decoration: none;
             color: #fff;
             transition: color 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 5px;
         }
 
         nav ul li a:hover {
             color: #ddd;
+            background-color: #555;
         }
 
-        .container {
-            width: 90%;
-            margin: 20px auto;
-            overflow: hidden;
+        .actors-section {
+            margin-bottom: 30px;
+        }
+
+        .actors-section h2 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
         }
 
         .actors-grid {
@@ -61,11 +89,16 @@
         }
 
         .actor-card {
-            background-color: #fff;
+            background-color: #333; /* Dark actor card background */
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 15px;
+            text-align: center;
         }
 
         .actor-card:hover {
@@ -74,9 +107,12 @@
 
         .actor-card img {
             width: 100%;
-            height: auto; /* Ajustar altura automaticamente */
+            height: auto;
             display: block;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #555; /* Separator line for image */
+            border-radius: 8px 8px 0 0;
+            object-fit: cover;
+            aspect-ratio: 1/1; /* Ensure square images */
         }
 
         .actor-details {
@@ -87,27 +123,29 @@
         .actor-name {
             font-size: 1.2em;
             margin-bottom: 5px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         .actor-info {
             font-size: 0.9em;
-            color: #777;
+            color: #bbb; /* Muted info text color */
             margin-bottom: 3px;
         }
 
         .actor-rating {
             font-size: 1em;
             font-weight: bold;
+            color: #ddd;
         }
 
         footer {
-            background-color: #333;
+            background-color: #333; /* Dark footer background */
             color: #fff;
             text-align: center;
             padding: 1em 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            margin-top: 40px;
+            border-top: 1px solid #555; /* Separator line */
         }
 
         /* Efeitos Bonitos (Exemplos Simples) */
@@ -161,7 +199,7 @@
         <section class="actors-section">
             <h2>Últimos Atores Adicionados</h2>
             <div class="actors-grid" id="actorsGrid">
-                <!-- Actors will be loaded here by JavaScript -->
+                <p>Loading actors...</p> <!-- Initial loading message -->
             </div>
         </section>
     </div>
@@ -171,25 +209,26 @@
     </footer>
 
     <!-- Firebase SDK (using CDN) - UPDATED for FIRESTORE -->
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js"></script> <!-- Replaced firebase-database.js with firebase-firestore.js -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <script type="module">
-        // Firebase configuration (as provided)
+        // **IMPORTANT:** Replace with your actual Firebase project configuration!
         const firebaseConfig = {
-          apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
-          authDomain: "babes-392fd.firebaseapp.com",
-          projectId: "babes-392fd",
-          storageBucket: "babes-392fd.appspot.com",
-          messagingSenderId: "376795361631",
-          appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
+          apiKey: "YOUR_API_KEY",
+          authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+          projectId: "YOUR_PROJECT_ID",
+          storageBucket: "YOUR_PROJECT_ID.appspot.com",
+          messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+          appId: "YOUR_APP_ID",
+          measurementId: "YOUR_MEASUREMENT_ID" // Optional
         };
 
         // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
 
         // Initialize Firestore
-        const db = firebase.firestore(); // Get Firestore database reference
+        const db = firebase.firestore();
 
         document.addEventListener('DOMContentLoaded', () => {
             loadLastActors();
@@ -197,20 +236,19 @@
 
         async function loadLastActors() {
             const actorsGrid = document.getElementById('actorsGrid');
-            actorsGrid.innerHTML = '<p>Loading actors...</p>'; // Initial loading message
+            actorsGrid.innerHTML = '<p>Loading actors...</p>';
 
-            // Firestore data fetching
             db.collection('atores')
-              .orderBy('dataNascimento', 'desc') // Example: Order by date of birth descending (newest first) - Adjust field as needed
-              .limit(15) // Limit to the last 15
-              .get() // Get the documents
+              .orderBy('timestamp', 'desc') // Assuming you have a 'timestamp' field
+              .limit(15)
+              .get()
               .then((querySnapshot) => {
-                actorsGrid.innerHTML = ''; // Clear loading message
+                actorsGrid.innerHTML = '';
                 if (!querySnapshot.empty) {
                     const actorsArray = [];
                     querySnapshot.forEach((doc) => {
                         const actorData = doc.data();
-                        actorsArray.push(actorData); // Assuming your actor data is directly in the document
+                        actorsArray.push(actorData);
                     });
 
                     actorsArray.forEach((actor, index) => {
@@ -232,17 +270,12 @@
         }
 
 
-        function getFakeActors() {
-            // Fake data removed - Firestore is used now
-            return [];
-        }
-
         function createActorCard(actor) {
             const card = document.createElement('div');
             card.classList.add('actor-card');
 
             const img = document.createElement('img');
-            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto"; // Placeholder if no image
+            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto";
             img.alt = actor.nome;
 
             const details = document.createElement('div');
@@ -268,8 +301,8 @@
             card.appendChild(details);
 
             card.addEventListener('click', () => {
-                // Redirect to actor's page (atores.html)
-                window.location.href = `atores.html?id=${actor.nome.replace(/\s+/g, '-').toLowerCase()}`; // Example URL
+                // Redirect to actor's page (atores.html) - you'll need to create atores.html
+                window.location.href = `atores.html?id=${actor.nome.replace(/\s+/g, '-').toLowerCase()}`;
             });
 
             return card;
