@@ -99,7 +99,7 @@
             background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
-            border-radius: 8px; /* Garante que o efeito acompanha o border-radius do card */
+            border-radius: 8px; /* Garante que o efeito acompanha o border-radius do border-radius do card */
         }
 
         .ator-card:hover::before {
@@ -120,9 +120,9 @@
 
     </style>
 
-    <!-- Firebase SDKs via CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <!-- Firebase SDKs via CDN (Updated to 9.10.0 and added defer) -->
+    <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js" defer></script>
 
 </head>
 <body>
@@ -144,7 +144,7 @@
         <!-- Os atores serão adicionados aqui pelo JavaScript -->
     </div>
 
-    <script> // Alterado para script normal, não type="module"
+    <script> // Script type is normal, not module
         // Initialize Firebase (usando configuração global)
         const firebaseConfig = {
           apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
@@ -156,16 +156,16 @@
         };
 
         // Initialize Firebase App
-        const app = firebase.initializeApp(firebaseConfig); // Acesso via namespace global firebase
-        const db = firebase.firestore(app); // Acesso via namespace global firebase
+        firebase.initializeApp(firebaseConfig); // Access via global firebase
+        const db = firebase.firestore(); // Access via global firebase - simpler initialization
 
 
         const atoresContainer = document.getElementById('atores-container');
 
         async function carregarAtores() {
             try {
-                const atoresCollection = firebase.firestore().collection(db, 'atores'); // Acesso via namespace global firebase
-                const atoresSnapshot = await firebase.firestore().getDocs(atoresCollection); // Acesso via namespace global firebase
+                const atoresCollection = firebase.firestore().collection(db, 'atores'); // Access via global firebase
+                const atoresSnapshot = await firebase.firestore().getDocs(atoresCollection); // Access via global firebase
                 const atoresData = atoresSnapshot.docs.map(doc => doc.data());
 
                 // Ordenar por data de criação (se disponível) ou usar os últimos 15 retornados
