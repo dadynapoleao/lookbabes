@@ -8,7 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <style>
-    body {
+ body {
             font-family: 'Arial', sans-serif;
             background-color: #121212;
             color: #e0e0e0;
@@ -21,70 +21,75 @@
 
         .container {
             width: 95%;
-            max-width: 1200px; /* Wider container to accommodate side-by-side layout */
+            max-width: 1200px;
             margin: 20px auto;
             padding: 30px;
             background-color: #1e1e1e;
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-            display: flex; /* Enable Flexbox again */
-            flex-direction: row; /* Arrange items in a row (side-by-side) */
-            align-items: flex-start; /* Align items to the top */
-            gap: 30px; /* Spacing between image and info section */
+            display: flex;
+            flex-direction: column; /* Main container is vertical */
+            align-items: stretch; /* Stretch items to full container width */
+            gap: 20px;
             animation: fadeIn 0.5s ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .image-info-row {
+            display: flex;         /* Enable Flexbox for image and info row */
+            flex-direction: row;     /* Arrange image and info side-by-side */
+            align-items: flex-start; /* Align items to the top in the row */
+            gap: 30px;             /* Spacing between image and info */
+            width: 100%;           /* Take full width of container */
         }
 
-        h1 {
-            color: #fff;
-            text-align: left; /* Align title to the left of info section */
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-size: 2.5em;
-            letter-spacing: 1px;
-            width: 100%; /* Make title take full width of info section */
-        }
-
-     .actress-image-container {
-            text-align: left; /* Ensure text-align is left for any text content */
+        .actress-image-container {
+            text-align: left;
             margin-bottom: 0;
-            flex: 0 0 auto; /* Let container size according to content */
-            max-width: none; /* Remove max-width restriction */
-            width: auto;     /* Set width to auto to fit image width */
-            display: flex;     /* Enable flexbox for precise alignment */
-            justify-content: flex-start; /* Align content (image) to the left */
+            flex: 0 0 auto;      /* Size based on image content */
+            max-width: none;
+            width: auto;          /* Width auto to fit image */
+            display: flex;
+            justify-content: flex-start; /* Align image to the left */
         }
 
         .actress-image {
-            max-width: 100%; /* Image should not exceed container width */
+            max-width: 100%;
             max-height: 600px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             display: block;
-            margin-left: 0;  /* Explicitly set left margin to 0 */
-            margin-right: auto; /* Allow right margin to auto if needed for container width */
+            margin: 0;
         }
-        
+
         .actress-info {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjust min width of info boxes if needed */
-            gap: 20px; /* Vertical gap between info boxes */
-            row-gap: 25px; /* Increased row gap for better separation */
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            row-gap: 25px;
             margin-bottom: 20px;
-            flex: 1; /* Allow info section to take remaining width */
-            min-width: 0; /* Prevent overflow */
+            flex: 1;              /* Take remaining width */
+            min-width: 0;
+            text-align: right;    /* Default text alignment in info section to right */
+        }
+
+        h1 { /* Actress Name - now inside actress-info, so aligned right */
+            color: #fff;
+            text-align: right;    /* Align name to the right */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            width: 100%;          /* Take full width of info section */
+            align-self: flex-end; /* Right align within info section */
         }
 
         .info-item {
             padding: 20px;
-            background-color: #2a2a2a; /* Lighter background for boxes */
+            background-color: #2a2a2a;
             border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4); /* Stronger shadow for boxes */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+            text-align: left;     /* Override default right alignment for info-item content */
         }
 
         .info-label {
@@ -93,12 +98,15 @@
             margin-bottom: 5px;
             display: block;
             font-size: 0.9em;
+            text-align: right;    /* Right align labels within info-item */
         }
 
         .info-value {
             color: #eee;
             font-size: 1.1em;
+            text-align: left;     /* Left align values within info-item */
         }
+
 
         .note-badge {
             background-color: #ffc107;
@@ -122,7 +130,7 @@
             font-size: 1em;
             margin-top: 20px;
             margin-bottom: 20px;
-            align-self: flex-start;
+            align-self: flex-start; /* Keep back button left-aligned */
         }
     </style>
 </head>
