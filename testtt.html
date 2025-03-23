@@ -10,28 +10,28 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #121212;
+            background-color: #121212; /* Darker background */
             color: #e0e0e0;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
         }
 
         .container {
             width: 95%;
             max-width: 1200px;
             margin: 20px auto;
-            padding: 30px;
-            background-color: #1e1e1e;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+            padding: 30px; /* Increased padding */
+            background-color: #1e1e1e; /* Slightly lighter container background */
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Stronger shadow */
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            animation: fadeIn 0.5s ease-out forwards;
+            animation: fadeIn 0.5s ease-out forwards; /* Fade-in animation */
         }
 
         @keyframes fadeIn {
@@ -42,68 +42,67 @@
         .menu {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 15px; /* Increased gap */
+            margin-bottom: 30px; /* Increased margin */
         }
 
         .menu button {
-            padding: 12px 20px;
+            padding: 12px 20px; /* Larger buttons */
             border: none;
-            border-radius: 8px;
+            border-radius: 8px; /* Rounded button corners */
             background-color: #333;
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+            font-size: 1em; /* Slightly larger font */
         }
 
         .menu button:hover {
             background-color: #555;
-            transform: scale(1.05);
+            transform: scale(1.05); /* Scale up on hover */
         }
 
         h1 {
             color: #fff;
             text-align: center;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-size: 2.2em;
-            letter-spacing: 1px;
+            margin-bottom: 30px; /* Increased margin */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Stronger text shadow */
+            font-size: 2.2em; /* Larger heading */
+            letter-spacing: 1px; /* Slight letter spacing */
         }
 
         .atores-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Wider cards */
+            gap: 25px; /* Increased gap */
             margin-bottom: 30px;
-            padding: 20px;
-            background-color: #252525;
+            padding: 20px; /* Padding inside actor container */
+            background-color: #252525; /* Container background for actors */
             border-radius: 10px;
-            position: relative; /* To position the more-card correctly */
         }
 
-        .ator-card, .more-card {
+        .ator-card {
             background-color: #333;
-            border-radius: 10px;
+            border-radius: 10px; /* Rounded card corners */
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Elastic hover effect */
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 20px;
+            padding-bottom: 20px; /* Increased padding */
             text-align: center;
-            cursor: pointer; /* Make more-card clickable */
+            position: relative; /* For note badge positioning */
         }
 
-        .ator-card:hover, .more-card:hover {
-            transform: scale(1.1);
+        .ator-card:hover {
+            transform: scale(1.1); /* Larger scale on hover */
         }
 
         .ator-foto {
             width: 100%;
             height: auto;
-            border-radius: 10px 10px 0 0;
+            border-radius: 10px 10px 0 0; /* Rounded corners on top of image */
             display: block;
             object-fit: cover;
             aspect-ratio: 1/1;
@@ -111,22 +110,22 @@
 
         .ator-nome-card {
             color: #fff;
-            margin: 15px 0 8px 0;
-            font-size: 1.2em;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-            letter-spacing: 0.5px;
+            margin: 15px 0 8px 0; /* Increased margin */
+            font-size: 1.2em; /* Larger name font */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Stronger name shadow */
+            letter-spacing: 0.5px; /* Slight letter spacing */
         }
 
         .ator-info-stack {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 8px; /* Increased gap */
         }
 
         .ator-nacionalidade-card, .ator-idade-card {
             color: #bbb;
-            font-size: 1em;
+            font-size: 1em; /* Slightly larger info font */
             margin: 0;
         }
 
@@ -140,7 +139,7 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #ffc107;
+            background-color: #ffc107; /* Yellow badge color */
             color: #333;
             padding: 8px 10px;
             border-radius: 20px;
@@ -148,91 +147,6 @@
             font-weight: bold;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-
-        .more-card {
-            aspect-ratio: 1/1; /* Ensure more-card is square */
-            justify-content: center; /* Center content vertically */
-        }
-
-        .more-card-text {
-            color: #fff;
-            font-size: 1.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        /* Popup Styles */
-        .popup-overlay {
-            display: none; /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
-            z-index: 1000; /* Ensure it's on top */
-            overflow: auto; /* Enable scroll if content is long */
-        }
-
-        .popup-content {
-            background-color: #222;
-            margin: 5% auto; /* Center the popup */
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
-            position: relative; /* For close button positioning */
-            animation: scaleUp 0.3s ease-out forwards;
-        }
-
-        @keyframes scaleUp {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .popup-header {
-            color: #fff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .actress-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .actress-list-item {
-            padding: 10px 15px;
-            border-bottom: 1px solid #333;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .actress-list-item:last-child {
-            border-bottom: none; /* Remove border from last item */
-        }
-
-        .actress-list-item:hover {
-            background-color: #333;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.5em;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .close-button:hover {
-            opacity: 1;
-        }
-
     </style>
 
 </head>
@@ -256,19 +170,7 @@
 
     </div>
 
-    <!-- Popup for All Actresses -->
-    <div id="allActressesPopup" class="popup-overlay">
-        <div class="popup-content">
-            <button class="close-button" onclick="closePopup()">×</button>
-            <h2 class="popup-header">Todas as Atrizes</h2>
-            <ul id="allActressesList" class="actress-list">
-                <!-- All actresses list will be loaded here -->
-            </ul>
-        </div>
-    </div>
-
-
-      <script>
+    <script>
         // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
@@ -298,7 +200,6 @@
 
         // Function to display actors on the page
         function mostrarAtores(containerId, atoresParaMostrar) {
-            console.log("mostrarAtores called with containerId:", containerId, "and atoresParaMostrar:", atoresParaMostrar);
             const container = document.getElementById(containerId);
             if (!container) {
                 console.error(`Elemento '${containerId}' não encontrado na página!`);
@@ -313,14 +214,14 @@
 
             atoresParaMostrar.forEach((ator) => {
                 const cardLink = document.createElement("a");
-                cardLink.href = `babe.html?id=${ator.id}`;
+                cardLink.href = `babe.html?id=${ator.id}`; // Link to babe.html
                 cardLink.style.textDecoration = 'none';
 
                 const card = document.createElement("div");
                 card.className = "ator-card";
 
                 const age = calculateAge(ator.dataNascimento);
-                const note = ator.nota !== undefined ? ator.nota : 'N/A';
+                const note = ator.nota !== undefined ? ator.nota : 'N/A'; // Handle cases where 'nota' might be undefined
 
                 card.innerHTML = `
                     <img src="${ator.foto}" alt="${ator.nome}" class="ator-foto">
@@ -335,26 +236,13 @@
                 cardLink.appendChild(card);
                 container.appendChild(cardLink);
             });
-
-            // Add "More" card if less than 15 actors are displayed (indicating potential empty space)
-            if (atoresParaMostrar.length < 15) {
-                console.log("Adding 'More' card because atoresParaMostrar.length =", atoresParaMostrar.length, "is less than 15");
-                const moreCard = document.createElement("div");
-                moreCard.className = "more-card";
-                moreCard.onclick = openPopup; // Open popup on click
-                moreCard.innerHTML = '<div class="more-card-text">More</div>';
-                container.appendChild(moreCard);
-            } else {
-                console.log("Not adding 'More' card because atoresParaMostrar.length =", atoresParaMostrar.length, "is not less than 15");
-            }
         }
 
         // Function to load the latest 15 actors from Firestore
         async function carregarUltimosAtores() {
-            console.log("carregarUltimosAtores called");
             try {
                 const snapshot = await db.collection("atores")
-                    .orderBy('timestamp', 'desc')
+                    .orderBy('timestamp', 'desc') // Assuming you have a 'timestamp' field to order by creation
                     .limit(15)
                     .get();
 
@@ -366,10 +254,9 @@
 
                 const ultimosAtores = snapshot.docs.map(doc => {
                     const data = doc.data();
-                    return { id: doc.id, ...data, dataNascimento: data.dataNascimento };
+                    return { id: doc.id, ...data, dataNascimento: data.dataNascimento }; // Ensure dataNascimento is passed
                 });
 
-                console.log("carregarUltimosAtores - ultimosAtores:", ultimosAtores);
                 mostrarAtores("ultimos-atores", ultimosAtores);
                 console.log("Últimos 15 atores carregados do Firestore com sucesso!");
             } catch (error) {
@@ -378,63 +265,7 @@
             }
         }
 
-        // Function to load ALL actors for the popup list
-        async function carregarTodasAtores() {
-            console.log("carregarTodasAtores called");
-            try {
-                const snapshot = await db.collection("atores")
-                    .orderBy('nome', 'asc') // Order alphabetically by name
-                    .get();
-                const todosAtores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                console.log("carregarTodasAtores - todosAtores:", todosAtores);
-                return todosAtores;
-            } catch (error) {
-                console.error("Erro ao carregar todos os atores do Firestore: ", error);
-                alert("Erro ao carregar todos os atores do Firebase para o popup. Veja a consola para mais detalhes.");
-                return [];
-            }
-        }
-
-        // Function to populate the popup list
-        async function popularListaPopup() {
-            console.log("popularListaPopup called");
-            const todosAtores = await carregarTodasAtores();
-            const listContainer = document.getElementById('allActressesList');
-            if (!listContainer) {
-                console.error("Element with ID 'allActressesList' not found in the document!");
-                return;
-            }
-            listContainer.innerHTML = ''; // Clear existing list
-
-            todosAtores.forEach(ator => {
-                const listItem = document.createElement('li');
-                listItem.className = 'actress-list-item';
-                listItem.textContent = ator.nome;
-                listItem.onclick = () => {
-                    window.location.href = `babe.html?id=${ator.id}`;
-                    closePopup(); // Close popup after clicking on an actress
-                };
-                listContainer.appendChild(listItem);
-            });
-            console.log("popularListaPopup finished populating list");
-        }
-
-
-        // Function to open the popup
-        function openPopup() {
-            console.log("openPopup called");
-            document.getElementById('allActressesPopup').style.display = 'block';
-            popularListaPopup(); // Load and populate the list when popup is opened
-        }
-
-        // Function to close the popup
-        function closePopup() {
-            console.log("closePopup called");
-            document.getElementById('allActressesPopup').style.display = 'none';
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            console.log("DOMContentLoaded event fired");
             carregarUltimosAtores();
         });
     </script>
