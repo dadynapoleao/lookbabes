@@ -36,14 +36,11 @@
         <p>© 2024 Site de Atores. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Firebase SDK (using CDN) -->
+    <!-- Firebase SDK (using CDN) - UPDATED for FIRESTORE -->
     <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js"></script> <!-- Replaced firebase-database.js with firebase-firestore.js -->
 
-    <script type="module"> // Add type="module" here!
-        // Import necessary Firebase modules (using CDN, they are globally available now)
-        // import { initializeApp } from "firebase/app"; // No need for import with CDN
-
+    <script type="module">
         // Firebase configuration (as provided)
         const firebaseConfig = {
           apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
@@ -55,24 +52,33 @@
         };
 
         // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig); // Use firebase.initializeApp
+        const app = firebase.initializeApp(firebaseConfig);
 
-        const database = firebase.database(); // Get database reference
+        // Initialize Firestore
+        const db = firebase.firestore(); // Get Firestore database reference
 
         document.addEventListener('DOMContentLoaded', () => {
             loadLastActors();
         });
 
         async function loadLastActors() {
-            // **Firebase data fetching**
-            const actorsRef = database.ref('atores').limitToLast(15); // Reference to 'atores' and get last 15
+            const actorsGrid = document.getElementById('actorsGrid');
+            actorsGrid.innerHTML = '<p>Loading actors...</p>'; // Initial loading message
 
-            actorsRef.once('value', (snapshot) => { // Read data once
-                const actorsData = snapshot.val();
-                if (actorsData) {
-                    const actorsArray = Object.values(actorsData); // Convert object to array
-                    const actorsGrid = document.getElementById('actorsGrid');
-                    actorsGrid.innerHTML = ''; // Clear placeholder content
+            // Firestore data fetching
+            db.collection('atores')
+              .orderBy('dataNascimento', 'desc') // Example: Order by date of birth descending (newest first) - Adjust field as needed
+              .limit(15) // Limit to the last 15
+              .get() // Get the documents
+              .then((querySnapshot) => {
+                actorsGrid.innerHTML = ''; // Clear loading message
+                if (!querySnapshot.empty) {
+                    const actorsArray = [];
+                    querySnapshot.forEach((doc) => {
+                        const actorData = doc.data();
+                        actorsArray.push(actorData); // Assuming your actor data is directly in the document
+                    });
+
                     actorsArray.forEach((actor, index) => {
                         const actorCard = createActorCard(actor);
                         actorsGrid.appendChild(actorCard);
@@ -81,19 +87,20 @@
                         }, index * 100);
                     });
                 } else {
-                    console.log("No actors found in Firebase.");
-                    actorsGrid.innerHTML = '<p>No actors available.</p>'; // Display message if no actors
+                    console.log("No actors found in Firestore.");
+                    actorsGrid.innerHTML = '<p>No actors available.</p>';
                 }
-            }, (errorObject) => {
-                console.error("Error fetching data:", errorObject);
-                actorsGrid.innerHTML = '<p>Error loading actors.</p>'; // Display error message
-            });
+              })
+              .catch((error) => {
+                console.error("Error fetching actors from Firestore:", error);
+                actorsGrid.innerHTML = '<p>Error loading actors.</p>';
+              });
         }
 
 
         function getFakeActors() {
-            // **Fake data removed - Firebase is used now**
-            return []; // No more fake data
+            // Fake data removed - Firestore is used now
+            return [];
         }
 
         function createActorCard(actor) {
@@ -101,7 +108,7 @@
             card.classList.add('actor-card');
 
             const img = document.createElement('img');
-            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto"; // Use placeholder if no image
+            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto"; // Placeholder if no image
             img.alt = actor.nome;
 
             const details = document.createElement('div');
