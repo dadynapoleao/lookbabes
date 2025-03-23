@@ -28,97 +28,56 @@
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
             display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            gap: 30px;
+            flex-direction: column; /* Back to column layout */
+            align-items: stretch; /* Stretch items to container width */
+            gap: 20px; /* Adjust gap for vertical layout */
             animation: fadeIn 0.5s ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            color: #fff;
-            text-align: left;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-size: 2.5em;
-            letter-spacing: 1px;
-            width: 100%;
-        }
-
         .actress-image-container {
-            text-align: left;
-            margin-bottom: 0;
-            flex: 0 0 40%;
-            max-width: 40%;
+            text-align: center; /* Center image again */
+            margin-bottom: 25px; /* Add bottom margin for spacing */
+            /* Remove flex-basis and max-width styles */
+            flex: none;
+            max-width: none;
+            width: 100%; /* Ensure image container takes full width */
         }
 
         .actress-image {
             max-width: 100%;
-            max-height: 500px;
+            max-height: 500px; /* Keep max-height */
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             display: block;
+            margin: 0 auto; /* Center image horizontally if needed */
         }
 
         .actress-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px 30px; /* Increased gap between grid items */
+            gap: 25px 30px;
             margin-bottom: 20px;
-            flex: 1;
-            min-width: 0;
+            /* Remove flex: 1 and min-width styles */
+            flex: none;
+            min-width: auto;
+            width: 100%; /* Ensure info section takes full width */
         }
 
-        .info-item {
-            padding: 20px; /* Slightly increased padding inside boxes */
-            background-color: #2a2a2a; /* Slightly lighter background for boxes */
-            border-radius: 10px; /* Slightly more rounded corners */
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow */
-            /* Optional: Add a subtle border to further define boxes */
-            /* border: 1px solid #333; */
-        }
-
-        .info-label {
-            color: #bbb;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-            font-size: 0.9em;
-        }
-
-        .info-value {
-            color: #eee;
-            font-size: 1.1em;
-        }
-
-        .note-badge {
-            background-color: #ffc107;
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        h1 {
+            color: #fff;
+            text-align: center; /* Center title again */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            width: auto; /* Reset width to auto */
         }
 
         .back-button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            font-size: 1em;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            align-self: flex-start;
+            /* ... rest of back-button styles ... */
+            margin-bottom: 20px; /* Keep bottom margin */
+            align-self: flex-start; /* Keep align-self: flex-start to position at the top-left */
         }
     </style>
 </head>
