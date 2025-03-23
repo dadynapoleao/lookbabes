@@ -5,57 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página do Ator - {{ator.nome}}</title>
     <style>
-        /* style.css - Estilos unificados do ator_style.css */
-
-        /* ator_style.css - Estilos específicos para a página do ator (ator.html) - MELHORADO */
+        /* style.css - Estilos unificados do ator_style.css - MELHORADO IMAGENS ATORES SEMELHANTES */
 
         .ator-page {
             text-align: left;
             padding: 30px;
-            background-color: #181818; /* Fundo escuro consistente com index.html */
-            color: #e0e0e0; /* Cor do texto consistente com index.html */
-            font-family: 'Arial', sans-serif; /* Fonte consistente */
+            background-color: #181818;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centralizar conteúdo na página */
+            align-items: center;
         }
 
         .ator-page h1 {
-            font-size: 2.8em; /* Aumentei o tamanho do título principal */
+            font-size: 2.8em;
             margin-bottom: 20px;
             text-align: center;
-            color: #fff; /* Cor do título branco */
-            text-shadow: 2px 2px 3px rgba(0,0,0,0.3); /* Sombra no texto do título */
+            color: #fff;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
         }
 
         .ator-detalhes {
             display: flex;
             gap: 30px;
             align-items: flex-start;
-            max-width: 1000px; /* Aumentei a largura máxima para mais espaço */
-            margin: 20px auto; /* Centralizar e adicionar margem superior/inferior */
-            padding: 25px; /* Aumentei o padding interno */
-            background-color: #222; /* Fundo ligeiramente mais claro para o container de detalhes */
-            border-radius: 10px; /* Bordas arredondadas */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra suave, consistente com index.html */
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
-        @media (max-width: 768px) { /* Media query para telas menores */
+        @media (max-width: 768px) {
             .ator-detalhes {
-                flex-direction: column; /* Empilhar foto e informações em telas menores */
-                align-items: center; /* Centralizar os itens em coluna */
-                padding: 20px; /* Ajustar padding para telas menores */
-                gap: 20px; /* Ajustar gap para telas menores */
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                gap: 20px;
             }
             .ator-foto-e-nota {
-                width: 100%; /* Foto ocupa largura total em telas menores */
-                max-width: 300px; /* Limitar largura máxima da foto em telas menores */
+                width: 100%;
+                max-width: 300px;
             }
             .ator-foto-detalhe {
-                max-width: 100%; /* Foto detalhada ocupa largura total do container em telas menores */
+                max-width: 100%;
             }
         }
-
 
         .ator-foto-e-nota {
             display: flex;
@@ -67,144 +64,146 @@
             max-width: 300px;
             height: auto;
             border-radius: 10px;
-            margin-bottom: 15px; /* Aumentei a margem inferior */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra mais pronunciada na foto */
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         }
 
         .ator-nota-detalhe-container {
             text-align: center;
-            margin-top: 10px; /* Aumentei a margem superior */
-            padding: 10px 20px; /* Adicionei padding horizontal para destacar a nota */
-            background-color: #333; /* Fundo para a nota */
-            border-radius: 5px; /* Bordas arredondadas para a nota */
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #333;
+            border-radius: 5px;
         }
 
         .ator-nota-detalhe-container p {
-            font-size: 1.2em; /* Tamanho da fonte da nota */
-            color: #fff; /* Cor da nota branca */
+            font-size: 1.2em;
+            color: #fff;
             margin: 0;
         }
 
         .ator-info-completa {
             flex: 1;
-            padding-right: 15px; /* Adicionei padding direito para separar do texto */
+            padding-right: 15px;
         }
 
         .ator-info-completa p {
-            font-size: 1.15em; /* Aumentei ligeiramente o tamanho da fonte do texto */
-            line-height: 1.7; /* Aumentei o line-height para melhor legibilidade */
-            margin-bottom: 15px; /* Aumentei a margem inferior dos parágrafos */
-            color: #ddd; /* Cor do texto ligeiramente mais clara */
+            font-size: 1.15em;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #ddd;
         }
 
         .ator-info-completa strong {
-            color: #fff; /* Cor dos textos em negrito mais destacada */
-            font-weight: bold; /* Garante que o texto em <strong> seja negrito */
+            color: #fff;
+            font-weight: bold;
         }
 
         /* Estilos para a secção "Atores Semelhantes" - MELHORADO */
         .atores-semelhantes-section {
-            margin-top: 60px; /* Aumentei a margem superior para mais espaço */
-            padding: 30px; /* Aumentei o padding interno */
-            background-color: #222; /* Cor de fundo consistente com o container de detalhes */
-            border-radius: 10px; /* Bordas arredondadas */
+            margin-top: 60px;
+            padding: 30px;
+            background-color: #222;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* Sombra ligeiramente mais suave */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
         }
 
         .atores-semelhantes-section h2 {
-            font-size: 2.3em; /* Aumentei o tamanho do título da seção */
-            margin-bottom: 25px; /* Aumentei a margem inferior do título */
-            color: #fff; /* Cor do título branco */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Sombra suave no título */
+            font-size: 2.3em;
+            margin-bottom: 25px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .atores-semelhantes-lista {
-            display: grid; /* Usar grid para layout responsivo de atores semelhantes */
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Cards menores e responsivos */
-            gap: 20px; /* Espaçamento entre os cards */
-            justify-content: center; /* Centralizar os cards horizontalmente */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Cards menores e responsivos */
+            gap: 15px; /* Espaçamento menor entre os cards */
+            justify-content: center;
         }
 
-        .atores-semelhantes-lista .ator-card { /* Estilos específicos para cards na lista de semelhantes - MELHORADO */
-            padding: 15px; /* Aumentei um pouco o padding interno */
-            margin-bottom: 0; /* Removi a margem inferior */
-            background-color: #333; /* Fundo dos cards consistente */
-            border-radius: 8px; /* Bordas arredondadas */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra suave */
-            transition: transform 0.3s ease; /* Transição suave hover */
+        .atores-semelhantes-lista .ator-card {
+            padding: 10px; /* Padding menor dentro dos cards */
+            margin-bottom: 0;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
         }
 
         .atores-semelhantes-lista .ator-card:hover {
-            transform: scale(1.05); /* Efeito de zoom no hover */
+            transform: scale(1.05);
         }
 
-        .atores-semelhantes-lista .ator-card img.ator-foto { /* Imagem nos cards de semelhantes */
-            border-radius: 8px 8px 0 0; /* Arredondar só em cima */
-            aspect-ratio: 1/1; /* Manter proporção quadrada */
-            object-fit: cover; /* Cobrir o espaço */
-            width: 100%; /* Imagem responsiva */
-            height: auto; /* Altura automática */
-            display: block; /* Remover espaço extra abaixo da imagem */
+        .atores-semelhantes-lista .ator-card img.ator-foto {
+            border-radius: 8px 8px 0 0;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            width: 100%;
+            max-width: 150px; /* IMAGEM MENOR - Ajuste o tamanho máximo da imagem */
+            height: auto;
+            display: block;
         }
 
 
         .atores-semelhantes-lista h3 {
-            font-size: 1.1em;
-            margin-top: 10px; /* Adicionei margem superior */
-            margin-bottom: 5px; /* Ajustei margem inferior */
-            line-height: 1.3;
-            color: #fff; /* Nome branco */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sombra suave no nome */
+            font-size: 1em; /* Tamanho da fonte menor para o nome */
+            margin-top: 8px; /* Margem superior menor */
+            margin-bottom: 3px; /* Margem inferior menor */
+            line-height: 1.2;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-align: center; /* Centralizar o texto abaixo da imagem */
         }
 
-        .atores-semelhantes-lista h3 .percentagem-semelhanca { /* Estilo para a percentagem de semelhança - MELHORADO */
-            font-size: 0.9em; /* Aumentei ligeiramente a percentagem */
+        .atores-semelhantes-lista h3 .percentagem-semelhanca {
+            font-size: 0.85em; /* Percentagem menor */
             color: #aaa;
             display: block;
-            margin-bottom: 5px; /* Ajustei margem inferior */
+            margin-bottom: 3px; /* Margem inferior menor */
         }
 
-        .atores-semelhantes-lista .ator-card p { /* Estilos para parágrafos DENTRO dos cards de semelhantes - MELHORADO */
-            margin-bottom: 5px; /* Ajustei margem inferior */
-            line-height: 1.3;
-            font-size: 0.95em; /* Aumentei ligeiramente o tamanho da fonte */
-            color: #ccc; /* Cor do texto ligeiramente mais clara */
+        .atores-semelhantes-lista .ator-card p {
+            margin-bottom: 3px; /* Margem inferior menor */
+            line-height: 1.2;
+            font-size: 0.9em; /* Tamanho da fonte menor para parágrafos */
+            color: #ccc;
+            text-align: center; /* Centralizar o texto nos cards */
         }
 
 
         /* Estilos para Tabelas - MELHORADO */
         .atores-tabela-container {
             overflow-x: auto;
-            margin-bottom: 40px; /* Aumentei a margem inferior */
-            margin-top: 40px; /* Aumentei a margem superior */
+            margin-bottom: 40px;
+            margin-top: 40px;
         }
 
         .atores-tabela {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px; /* Aumentei margem superior */
+            margin-top: 15px;
             color: white;
-            border-radius: 8px; /* Bordas arredondadas na tabela */
-            overflow: hidden; /* Garante que as bordas arredondadas funcionem */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Sombra suave na tabela */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .atores-tabela th, .atores-tabela td {
-            border: none; /* Removi as bordas internas padrão */
-            padding: 12px 10px; /* Aumentei o padding interno */
+            border: none;
+            padding: 12px 10px;
             text-align: left;
-            border-bottom: 1px solid #555; /* Adicionei borda inferior mais suave */
+            border-bottom: 1px solid #555;
         }
 
         .atores-tabela th {
-            background-color: #444; /* Cor de fundo do cabeçalho da tabela */
+            background-color: #444;
             font-weight: bold;
             text-align: center;
-            color: #eee; /* Cor do texto do cabeçalho */
+            color: #eee;
         }
 
-        /* Remover a última borda inferior da tabela */
         .atores-tabela tbody tr:last-child td {
             border-bottom: none;
         }
@@ -212,9 +211,9 @@
 
         #tabela-alturas-baixas-body th,
         #tabela-alturas-altas-body th {
-            background-color: #555; /* Cor ligeiramente mais escura para sub-cabeçalhos */
+            background-color: #555;
             font-size: 1.1em;
-            color: #fff; /* Cor do texto sub-cabeçalho branco */
+            color: #fff;
         }
 
 
@@ -222,89 +221,89 @@
 
         .filmes-videos-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Cards ligeiramente maiores */
-            gap: 25px; /* Aumentei o espaçamento */
-            padding: 30px; /* Aumentei o padding */
-            margin-top: 30px; /* Adicionei margem superior */
-            background-color: #222; /* Cor de fundo consistente */
-            border-radius: 10px; /* Bordas arredondadas */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* Sombra suave */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 30px;
+            margin-top: 30px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
         }
 
         .filme-video-card {
-            background-color: #333; /* Cor de fundo dos cards consistente */
+            background-color: #333;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.4); /* Sombra ligeiramente mais pronunciada */
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.4);
             transition: transform 0.2s ease-in-out;
             display: flex;
             flex-direction: column;
         }
 
         .filme-video-card:hover {
-            transform: scale(1.04); /* Ligeiro aumento no hover */
+            transform: scale(1.04);
         }
 
         .filme-video-imagem {
             width: 100%;
-            height: 220px; /* Aumentei a altura da imagem */
+            height: 220px;
             object-fit: cover;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
 
         .filme-video-card h3 {
-            font-size: 1.3em; /* Aumentei o tamanho do título */
-            margin: 18px 15px 8px 15px; /* Ajustei as margens */
+            font-size: 1.3em;
+            margin: 18px 15px 8px 15px;
             color: white;
             text-align: center;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sombra suave no título */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         .filme-video-card p {
-            font-size: 1.05em; /* Aumentei ligeiramente o tamanho do texto */
-            margin: 0 15px 15px 15px; /* Ajustei as margens */
+            font-size: 1.05em;
+            margin: 0 15px 15px 15px;
             color: #ddd;
             text-align: center;
         }
 
         .filme-video-card a {
             display: block;
-            background-color: #444; /* Cor de fundo do botão ligeiramente mais clara */
+            background-color: #444;
             color: white;
             text-align: center;
-            padding: 12px 15px; /* Aumentei o padding do botão */
+            padding: 12px 15px;
             text-decoration: none;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
-            transition: background-color 0.3s ease; /* Transição suave no hover */
+            transition: background-color 0.3s ease;
         }
 
         .filme-video-card a:hover {
-            background-color: #555; /* Cor do botão no hover */
+            background-color: #555;
         }
 
         /* ator_style.css - Add these styles for "Ver Mais" buttons - MELHORADO */
         .ver-mais-btn {
-            display: none; /* Hidden by default, shown by JS when needed */
-            background-color: #444; /* Cor de fundo do botão ligeiramente mais clara */
+            display: none;
+            background-color: #444;
             color: white;
             border: none;
-            padding: 12px 20px; /* Aumentei o padding do botão */
-            margin: 20px auto 30px auto; /* Ajustei as margens */
-            border-radius: 8px; /* Bordas mais arredondadas */
+            padding: 12px 20px;
+            margin: 20px auto 30px auto;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1.05em; /* Aumentei ligeiramente o tamanho da fonte */
-            transition: background-color 0.3s ease-in-out; /* Transição suave */
+            font-size: 1.05em;
+            transition: background-color 0.3s ease-in-out;
             width: fit-content;
             display: block;
             text-decoration: none;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Sombra suave no botão */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .ver-mais-btn:hover {
-            background-color: #555; /* Cor do botão no hover */
+            background-color: #555;
         }
     </style>
 
@@ -338,13 +337,13 @@
             </div>
         </div>
 
-        <section id="conteudo-ator-section" class="conteudo-ator-section"> <!-- NOVA SECÇÃO "Conteúdo do Ator" -->
+        <section id="conteudo-ator-section" class="conteudo-ator-section">
             <div class="conteudo-selector">
                 <!-- Buttons removed in previous steps -->
             </div>
 
             <div id="filmes-container" class="conteudo-lista active">
-                <h2 id="filmes-heading">Filmes de {{ator.nome}}</h2>  <!-- ADDED ID: filmes-heading -->
+                <h2 id="filmes-heading">Filmes de {{ator.nome}}</h2>
                 <div id="filmes-lista" class="filmes-videos-container limited-list">
                     <p>Carregando filmes...</p>
                 </div>
@@ -352,7 +351,7 @@
             </div>
 
             <div id="videos-container" class="conteudo-lista">
-                <h2 id="videos-cenas-heading">Vídeos e Cenas de {{ator.nome}}</h2> <!-- ADDED ID: videos-cenas-heading -->
+                <h2 id="videos-cenas-heading">Vídeos e Cenas de {{ator.nome}}</h2>
                 <div id="videos-lista" class="filmes-videos-container limited-list">
                      <p>Carregando vídeos e cenas...</p>
                 </div>
@@ -390,53 +389,50 @@
         // Inicializar o Firestore
         const db = firebase.firestore();
 
-        let atoresGlobais = []; // Array global para armazenar todos os atores
-        let atorIdGlobal; // Variável para guardar o ID do ator atual
+        let atoresGlobais = [];
+        let atorIdGlobal;
 
-        // State to track if "Ver Mais" has been clicked for each section
         let filmesVerMaisClicked = false;
         let videosVerMaisClicked = false;
-        const initialLimit = 10; // Initial number of items to load
+        const initialLimit = 10;
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Obter o ID do ator da URL
             const params = new URLSearchParams(window.location.search);
             const atorId = params.get('id');
-            atorIdGlobal = atorId; // Guardar o ID do ator
+            atorIdGlobal = atorId;
 
             if (atorId) {
                 carregarDetalhesAtor(atorId);
-                carregarFilmesDoAtor(atorId, initialLimit); // Carregar filmes por default
-                carregarVideosDoAtor(atorId, initialLimit); // Carregar vídeos e cenas por default
+                carregarFilmesDoAtor(atorId, initialLimit);
+                carregarVideosDoAtor(atorId, initialLimit);
             } else {
                 console.error("ID do ator não encontrado na URL.");
                 alert("Erro: ID do ator não encontrado.");
             }
 
-            // Event listeners para "Ver Mais" buttons
             document.getElementById('ver-mais-filmes-btn').addEventListener('click', () => {
                 filmesVerMaisClicked = true;
-                carregarFilmesDoAtor(atorId, null); // Load all films when "Ver Mais" is clicked
-                document.getElementById('ver-mais-filmes-btn').style.display = 'none'; // Hide "Ver Mais" button after click
+                carregarFilmesDoAtor(atorId, null);
+                document.getElementById('ver-mais-filmes-btn').style.display = 'none';
             });
 
             document.getElementById('ver-mais-videos-btn').addEventListener('click', () => {
                 videosVerMaisClicked = true;
-                carregarVideosDoAtor(atorId, null); // Load all videos when "Ver Mais" is clicked
-                document.getElementById('ver-mais-videos-btn').style.display = 'none'; // Hide "Ver Mais" button after click
+                carregarVideosDoAtor(atorId, null);
+                document.getElementById('ver-mais-videos-btn').style.display = 'none';
             });
         });
 
         async function carregarDetalhesAtor(atorId) {
-            let atorPrincipal; // Declare atorPrincipal here
+            let atorPrincipal;
             try {
                 const docSnapshot = await db.collection("atores").doc(atorId).get();
                 if (docSnapshot.exists) {
                     atorPrincipal = docSnapshot.data();
-                    console.log("carregarDetalhesAtor - atorPrincipal fetched:", atorPrincipal); // Debug log - after fetching
+                    console.log("carregarDetalhesAtor - atorPrincipal fetched:", atorPrincipal);
                     preencherPaginaAtor(atorPrincipal, atorId);
                     console.log("Detalhes do ator carregados com sucesso!");
-                     carregarAtoresSemelhantes(atorPrincipal); // Carregar atores semelhantes APÓS carregar o ator principal
+                     carregarAtoresSemelhantes(atorPrincipal);
                 } else {
                     console.error("Ator não encontrado no Firestore.");
                     alert("Ator não encontrado.");
@@ -445,18 +441,17 @@
                 console.error("Erro ao carregar detalhes do ator: ", error);
                 alert("Erro ao carregar detalhes do ator do Firebase. Veja a consola para mais detalhes.");
             }
-            console.log("carregarDetalhesAtor - atorPrincipal before return:", atorPrincipal); // Debug log - before function return
-            return atorPrincipal; // Return atorPrincipal for debugging purposes
+            console.log("carregarDetalhesAtor - atorPrincipal before return:", atorPrincipal);
+            return atorPrincipal;
         }
 
         function preencherPaginaAtor(ator, atorId) {
             document.getElementById("ator-nome-completo").textContent = ator.nome || "N/A";
-            document.getElementById("ator-foto-detalhe").src = ator.foto || "URL_IMAGEM_PADRAO"; // **THIS LINE IS CRUCIAL**
+            document.getElementById("ator-foto-detalhe").src = ator.foto || "URL_IMAGEM_PADRAO";
             document.getElementById("ator-foto-detalhe").alt = ator.nome || "Ator sem nome";
             document.getElementById("ator-idade-detalhe").textContent = ator.idade || "N/A";
             document.getElementById("ator-data-nascimento-detalhe").textContent = ator.dataNascimento || "N/A";
 
-            // Preencher o link da nacionalidade e o texto do span da nacionalidade
             const paisSpan = document.getElementById("ator-pais-detalhe");
             const paisLink = document.getElementById("ator-pais-link");
             if (paisSpan && paisLink) {
@@ -476,17 +471,16 @@
             document.getElementById("ator-medidas-detalhe").textContent = ator.medidas || "N/A";
             document.getElementById("ator-nota-detalhe").textContent = ator.nota || "N/A";
 
-            // **Update the headings with actor's name**
             document.getElementById('filmes-heading').textContent = `Filmes de ${ator.nome}`;
             document.getElementById('videos-cenas-heading').textContent = `Vídeos e Cenas de ${ator.nome}`;
         }
 
         async function carregarFilmesDoAtor(atorId, limit = null) {
             const filmesListaContainer = document.getElementById('filmes-lista');
-            filmesListaContainer.innerHTML = "<p>Carregando filmes...</p>"; // Mensagem de carregamento
+            filmesListaContainer.innerHTML = "<p>Carregando filmes...</p>";
 
             let query = db.collection('filmes').where('atores', 'array-contains', atorId);
-            if (limit && !filmesVerMaisClicked) { // Apply limit only on initial load and if "Ver Mais" is not clicked
+            if (limit && !filmesVerMaisClicked) {
                 query = query.limit(limit);
             }
 
@@ -496,25 +490,24 @@
                 if (!filmesSnapshot.empty) {
                     const filmesDoAtor = filmesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                     mostrarFilmesDoAtor(filmesListaContainer, filmesDoAtor);
-                    // Show "Ver Mais" button if more items are available (simple check, might need adjustment for exact counts)
-                    if (limit && filmesDoAtor.length > limit && !filmesVerMaisClicked) { // Basic check to show "Ver Mais" - adjust as needed
+                    if (limit && filmesDoAtor.length > limit && !filmesVerMaisClicked) {
                         document.getElementById('ver-mais-filmes-btn').style.display = 'block';
                     } else {
                         document.getElementById('ver-mais-filmes-btn').style.display = 'none';
                     }
                 } else {
                     filmesListaContainer.innerHTML = "<p>Este ator não participou em nenhum filme.</p>";
-                    document.getElementById('ver-mais-filmes-btn').style.display = 'none'; // Hide button if no filmes
+                    document.getElementById('ver-mais-filmes-btn').style.display = 'none';
                 }
             } catch (error) {
                 console.error("Erro ao carregar filmes do ator: ", error);
                 filmesListaContainer.innerHTML = "<p>Erro ao carregar filmes.</p>";
-                document.getElementById('ver-mais-filmes-btn').style.display = 'none'; // Hide button on error
+                document.getElementById('ver-mais-filmes-btn').style.display = 'none';
             }
         }
 
         function mostrarFilmesDoAtor(container, filmes) {
-            container.innerHTML = ''; // Limpa a mensagem "Carregando filmes..."
+            container.innerHTML = '';
 
             if (filmes.length === 0) {
                 container.innerHTML = "<p>Este ator não participou em nenhum filme.</p>";
@@ -540,45 +533,40 @@
             videosListaContainer.innerHTML = "<p>Carregando vídeos e cenas...</p>";
 
             let query = db.collection('videos').where('atores', 'array-contains', atorId);
-            let queryCenas = db.collection('cenas').where('atores', 'array-contains', atorId); // Query for cenas
+            let queryCenas = db.collection('cenas').where('atores', 'array-contains', atorId);
 
-            if (limit && !videosVerMaisClicked) { // Apply limit only on initial load and if "Ver Mais" is not clicked
+            if (limit && !videosVerMaisClicked) {
                 query = query.limit(limit);
-                queryCenas = queryCenas.limit(limit); // Apply limit to cenas query as well
+                queryCenas = queryCenas.limit(limit);
             }
 
 
             try {
-                // Carregar Vídeos
                 const videosSnapshot = await query.get();
-
-                // Carregar Cenas
                 const cenasSnapshot = await queryCenas.get();
-
 
                 let videosDoAtor = videosSnapshot.docs.map(doc => ({ type: 'video', id: doc.id, ...doc.data() }));
                 let cenasDoAtor = cenasSnapshot.docs.map(doc => ({ type: 'cena', id: doc.id, ...doc.data() }));
 
-                const conteudoAtor = [...videosDoAtor, ...cenasDoAtor]; // Combina vídeos e cenas
+                const conteudoAtor = [...videosDoAtor, ...cenasDoAtor];
 
                 if (conteudoAtor.length > 0) {
                     mostrarVideosDoAtor(videosListaContainer, conteudoAtor);
-                     // Show "Ver Mais" button if more items are available (simple check, might need adjustment for exact counts)
-                    if (limit && conteudoAtor.length > limit && !videosVerMaisClicked) { // Basic check to show "Ver Mais" - adjust as needed
+                    if (limit && conteudoAtor.length > limit && !videosVerMaisClicked) {
                         document.getElementById('ver-mais-videos-btn').style.display = 'block';
                     } else {
                         document.getElementById('ver-mais-videos-btn').style.display = 'none';
                     }
                 } else {
                     videosListaContainer.innerHTML = "<p>Este ator não participou em vídeos ou cenas.</p>";
-                    document.getElementById('ver-mais-videos-btn').style.display = 'none'; // Hide button if no videos
+                    document.getElementById('ver-mais-videos-btn').style.display = 'none';
                 }
 
 
             } catch (error) {
                 console.error("Erro ao carregar vídeos e cenas do ator: ", error);
                 videosListaContainer.innerHTML = "<p>Erro ao carregar vídeos e cenas.</p>";
-                document.getElementById('ver-mais-videos-btn').style.display = 'none'; // Hide button on error
+                document.getElementById('ver-mais-videos-btn').style.display = 'none';
             }
         }
 
@@ -605,10 +593,10 @@
 
 
         async function carregarAtoresSemelhantes(atorPrincipal) {
-            console.log("carregarAtoresSemelhantes - atorPrincipal:", atorPrincipal); // Debug log - check atorPrincipal here!
+            console.log("carregarAtoresSemelhantes - atorPrincipal:", atorPrincipal);
             try {
                 const snapshot = await db.collection("atores").get();
-                atoresGlobais = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); // Carrega todos os atores para o array global
+                atoresGlobais = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
                 const atoresSemelhantes = encontrarAtoresSemelhantes(atorPrincipal, atoresGlobais);
                 mostrarAtoresSemelhantes(atoresSemelhantes);
@@ -620,50 +608,42 @@
         }
 
         function encontrarAtoresSemelhantes(atorPrincipal, todosAtores) {
-            console.log("encontrarAtoresSemelhantes - atorPrincipal in function:", atorPrincipal); // Debug log - check atorPrincipal inside function
+            console.log("encontrarAtoresSemelhantes - atorPrincipal in function:", atorPrincipal);
 
-            // Capture atorPrincipal in a separate variable outside the filter for clarity
             const principalActor = atorPrincipal;
 
-            return todosAtores.filter(ator => { // Using arrow function here
-                // **PRIMEIRO: EXCLUIR O ATOR PRINCIPAL**
-                console.log(`Comparando ator ID: ${ator.id} com atorPrincipal ID: ${principalActor?.id}`); // LOGGING! - use optional chaining
-                if (ator.id === principalActor?.id) { // Use atorPrincipal directly within the arrow function
-                    console.log(`Excluindo ator com ID: ${ator.id} por ser o ator principal.`); // LOGGING!
-                    return false; // Exclui o próprio ator principal
+            return todosAtores.filter(ator => {
+                console.log(`Comparando ator ID: ${ator.id} com atorPrincipal ID: ${principalActor?.id}`);
+                if (ator.id === principalActor?.id) {
+                    console.log(`Excluindo ator com ID: ${ator.id} por ser o ator principal.`);
+                    return false;
                 }
 
                 let scoreSemelhanca = 0;
 
-                // Critérios de semelhança com pesos (AJUSTE OS PESOS CONFORME NECESSÁRIO)
-                if (ator.corCabelo === principalActor?.corCabelo) scoreSemelhanca += 20; // Use optional chaining
-                if (ator.corOlhos === principalActor?.corOlhos) scoreSemelhanca += 15; // Use optional chaining
-                if (ator.tipoCorpo === principalActor?.tipoCorpo) scoreSemelhanca += 25; // Use optional chaining
-                if (ator.etnia === principalActor?.etnia) scoreSemelhanca += 10; // Use optional chaining
+                if (ator.corCabelo === principalActor?.corCabelo) scoreSemelhanca += 20;
+                if (ator.corOlhos === principalActor?.corOlhos) scoreSemelhanca += 15;
+                if (ator.tipoCorpo === principalActor?.tipoCorpo) scoreSemelhanca += 25;
+                if (ator.etnia === principalActor?.etnia) scoreSemelhanca += 10;
 
-                // Critério de altura com range (Peso: 20%)
-                const alturaPrincipal = parseInt(principalActor?.altura) || 0; // Use optional chaining
+                const alturaPrincipal = parseInt(principalActor?.altura) || 0;
                 const alturaAtor = parseInt(ator.altura) || 0;
-                if (Math.abs(alturaAtor - alturaPrincipal) <= 5) scoreSemelhanca += 20; // Tolerância de 5cm
+                if (Math.abs(alturaAtor - alturaPrincipal) <= 5) scoreSemelhanca += 20;
 
-                // Critério de idade com range (Peso: 10%)
-                const idadePrincipal = parseInt(principalActor?.idade) || 0; // Use optional chaining
+                const idadePrincipal = parseInt(principalActor?.idade) || 0;
                 const idadeAtor = parseInt(ator.idade) || 0;
-                if (Math.abs(idadeAtor - idadePrincipal) <= 5) scoreSemelhanca += 10;   // Tolerância de 5 anos
+                if (Math.abs(idadeAtor - idadePrincipal) <= 5) scoreSemelhanca += 10;
 
-
-                // **ALTERAÇÃO IMPORTANTE: FILTRAR POR PERCENTAGEM DE SEMELHANÇA >= 75%**
-                return scoreSemelhanca >= 75; // Considera semelhante SE A PONTUAÇÃO FOR 75% OU MAIOR
+                return scoreSemelhanca >= 75;
             })
             .map(ator => {
-                // Calcular a percentagem de semelhança (PODE AJUSTAR O CÁLCULO CONFORME NECESSÁRIO)
                 let percentagemSemelhanca = 0;
-                if (ator.corCabelo === principalActor?.corCabelo) percentagemSemelhanca += 25; // Use optional chaining
-                if (ator.tipoCorpo === principalActor?.tipoCorpo) percentagemSemelhanca += 25; // Use optional chaining
-                if (ator.medidas === principalActor?.medidas) percentagemSemelhanca += 25; // Use optional chaining
-                if (Math.abs(parseInt(ator.altura) - parseInt(principalActor?.altura)) <= 5) percentagemSemelhanca += 25; // Use optional chaining
+                if (ator.corCabelo === principalActor?.corCabelo) percentagemSemelhanca += 25;
+                if (ator.tipoCorpo === principalActor?.tipoCorpo) percentagemSemelhanca += 25;
+                if (ator.medidas === principalActor?.medidas) percentagemSemelhanca += 25;
+                if (Math.abs(parseInt(ator.altura) - parseInt(principalActor?.altura)) <= 5) percentagemSemelhanca += 25;
 
-                return { ...ator, percentagemSemelhanca: percentagemSemelhanca, id: ator.id }; // Retorna ator com percentagem e ID
+                return { ...ator, percentagemSemelhanca: percentagemSemelhanca, id: ator.id };
             });
         }
 
@@ -695,8 +675,8 @@
                         ${atorSemelhante.nome}
                         <span class="percentagem-semelhanca">(${atorSemelhante.percentagemSemelhanca}% Semelhante)</span>
                     </h3>
-                    <p>Nacionalidade: ${atorSemelhante.pais}</p>
-                    <p>Idade: ${atorSemelhante.idade} anos</p>
+                    <p style="font-size: 0.9em;">Nacionalidade: ${atorSemelhante.pais}</p>
+                    <p style="font-size: 0.9em;">Idade: ${atorSemelhante.idade} anos</p>
                 `;
                 cardLink.appendChild(card);
                 containerSemelhantes.appendChild(cardLink);
@@ -704,7 +684,6 @@
         }
 
 
-        // Função mostrarAtores (COPIE A FUNÇÃO mostrarAtores DO SEU script.js COMPLETO AQUI!)
         function mostrarAtores(containerId, atoresParaMostrar) {
             const container = document.getElementById(containerId);
             if (!container) {
