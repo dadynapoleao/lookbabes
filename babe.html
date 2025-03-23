@@ -34,23 +34,24 @@
             animation: fadeIn 0.5s ease-out forwards;
         }
 
-        .actress-image-container {
-            text-align: center; /* Center image again */
-            margin-bottom: 25px; /* Add bottom margin for spacing */
-            /* Remove flex-basis and max-width styles */
+       .actress-image-container {
+            text-align: left; /* Explicitly align text to the left */
+            margin-bottom: 25px;
             flex: none;
             max-width: none;
-            width: 100%; /* Ensure image container takes full width */
+            width: 100%;
+            display: flex; /* Use flexbox for container to control image alignment */
+            justify-content: flex-start; /* Align image to the start (left) of the container */
         }
 
         .actress-image {
             max-width: 100%;
-            max-height: 500px; /* Keep max-height */
+            max-height: 500px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             display: block;
-            margin: 0 auto; /* Center image horizontally if needed */
+            margin: 0; /* Remove auto margins that might center it */
         }
 
         .actress-info {
