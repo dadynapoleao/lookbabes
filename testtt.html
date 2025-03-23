@@ -268,7 +268,7 @@
     </div>
 
 
-    <script>
+      <script>
         // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
@@ -298,6 +298,7 @@
 
         // Function to display actors on the page
         function mostrarAtores(containerId, atoresParaMostrar) {
+            console.log("mostrarAtores called with containerId:", containerId, "and atoresParaMostrar:", atoresParaMostrar);
             const container = document.getElementById(containerId);
             if (!container) {
                 console.error(`Elemento '${containerId}' não encontrado na página!`);
@@ -337,16 +338,20 @@
 
             // Add "More" card if less than 15 actors are displayed (indicating potential empty space)
             if (atoresParaMostrar.length < 15) {
+                console.log("Adding 'More' card because atoresParaMostrar.length =", atoresParaMostrar.length, "is less than 15");
                 const moreCard = document.createElement("div");
                 moreCard.className = "more-card";
                 moreCard.onclick = openPopup; // Open popup on click
                 moreCard.innerHTML = '<div class="more-card-text">More</div>';
                 container.appendChild(moreCard);
+            } else {
+                console.log("Not adding 'More' card because atoresParaMostrar.length =", atoresParaMostrar.length, "is not less than 15");
             }
         }
 
         // Function to load the latest 15 actors from Firestore
         async function carregarUltimosAtores() {
+            console.log("carregarUltimosAtores called");
             try {
                 const snapshot = await db.collection("atores")
                     .orderBy('timestamp', 'desc')
@@ -364,6 +369,7 @@
                     return { id: doc.id, ...data, dataNascimento: data.dataNascimento };
                 });
 
+                console.log("carregarUltimosAtores - ultimosAtores:", ultimosAtores);
                 mostrarAtores("ultimos-atores", ultimosAtores);
                 console.log("Últimos 15 atores carregados do Firestore com sucesso!");
             } catch (error) {
@@ -374,11 +380,13 @@
 
         // Function to load ALL actors for the popup list
         async function carregarTodasAtores() {
+            console.log("carregarTodasAtores called");
             try {
                 const snapshot = await db.collection("atores")
                     .orderBy('nome', 'asc') // Order alphabetically by name
                     .get();
                 const todosAtores = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                console.log("carregarTodasAtores - todosAtores:", todosAtores);
                 return todosAtores;
             } catch (error) {
                 console.error("Erro ao carregar todos os atores do Firestore: ", error);
@@ -389,8 +397,13 @@
 
         // Function to populate the popup list
         async function popularListaPopup() {
+            console.log("popularListaPopup called");
             const todosAtores = await carregarTodasAtores();
             const listContainer = document.getElementById('allActressesList');
+            if (!listContainer) {
+                console.error("Element with ID 'allActressesList' not found in the document!");
+                return;
+            }
             listContainer.innerHTML = ''; // Clear existing list
 
             todosAtores.forEach(ator => {
@@ -403,21 +416,25 @@
                 };
                 listContainer.appendChild(listItem);
             });
+            console.log("popularListaPopup finished populating list");
         }
 
 
         // Function to open the popup
         function openPopup() {
+            console.log("openPopup called");
             document.getElementById('allActressesPopup').style.display = 'block';
             popularListaPopup(); // Load and populate the list when popup is opened
         }
 
         // Function to close the popup
         function closePopup() {
+            console.log("closePopup called");
             document.getElementById('allActressesPopup').style.display = 'none';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOMContentLoaded event fired");
             carregarUltimosAtores();
         });
     </script>
