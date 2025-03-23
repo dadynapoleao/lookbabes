@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website de Atrizes</title>
+    <!-- Firebase SDKs via CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <style>
+        /* ... your CSS styles from the previous code ... */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -133,11 +138,7 @@
     </footer>
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "firebase/app";
-        import { getFirestore, collection, getDocs, orderBy, limit } from "firebase/firestore";
-
-        // Your web app's Firebase configuration
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
             authDomain: "babes-392fd.firebaseapp.com",
@@ -147,16 +148,17 @@
             appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
         };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        // Initialize Firebase App (Compat)
+        const firebaseApp = firebase.initializeApp(firebaseConfig);
+        const db = firebaseApp.firestore();
+
 
         async function loadLastActresses() {
             const actressesContainer = document.getElementById('actressesContainer');
-            const actressesRef = collection(db, 'atores');
-            const q = query(actressesRef, orderBy('createdAt', 'desc'), limit(15)); // Assuming you have a 'createdAt' field to order by, if not, use another timestamp field or order by name if creation order is not tracked.
+            const actressesRef = db.collection('atores');
+            const q = actressesRef.orderBy('createdAt', 'desc').limit(15);
 
-            const querySnapshot = await getDocs(q);
+            const querySnapshot = await q.get();
             actressesContainer.innerHTML = ''; // Clear existing content
 
             querySnapshot.forEach((doc) => {
@@ -198,8 +200,6 @@
             return age;
         }
 
-
-        import { query } from "firebase/firestore"; // Import query
 
         loadLastActresses(); // Call function to load actresses when page loads
 
