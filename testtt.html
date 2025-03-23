@@ -302,7 +302,8 @@
 
             card.addEventListener('click', () => {
                 // Redirect to actor's page (atores.html) - you'll need to create atores.html
-                window.location.href = `atores.html?id=${actor.nome.replace(/\s+/g, '-').toLowerCase()}`;
+                cardLink.href = `babe.html?id=${actor.id}`; // Use actor.id from Firestore document
+
             });
 
             return card;
