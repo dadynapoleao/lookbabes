@@ -319,36 +319,96 @@
             }
         }
 
-        function populatePage(data) {
-            document.getElementById('actress-name').textContent = data.nome || 'Nome Desconhecido';
-            document.getElementById('actress-photo').src = data.foto || 'placeholder_image_url.jpg'; // Fallback image
-            document.getElementById('actress-pais').textContent = data.pais || 'Desconhecido';
-            document.getElementById('actress-dataNascimento').textContent = data.dataNascimento || 'Desconhecida';
-            document.getElementById('actress-idade').textContent = calculateAge(data.dataNascimento);
-            document.getElementById('actress-nota-badge').textContent = data.nota || 'N/A';
-            document.getElementById('actress-altura').textContent = data.altura || 'Desconhecida';
-            document.getElementById('actress-peso').textContent = data.peso || 'Desconhecido';
-            document.getElementById('actress-corCabelo').textContent = data.corCabelo || 'Desconhecida';
-            document.getElementById('actress-corOlhos').textContent = data.corOlhos || 'Desconhecida';
-            document.getElementById('actress-etnia').textContent = data.etnia || 'Desconhecida';
-            document.getElementById('actress-medidas').textContent = data.medidas || 'Desconhecidas';
-            document.getElementById('actress-tipoCorpo').textContent = data.tipoCorpo || 'Desconhecido';
-            // ... populate other fields
-        }
+      function populatePage(data) {
+            const nameElement = document.getElementById('actress-name');
+            if (nameElement) {
+                nameElement.textContent = data.nome || 'Nome Desconhecido';
+            } else {
+                console.error("Element with ID 'actress-name' not found.");
+            }
 
-        async function loadActressVideos(actressId) {
-            try {
-                const snapshot = await db.collection('videos')
-                    .where('atores', 'array-contains', actressId)
-                    .get();
+            const photoElement = document.getElementById('actress-photo');
+            if (photoElement) {
+                photoElement.src = data.foto || 'placeholder_image_url.jpg'; // Fallback image
+            } else {
+                console.error("Element with ID 'actress-photo' not found.");
+            }
 
-                const videos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                console.log("Videos for actress:", videos);
-                displayVideoCards(videos);
+            const paisElement = document.getElementById('actress-pais');
+            if (paisElement) {
+                paisElement.textContent = data.pais || 'Desconhecido';
+            } else {
+                console.error("Element with ID 'actress-pais' not found.");
+            }
 
-            } catch (error) {
-                console.error("Error fetching videos for actress:", error);
-                alert("Erro ao carregar vídeos da atriz.");
+            const dataNascimentoElement = document.getElementById('actress-dataNascimento');
+            if (dataNascimentoElement) {
+                dataNascimentoElement.textContent = data.dataNascimento || 'Desconhecida';
+            } else {
+                console.error("Element with ID 'actress-dataNascimento' not found.");
+            }
+
+            const idadeElement = document.getElementById('actress-idade');
+            if (idadeElement) {
+                idadeElement.textContent = calculateAge(data.dataNascimento);
+            } else {
+                console.error("Element with ID 'actress-idade' not found.");
+            }
+
+            const notaBadgeElement = document.getElementById('actress-note-badge');
+            if (notaBadgeElement) {
+                notaBadgeElement.textContent = data.nota || 'N/A';
+            } else {
+                console.error("Element with ID 'actress-note-badge' not found.");
+            }
+
+            const alturaElement = document.getElementById('actress-altura');
+            if (alturaElement) {
+                alturaElement.textContent = data.altura || 'Desconhecida';
+            } else {
+                console.error("Element with ID 'actress-altura' not found.");
+            }
+
+            const pesoElement = document.getElementById('actress-peso');
+            if (pesoElement) {
+                pesoElement.textContent = data.peso || 'Desconhecido';
+            } else {
+                console.error("Element with ID 'actress-peso' not found.");
+            }
+
+            const corCabeloElement = document.getElementById('actress-corCabelo');
+            if (corCabeloElement) {
+                corCabeloElement.textContent = data.corCabelo || 'Desconhecida';
+            } else {
+                console.error("Element with ID 'actress-corCabelo' not found.");
+            }
+
+            const corOlhosElement = document.getElementById('actress-corOlhos');
+            if (corOlhosElement) {
+                corOlhosElement.textContent = data.corOlhos || 'Desconhecida';
+            } else {
+                console.error("Element with ID 'actress-corOlhos' not found.");
+            }
+
+            const etniaElement = document.getElementById('actress-etnia');
+            if (etniaElement) {
+                etniaElement.textContent = data.etnia || 'Desconhecida';
+            } else {
+                console.error("Element with ID 'actress-etnia' not found.");
+            }
+
+            const medidasElement = document.getElementById('actress-medidas');
+            if (medidasElement) {
+                medidasElement.textContent = data.medidas || 'Desconhecidas';
+            } else {
+                console.error("Element with ID 'actress-medidas' not found.");
+            }
+
+            const tipoCorpoElement = document.getElementById('actress-tipoCorpo');
+            if (tipoCorpoElement) {
+                tipoCorpoElement.textContent = data.tipoCorpo || 'Desconhecido';
+            } else {
+                console.error("Element with ID 'actress-tipoCorpo' not found.");
             }
         }
 
