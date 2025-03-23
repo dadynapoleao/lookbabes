@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Atores Sensuais</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        header {
+            background-color: #e0e0e0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #atores-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .ator-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .ator-card:hover {
+            transform: scale(1.05);
+        }
+
+        .ator-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .ator-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .ator-nome {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .ator-idade, .ator-nota {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 3px;
+        }
+
+        /* Efeitos Visuais Bonitos (Exemplo Simples) */
+        .ator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 8px; /* Garante que o efeito acompanha o border-radius do card */
+        }
+
+        .ator-card:hover::before {
+            opacity: 1;
+        }
+
+        .ator-nome, .ator-idade, .ator-nota {
+            position: relative; /* Necessário para o z-index funcionar */
+            z-index: 1; /* Garante que o texto fique acima do efeito hover */
+            color: #333; /* Cor padrão do texto */
+            transition: color 0.3s ease; /* Transição para a cor do texto */
+        }
+
+        .ator-card:hover .ator-nome, .ator-card:hover .ator-idade, .ator-card:hover .ator-nota {
+            color: white; /* Altera a cor do texto no hover para branco */
+        }
+
+
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Estatísticas</a></li>
+            <li><a href="#">Filmes</a></li>
+            <li><a href="#">Vídeos</a></li>
+            <li><a href="#">Adicionar Ator</a></li>
+            <li><a href="#">Criar Vídeo</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Últimos Atores Adicionados</h1>
+    </header>
+
+    <div id="atores-container">
+        <!-- Os atores serão adicionados aqui pelo JavaScript -->
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "firebase/app";
+        import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
+          authDomain: "babes-392fd.firebaseapp.com",
+          projectId: "babes-392fd",
+          storageBucket: "babes-392fd.appspot.com",
+          messagingSenderId: "376795361631",
+          appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const atoresContainer = document.getElementById('atores-container');
+
+        async function carregarAtores() {
+            try {
+                const atoresCollection = collection(db, 'atores');
+                const atoresSnapshot = await getDocs(atoresCollection);
+                const atoresData = atoresSnapshot.docs.map(doc => doc.data());
+
+                // Ordenar por data de criação (se disponível) ou usar os últimos 15 retornados
+                // Assumindo que os documentos do Firebase são retornados na ordem de criação padrão
+                const ultimosAtores = atoresData.slice(-15); // Pega os últimos 15
+
+                ultimosAtores.forEach(ator => {
+                    const atorCard = criarAtorCard(ator);
+                    atoresContainer.appendChild(atorCard);
+                });
+
+            } catch (error) {
+                console.error("Erro ao carregar atores do Firebase:", error);
+                atoresContainer.innerHTML = "<p>Erro ao carregar atores.</p>";
+            }
+        }
+
+        function criarAtorCard(ator) {
+            const card = document.createElement('div');
+            card.classList.add('ator-card');
+
+            const imagem = document.createElement('img');
+            imagem.src = ator.foto || 'placeholder-ator.jpg'; // Usar 'placeholder-ator.jpg' se não houver foto
+            imagem.alt = ator.nome;
+
+            const info = document.createElement('div');
+            info.classList.add('ator-info');
+
+            const nome = document.createElement('h3');
+            nome.classList.add('ator-nome');
+            nome.textContent = ator.nome;
+
+            const idade = document.createElement('p');
+            idade.classList.add('ator-idade');
+            idade.textContent = `Idade: ${calcularIdade(ator.dataNascimento)}`;
+
+            const nota = document.createElement('p');
+            nota.classList.add('ator-nota');
+            nota.textContent = `Nota: ${ator.nota || 'N/A'}`; // Mostrar 'N/A' se não houver nota
+
+            info.appendChild(nome);
+            info.appendChild(idade);
+            info.appendChild(nota);
+
+            card.appendChild(imagem);
+            card.appendChild(info);
+
+            card.addEventListener('click', () => {
+                window.location.href = `atores.html?id=${ator.id}`; // Redirecionar para atores.html (necessita de implementação)
+            });
+
+
+            return card;
+        }
+
+        function calcularIdade(dataNascimentoString) {
+            if (!dataNascimentoString) return 'N/A';
+            const dataNascimento = new Date(dataNascimentoString);
+            const hoje = new Date();
+            let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+            const mes = hoje.getMonth() - dataNascimento.getMonth();
+            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+            return idade;
+        }
+
+        // Carregar atores quando a página for carregada
+        carregarAtores();
+    </script>
+</body>
+</html>
