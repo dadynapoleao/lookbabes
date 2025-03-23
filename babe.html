@@ -1,37 +1,252 @@
-        function createActorCard(actor) {
-            const cardLink = document.createElement("a"); // Create link element
-            cardLink.href = `babe.html?id=${actor.id}`; // **Updated link with actor.id**
-            cardLink.style.textDecoration = 'none'; // Remove default link underline
-
-            const card = document.createElement('div');
-            card.classList.add('actor-card');
-
-            const img = document.createElement('img');
-            img.src = actor.foto || "https://via.placeholder.com/200x300?text=Sem+Foto";
-            img.alt = actor.nome;
-
-            const details = document.createElement('div');
-            details.classList.add('actor-details');
-
-            const name = document.createElement('h3');
-            name.classList.add('actor-name');
-            name.textContent = actor.nome;
-
-            const age = document.createElement('p');
-            age.classList.add('actor-info');
-            age.textContent = `Idade: ${calculateAge(actor.dataNascimento)}`;
-
-            const rating = document.createElement('p');
-            rating.classList.add('actor-rating');
-            rating.textContent = `Nota: ${actor.nota}`;
-
-            details.appendChild(name);
-            details.appendChild(age);
-            details.appendChild(rating);
-
-            card.appendChild(img);
-            card.appendChild(details);
-            cardLink.appendChild(card); // Append card to the link
-
-            return cardLink; // Return the link element (cardLink)
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Atriz</title>
+    <!-- Firebase SDKs via CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        .container {
+            width: 95%;
+            max-width: 900px; /* Slightly narrower container */
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.5em; /* Larger title */
+            letter-spacing: 1px;
+        }
+
+        .actress-image-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .actress-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .actress-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+            gap: 15px 20px; /* Row and column gap */
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            padding: 15px;
+            background-color: #252525;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-label {
+            color: #bbb;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block; /* Ensure label is on its own line */
+            font-size: 0.9em;
+        }
+
+        .info-value {
+            color: #eee;
+            font-size: 1.1em;
+        }
+
+        .note-badge {
+            background-color: #ffc107;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1em;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.history.back()">Voltar</button>
+        <h1 id="actress-name">Nome da Atriz</h1>
+        <div class="actress-image-container">
+            <img id="actress-photo" src="" alt="Foto da Atriz" class="actress-image">
+        </div>
+        <div class="actress-info">
+            <div class="info-item">
+                <span class="info-label">Nacionalidade:</span>
+                <span id="actress-pais" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Idade:</span>
+                <span id="actress-idade" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Data de Nascimento:</span>
+                <span id="actress-dataNascimento" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Nota:</span>
+                <span id="actress-nota" class="info-value">
+                    <span id="actress-note-badge" class="note-badge"></span>
+                </span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Altura:</span>
+                <span id="actress-altura" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Peso:</span>
+                <span id="actress-peso" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Cor do Cabelo:</span>
+                <span id="actress-corCabelo" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Cor dos Olhos:</span>
+                <span id="actress-corOlhos" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Etnia:</span>
+                <span id="actress-etnia" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Medidas:</span>
+                <span id="actress-medidas" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Tipo de Corpo:</span>
+                <span id="actress-tipoCorpo" class="info-value"></span>
+            </div>
+            <!-- Add more info items here as needed -->
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZEffPMXgbSHYUUrNdIS5duAVGlKlmSq0",
+            authDomain: "babes-392fd.firebaseapp.com",
+            projectId: "babes-392fd",
+            storageBucket: "babes-392fd.appspot.com",
+            messagingSenderId: "376795361631",
+            appId: "1:376795361631:web:d662f2b2f2cd23b115c6ea"
+        };
+
+        // Initialize Firebase
+        const firebaseApp = firebase.initializeApp(firebaseConfig);
+        const db = firebaseApp.firestore();
+
+        // Function to calculate age from birth date string (YYYY-MM-DD)
+        function calculateAge(birthDateString) {
+            if (!birthDateString) return 'N/A';
+            const today = new Date();
+            const birthDate = new Date(birthDateString);
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const actressId = urlParams.get('id');
+
+            if (actressId) {
+                loadActressDetails(actressId);
+            } else {
+                console.error("No actress ID provided in URL.");
+                alert("Erro: ID da atriz não encontrado.");
+            }
+        });
+
+        async function loadActressDetails(actressId) {
+            try {
+                const docSnapshot = await db.collection('atores').doc(actressId).get();
+
+                if (docSnapshot.exists) {
+                    const actressData = docSnapshot.data();
+                    console.log("Actress data:", actressData);
+                    populatePage(actressData);
+                } else {
+                    console.error("Actress document not found:", actressId);
+                    alert("Atriz não encontrada.");
+                }
+            } catch (error) {
+                console.error("Error fetching actress details:", error);
+                alert("Erro ao carregar detalhes da atriz.");
+            }
+        }
+
+        function populatePage(data) {
+            document.getElementById('actress-name').textContent = data.nome || 'Nome Desconhecido';
+            document.getElementById('actress-photo').src = data.foto || 'placeholder_image_url.jpg'; // Fallback image
+            document.getElementById('actress-pais').textContent = data.pais || 'Desconhecido';
+            document.getElementById('actress-dataNascimento').textContent = data.dataNascimento || 'Desconhecida';
+            document.getElementById('actress-idade').textContent = calculateAge(data.dataNascimento);
+            document.getElementById('actress-nota-badge').textContent = data.nota || 'N/A';
+            document.getElementById('actress-altura').textContent = data.altura || 'Desconhecida';
+            document.getElementById('actress-peso').textContent = data.peso || 'Desconhecido';
+            document.getElementById('actress-corCabelo').textContent = data.corCabelo || 'Desconhecida';
+            document.getElementById('actress-corOlhos').textContent = data.corOlhos || 'Desconhecida';
+            document.getElementById('actress-etnia').textContent = data.etnia || 'Desconhecida';
+            document.getElementById('actress-medidas').textContent = data.medidas || 'Desconhecidas';
+            document.getElementById('actress-tipoCorpo').textContent = data.tipoCorpo || 'Desconhecido';
+            // ... populate other fields
+        }
+    </script>
+</body>
+</html>
