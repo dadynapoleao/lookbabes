@@ -8,7 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <style>
-      body {
+    body {
             font-family: 'Arial', sans-serif;
             background-color: #121212;
             color: #e0e0e0;
@@ -19,61 +19,92 @@
             align-items: center;
         }
 
-      .container {
+        .container {
             width: 95%;
-            max-width: 900px;
+            max-width: 1200px; /* Wider container to accommodate side-by-side layout */
             margin: 20px auto;
             padding: 30px;
             background-color: #1e1e1e;
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end; /* Align items to the right side of the container */
-            gap: 20px;
+            display: flex; /* Enable Flexbox again */
+            flex-direction: row; /* Arrange items in a row (side-by-side) */
+            align-items: flex-start; /* Align items to the top */
+            gap: 30px; /* Spacing between image and info section */
             animation: fadeIn 0.5s ease-out forwards;
         }
 
-        .actress-image-container {
-            text-align: left; /* Keep image container text alignment left */
-            margin-bottom: 25px;
-            flex: none;
-            max-width: none;
-            width: 100%;
-            display: flex;
-            justify-content: flex-start; /* Keep image aligned to the left within its container */
-        }
-
-        .actress-image {
-            max-width: 100%;
-            max-height: 500px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            display: block;
-            margin: 0;
-        }
-
-        .actress-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px 30px;
-            margin-bottom: 20px;
-            flex: none;
-            min-width: auto;
-            width: 100%;
-            text-align: right; /* Align text within info boxes to the right */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
             color: #fff;
-            text-align: right; /* Align actress name to the right */
+            text-align: left; /* Align title to the left of info section */
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             font-size: 2.5em;
             letter-spacing: 1px;
-            width: auto;
-            align-self: flex-end; /* Ensure the h1 itself is also right-aligned in the flex container */
+            width: 100%; /* Make title take full width of info section */
+        }
+
+        .actress-image-container {
+            text-align: center; /* Center text/content within image container */
+            margin-bottom: 0; /* Remove bottom margin */
+            flex: 0 0 40%; /* Fixed width for image container (adjust percentage as needed) */
+            max-width: 40%; /* Max width for image container */
+        }
+
+        .actress-image {
+            max-width: 100%;
+            max-height: 600px; /* Adjust max height as needed for side-by-side */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            display: block;
+            margin: 0 auto; /* Center image horizontally within its container */
+        }
+
+        .actress-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjust min width of info boxes if needed */
+            gap: 20px; /* Vertical gap between info boxes */
+            row-gap: 25px; /* Increased row gap for better separation */
+            margin-bottom: 20px;
+            flex: 1; /* Allow info section to take remaining width */
+            min-width: 0; /* Prevent overflow */
+        }
+
+        .info-item {
+            padding: 20px;
+            background-color: #2a2a2a; /* Lighter background for boxes */
+            border-radius: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4); /* Stronger shadow for boxes */
+        }
+
+        .info-label {
+            color: #bbb;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .info-value {
+            color: #eee;
+            font-size: 1.1em;
+        }
+
+        .note-badge {
+            background-color: #ffc107;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .back-button {
@@ -87,13 +118,7 @@
             font-size: 1em;
             margin-top: 20px;
             margin-bottom: 20px;
-            align-self: flex-start; /* Keep back button aligned to the start (left) */
-        }
-
-        .back-button {
-            /* ... rest of back-button styles ... */
-            margin-bottom: 20px; /* Keep bottom margin */
-            align-self: flex-start; /* Keep align-self: flex-start to position at the top-left */
+            align-self: flex-start;
         }
     </style>
 </head>
